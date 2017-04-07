@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<faces-config xmlns="http://xmlns.jcp.org/xml/ns/javaee"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://xmlns.jcp.org/xml/ns/javaee http://xmlns.jcp.org/xml/ns/javaee/web-facesconfig_2_2.xsd"
+	version="2.2">
+
+
+	<application>
+		<resource-bundle>
+			<base-name>messages</base-name>
+			<var>msgs</var>
+		</resource-bundle>
+	</application>
+
+	<managed-bean>
+		<managed-bean-name>adminBean</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.AdministratorBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>loginBean</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.BeanLogin</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>settings</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.BeanSettings</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>registroBean</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.RegistroBean</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>userBean</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.UserBean</managed-bean-class>
+		<managed-bean-scope>session</managed-bean-scope>
+	</managed-bean>
+	<managed-bean>
+		<managed-bean-name>createTaskBean</managed-bean-name>
+		<managed-bean-class>uo.sdi.presentation.BeanCreateTask</managed-bean-class>
+		<managed-bean-scope>request</managed-bean-scope>
+	</managed-bean>
+	
+	
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/error.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/AnonymousFilter/index.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{loginBean.validateUser}</from-action>
+			<from-outcome>admin</from-outcome>
+			<to-view-id>/AdminFilter/principalAdministrador.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{loginBean.validateUser}</from-action>
+			<from-outcome>user</from-outcome>
+			<to-view-id>/UserFilter/inbox.xhtml</to-view-id>
+		</navigation-case>
+		
+		<navigation-case>
+			<from-action>#{loginBean.validateUser}</from-action>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/AnonymousFilter/index.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	<navigation-rule>
+		<from-view-id>/AnonymousFilter/registro.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{registroBean.signin}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/AnonymousFilter/index.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{registroBean.signin}</from-action>
+			<from-outcome>error</from-outcome>
+			<to-view-id>/AnonymousFilter/registro.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-action>#{userBean.listarHoy}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/UserFilter/hoy.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-action>#{userBean.listarInbox}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/UserFilter/inbox.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+	
+	<navigation-rule>
+		<from-view-id>/crearTarea.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{userBean.createTask}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/UserFilter/inbox.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>*</from-view-id>
+		<navigation-case>
+			<from-action>#{userBean.listarSemana}</from-action>
+			<from-outcome>exito</from-outcome>
+			<to-view-id>/UserFilter/semana.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+
+	<navigation-rule>
+		<from-view-id>/crearTarea.xhtml</from-view-id>
+		<navigation-case>
+			<from-action>#{createTaskBean.createTask}</from-action>
+			<from-outcome>inbox</from-outcome>
+			<to-view-id>/UserFilter/inbox.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{createTaskBean.createTask}</from-action>
+			<from-outcome>hoy</from-outcome>
+			<to-view-id>/UserFilter/hoy.xhtml</to-view-id>
+		</navigation-case>
+		<navigation-case>
+			<from-action>#{createTaskBean.createTask}</from-action>
+			<from-outcome>semana</from-outcome>
+			<to-view-id>/UserFilter/semana.xhtml</to-view-id>
+		</navigation-case>
+	</navigation-rule>
+</faces-config>

@@ -1,0 +1,65 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template-usuario.xhtml">
+	<ui:define name="cuerpo">
+		<h:form id="formTareas">
+			<p:remoteCommand name="onCellEdit" update=":formTareas:tablaTareas" />
+			<p:dataTable id="tablaTareas" var="tarea" value="#{userBean.tasks}"
+				border="1" selection="#{userBean.selectedTasks}"
+				rowKey="#{tarea.id}" editable="true" editMode="cell"
+				widgetVar="tasksTable" style="text-align: center" paginator="true"
+				rows="8" filteredValue="#{userBean.filteredTasks}">
+
+				<p:ajax event="cellEdit" listener="#{userBean.updateTask(tarea)}"
+					oncomplete="onCellEdit()" />
+
+				<f:facet name="header">
+					<ui:insert name="tituloLista" />
+				</f:facet>
+
+				<p:column selectionMode="multiple"
+					style="width:16px;text-align:center" />
+
+
+				<ui:insert name="columnaTituloTarea" />
+
+				<p:column>
+					<f:facet name="header">#{msgs.comentario}</f:facet>
+					<p:cellEditor>
+						<f:facet name="output">
+							<h:outputText value="#{tarea.comments}" />
+						</f:facet>
+						<f:facet name="input">
+							<p:inputText value="#{tarea.comments}" style="width:96%" />
+						</f:facet>
+					</p:cellEditor>
+
+				</p:column>
+
+				<p:column>
+					<f:facet name="header">#{msgs.fechaCreacion}</f:facet>
+					#{userBean.formatDate(tarea.created)}
+				</p:column>
+
+				<p:column id="columnaPlanned" sortBy="#{tarea.planned}">
+					<f:facet name="header">#{msgs.fechaPlanificacion}</f:facet>
+					<ui:insert name="textoPlanificada" />
+				</p:column>
+
+				<ui:insert name="columnFinished" />
+
+				<ui:insert name="columnCategory" />
+
+				<f:facet name="footer">
+					<p:commandButton id="finalizarTareaButton" process="tablaTareas"
+						update="formTareas:tablaTareas" value="#{msgs.finalizar}"
+						action="#{userBean.finalizarTarea}" />
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>

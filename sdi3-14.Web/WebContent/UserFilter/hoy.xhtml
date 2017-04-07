@@ -1,0 +1,64 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template-lista.xhtml">
+
+	<ui:define name="tituloLista">
+		<h:outputText value="#{msgs.tituloHoy}" />
+	</ui:define>
+
+	<ui:define name="columnaTituloTarea">
+
+		<p:column headerText="#{msgs.tituloTarea}">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{tarea.title}" />
+				</f:facet>
+				<f:facet name="input">
+					<p:inputText value="#{tarea.title}" style="width:100%" />
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+
+	</ui:define>
+
+	<ui:define name="textoPlanificada">
+		<p:cellEditor>
+			<f:facet name="output">
+				<h:outputText id="textoPlanificada"
+					style="color : #{tarea.isRetarded() ? 'red' : 'black'};"
+					value="#{userBean.formatDate(tarea.planned)}" />
+			</f:facet>
+			<f:facet name="input">
+				<p:calendar value="#{tarea.planned}" style="width:96%" />
+			</f:facet>
+		</p:cellEditor>
+	</ui:define>
+
+	<ui:define name="columnFinished">
+		<p:column headerText="#{msgs.fechaFinalizacion}">
+		#{userBean.formatDate(tarea.finished)}</p:column>
+	</ui:define>
+
+	<ui:define name="columnCategory">
+		<p:column id="categoryColumn" headerText="#{msgs.categoria}"
+			sortBy="#{userBean.getCategoryName(tarea)}">
+			<p:cellEditor>
+				<f:facet name="output">
+					<h:outputText value="#{userBean.getCategoryName(tarea)}" />
+				</f:facet>
+				<f:facet name="input">
+					<h:selectOneMenu id="categoryMenu" value="#{tarea.categoryId}"
+						style="width:96%">
+						<f:selectItem itemLabel="Inbox" itemValue="" />
+						<f:selectItems value="#{userBean.categories}" var="c"
+							itemValue="#{c.id}" itemLabel="#{c.name}" />
+					</h:selectOneMenu>
+				</f:facet>
+			</p:cellEditor>
+		</p:column>
+	</ui:define>
+
+</ui:composition>

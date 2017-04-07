@@ -1,0 +1,62 @@
+<ui:composition xmlns="http://www.w3.org/1999/xhtml"
+	xmlns:h="http://java.sun.com/jsf/html"
+	xmlns:f="http://java.sun.com/jsf/core"
+	xmlns:ui="http://java.sun.com/jsf/facelets"
+	xmlns:p="http://primefaces.org/ui"
+	template="/templates/template-general.xhtml">
+
+	<ui:define name="menuItems">
+		<p:menuitem actionListener="#{adminBean.resetearBD}" update="@all">#{msgs.resetearBD}</p:menuitem>
+		<p:menuitem id="botonCierraSesion" style="float:right"
+			actionListener="#{loginBean.cerrarSesion}"
+			action="/AnonymousFilter/index.xhtml" icon="fa fa-sign-out">#{msgs.cerrarSesion}</p:menuitem>
+	</ui:define>
+
+	<ui:define name="cuerpo">
+		<h:form id="formUsuarios">
+			<p:dataTable id="tablaUsuarios" var="usuario"
+				value="#{adminBean.users}" border="1"
+				selection="#{adminBean.selectedUsers}" rowKey="#{usuario.id}">
+
+				<p:column selectionMode="multiple"
+					style="width:16px;text-align:center" />
+				<p:column>
+					<f:facet name="header">ID</f:facet>#{usuario.id}</p:column>
+				<p:column id="columnaEmail" sortBy="#{usuario.email}">
+					<f:facet name="header">Email</f:facet>#{usuario.email}</p:column>
+				<p:column>
+					<f:facet name="header">#{msgs.esAdministrador}</f:facet>#{usuario.isAdmin}</p:column>
+				<p:column id="columnaLogin" sortBy="#{usuario.login}">
+					<f:facet name="header">#{msgs.usuarioTabla}</f:facet>#{usuario.login}</p:column>
+				<p:column id="columnaStatus" sortBy="#{usuario.status}">
+					<f:facet name="header">#{msgs.statusTabla}</f:facet>
+					#{usuario.status}</p:column>
+
+				<f:facet name="footer">
+					<p:commandButton id="habilitarButton" process="tablaUsuarios"
+						update=":formUsuarios:tablaUsuarios" value="#{msgs.habilitarText}"
+						actionListener="#{adminBean.habilitarUsuarios(true)}" />
+
+					<p:commandButton id="deshabilitarButton" process="tablaUsuarios"
+						update=":formUsuarios:tablaUsuarios"
+						value="#{msgs.deshabilitarText}"
+						actionListener="#{adminBean.habilitarUsuarios(false)}" />
+
+					<p:commandButton id="eliminarButton" process="tablaUsuarios"
+						update=":formUsuarios:tablaUsuarios" value="#{msgs.eliminarText}"
+						actionListener="#{adminBean.eliminarUsuarios}">
+						<p:confirm header="#{msgs.confirmDeleteHeader}"
+							message="#{msgs.confirmDeleteText}" icon="ui-icon-alert" />
+					</p:commandButton>
+					<p:confirmDialog global="true" showEffect="fade" hideEffect="fade">
+						<p:commandButton value="#{msgs.yesButton}" type="button"
+							styleClass="ui-confirmdialog-yes" icon="ui-icon-check" />
+						<p:commandButton value="#{msgs.noButton}" type="button"
+							styleClass="ui-confirmdialog-no" icon="ui-icon-close" />
+					</p:confirmDialog>
+				</f:facet>
+			</p:dataTable>
+		</h:form>
+	</ui:define>
+
+</ui:composition>
