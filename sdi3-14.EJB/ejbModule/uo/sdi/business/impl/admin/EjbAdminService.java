@@ -13,7 +13,7 @@ import uo.sdi.business.impl.admin.command.ResetDBCommand;
 import uo.sdi.business.impl.command.Command;
 import uo.sdi.business.impl.command.CommandExecutor;
 import uo.sdi.dto.User;
-import uo.sdi.persistence.Persistence;
+import uo.sdi.infrastructure.Factories;
 
 /**
  * Session Bean implementation class EjbAdminService
@@ -48,7 +48,7 @@ public class EjbAdminService implements EjbAdminServiceRemote, EjbAdminServiceLo
 	public List<User> findAllUsers() throws BusinessException {
 		return new CommandExecutor<List<User>>().execute( new Command<List<User>>() {
 			@Override public List<User> execute() throws BusinessException {
-				return Persistence.getUserDao().findAll();
+				return Factories.persistence.getUserDao().findAll();
 			}
 		});
 	}
@@ -57,7 +57,7 @@ public class EjbAdminService implements EjbAdminServiceRemote, EjbAdminServiceLo
 	public User findUserById(final Long id) throws BusinessException {
 		return new CommandExecutor<User>().execute( new Command<User>() {
 			@Override public User execute() throws BusinessException {
-				return Persistence.getUserDao().findById(id);
+				return Factories.persistence.getUserDao().findById(id);
 			}
 		});
 	}

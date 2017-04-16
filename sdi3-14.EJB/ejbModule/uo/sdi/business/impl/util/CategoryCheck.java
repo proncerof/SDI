@@ -5,7 +5,7 @@ import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.Category;
 import uo.sdi.dto.User;
 import uo.sdi.dto.types.UserStatus;
-import uo.sdi.persistence.Persistence;
+import uo.sdi.infrastructure.Factories;
 
 public class CategoryCheck {
 
@@ -25,7 +25,7 @@ public class CategoryCheck {
 	}
 
 	public static void isValidUser(Category c) throws BusinessException {
-		User u = Persistence.getUserDao().findById( c.getUserId() );
+		User u = Factories.persistence.getUserDao().findById( c.getUserId() );
 		
 		BusinessCheck.isNotNull( u,
 				"A category must be assigned to an existing user");
@@ -35,7 +35,7 @@ public class CategoryCheck {
 	}
 
 	public static void isUniqueName(Category category) throws BusinessException {
-		Category other = Persistence.getCategoryDao()
+		Category other = Factories.persistence.getCategoryDao()
 				.findByUserIdAndName( category.getUserId(), category.getName() );
 	
 		BusinessCheck.isNull( other, 
@@ -43,7 +43,7 @@ public class CategoryCheck {
 	}
 
 	public static void isNotForAdminUser(Category category) throws BusinessException {
-		User u = Persistence.getUserDao().findById( category.getUserId() );
+		User u = Factories.persistence.getUserDao().findById( category.getUserId() );
 		BusinessCheck.isFalse( u.getIsAdmin(), "An admin cannot have categories" );
 	}
 

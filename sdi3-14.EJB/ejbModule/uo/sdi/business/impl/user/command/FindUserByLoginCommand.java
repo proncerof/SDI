@@ -3,7 +3,7 @@ package uo.sdi.business.impl.user.command;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.business.impl.command.Command;
 import uo.sdi.dto.User;
-import uo.sdi.persistence.Persistence;
+import uo.sdi.infrastructure.Factories;
 
 public class FindUserByLoginCommand<T> implements Command<User> {
 
@@ -15,7 +15,7 @@ public class FindUserByLoginCommand<T> implements Command<User> {
 
 	@Override
 	public User execute() throws BusinessException {
-		User user = Persistence.getUserDao().findByLogin(login);
+		User user = Factories.persistence.getUserDao().findByLogin(login);
 
 		return user;
 	}

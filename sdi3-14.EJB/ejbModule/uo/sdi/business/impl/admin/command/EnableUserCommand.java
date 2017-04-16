@@ -5,7 +5,7 @@ import uo.sdi.business.exception.BusinessException;
 import uo.sdi.business.impl.command.Command;
 import uo.sdi.dto.User;
 import uo.sdi.dto.types.UserStatus;
-import uo.sdi.persistence.Persistence;
+import uo.sdi.infrastructure.Factories;
 import uo.sdi.persistence.UserDao;
 
 public class EnableUserCommand implements Command<Void> {
@@ -18,13 +18,13 @@ public class EnableUserCommand implements Command<Void> {
 
 	@Override
 	public Void execute() throws BusinessException {
-		UserDao uDao = Persistence.getUserDao();
-		
+		UserDao uDao = Factories.persistence.getUserDao();
+
 		User user = uDao.findById(id);
-		BusinessCheck.isNotNull( user, "User does not exist" );
-		
-		user.setStatus( UserStatus.ENABLED );
-		uDao.update( user );
+		BusinessCheck.isNotNull(user, "User does not exist");
+
+		user.setStatus(UserStatus.ENABLED);
+		uDao.update(user);
 
 		return null;
 	}

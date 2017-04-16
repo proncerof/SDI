@@ -6,8 +6,8 @@ import uo.sdi.dto.Category;
 import uo.sdi.dto.Task;
 import uo.sdi.dto.User;
 import uo.sdi.dto.types.UserStatus;
+import uo.sdi.infrastructure.Factories;
 import uo.sdi.persistence.CategoryDao;
-import uo.sdi.persistence.Persistence;
 import uo.sdi.persistence.TaskDao;
 import uo.sdi.persistence.UserDao;
 import alb.util.date.DateUtil;
@@ -16,10 +16,10 @@ public class ResetDBCommand implements Command<Void> {
 
 	@Override
 	public Void execute() throws BusinessException {
-		UserDao uDao = Persistence.getUserDao();
-		CategoryDao cDao = Persistence.getCategoryDao();
-		TaskDao tDao = Persistence.getTaskDao();
-		
+		UserDao uDao = Factories.persistence.getUserDao();
+		CategoryDao cDao = Factories.persistence.getCategoryDao();
+		TaskDao tDao = Factories.persistence.getTaskDao();
+
 		tDao.deleteAll();
 		cDao.deleteAll();
 		uDao.deleteAll();
@@ -32,7 +32,7 @@ public class ResetDBCommand implements Command<Void> {
 				Category c = new Category();
 				c.setName(String.format("categoria%d user%d", j, i));
 				c.setUserId(userID);
-				
+
 				long categoryID = cDao.save(c);
 
 				// 10 tareas para el día que se ejecuta la tarea - (sin
@@ -74,17 +74,17 @@ public class ResetDBCommand implements Command<Void> {
 			}
 
 		}
-		
+
 		User admin1 = new User();
-		
+
 		admin1.setIsAdmin(true);
-		
+
 		admin1.setLogin("admin1");
 		admin1.setPassword("admin1");
 		admin1.setEmail("admin1@uniovi.es");
 		admin1.setStatus(UserStatus.ENABLED);
 		uDao.save(admin1);
-		
+
 		return null;
 	}
 
