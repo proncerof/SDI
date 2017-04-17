@@ -2,8 +2,8 @@ package uo.sdi.business.impl.task;
 
 import java.util.List;
 
-import javax.ejb.LocalBean;
 import javax.ejb.Stateless;
+import javax.jws.WebService;
 
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.business.impl.command.Command;
@@ -23,7 +23,7 @@ import uo.sdi.infrastructure.Factories;
  * Session Bean implementation class EjbTaskService
  */
 @Stateless
-@LocalBean
+@WebService(name = "TaskService")
 public class EjbTaskService implements EjbTaskServiceRemote,
 		EjbTaskServiceLocal {
 
