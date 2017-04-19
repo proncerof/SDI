@@ -7,6 +7,7 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -21,27 +22,27 @@ import uo.sdi.dto.types.UserStatus;
  * @author alb
  */
 @Entity
-@Table(name="TUsers")
+@Table(name = "TUsers")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 5461745400344675866L;
 
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String login;
 	private String email;
 	private String password;
 	private Boolean isAdmin = false;
-	
-	@Enumerated (EnumType.STRING)
+
+	@Enumerated(EnumType.STRING)
 	private UserStatus status = UserStatus.ENABLED;
 
 	@OneToMany(mappedBy = "user")
 	public List<Category> categories = new ArrayList<>();
-	
-	@OneToMany(mappedBy = "user")
+
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	public List<Task> tasks = new ArrayList<>();
 
 	public User setIsAdmin(Boolean isAdmin) {
@@ -89,6 +90,14 @@ public class User implements Serializable {
 		return isAdmin;
 	}
 
+	public List<Category> getCategories() {
+		return new ArrayList<>(categories);
+	}
+
+	public List<Task> getTasks() {
+		return new ArrayList<>(tasks);
+	}
+	
 	@Override
 	public String toString() {
 		return "UserDto [id=" + id + ", login=" + login + ", email=" + email
