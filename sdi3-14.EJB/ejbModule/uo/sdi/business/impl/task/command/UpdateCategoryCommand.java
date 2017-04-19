@@ -35,8 +35,8 @@ public class UpdateCategoryCommand implements Command<Void> {
 
 	private void checkUserIsNotChanged(Category previous, Category current)
 			throws BusinessException {
-		BusinessCheck.isTrue(previous.getUserId().equals(current.getUserId()),
-				"A category cannot be changed to other user");
+//		BusinessCheck.isTrue(previous.getUserId().equals(current.getUserId()),
+//				"A category cannot be changed to other user");
 	}
 
 	private boolean nameIsChanged(Category previous, Category current) {

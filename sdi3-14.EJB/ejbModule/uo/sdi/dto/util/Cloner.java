@@ -14,20 +14,20 @@ public class Cloner {
 
 	public static Task clone(Task t) {
 		Task n = new Task();
-		n.setCategoryId(t.getCategoryId());
+		n.setCategory(t.getCategory());
 		n.setComments(t.getComments());
 		n.setCreated(t.getCreated());
 		n.setFinished(t.getFinished());
 		n.setId(t.getId());
 		n.setPlanned(t.getPlanned());
 		n.setTitle(t.getTitle());
-		n.setUserId(t.getUserId());
+		n.setUser(t.getUser());
 
 		return n;
 	}
 
 	public static Category clone(Category c) {
-		return new Category().setName(c.getName()).setUserId(c.getUserId());
+		return new Category().setName(c.getName()).setUser(c.getUser());
 	}
 
 }

@@ -1,100 +1,82 @@
 package uo.sdi.persistence.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
 
+import javax.persistence.EntityManager;
+
 import uo.sdi.dto.User;
-import uo.sdi.dto.types.UserStatus;
 import uo.sdi.persistence.UserDao;
-import uo.sdi.persistence.util.JdbcTemplate;
-import uo.sdi.persistence.util.RowMapper;
+import uo.sdi.persistence.util.Jdbc;
+import uo.sdi.persistence.util.Jpa;
 
 public class UserDaoJdbcImpl implements UserDao {
 
-	public class UserMapper implements RowMapper<User> {
-		@Override
-		public User toObject(ResultSet rs) throws SQLException {
-			return new User()
-				.setId(  		rs.getLong("id") )
-				.setLogin(  	rs.getString("login") )
-				.setPassword(  	rs.getString("password") )
-				.setEmail(  	rs.getString("email") )
-				.setIsAdmin( 	rs.getBoolean("isAdmin") )
-				.setStatus(  	UserStatus.valueOf( rs.getString("status") ));
-		}
-	}
-	
-	private	JdbcTemplate jdbcTemplate = new JdbcTemplate();
-
 	@Override
-	public Long save(User dto) {
-		jdbcTemplate.execute("USER_INSERT", 
-				dto.getLogin(), 
-				dto.getPassword(), 
-				dto.getEmail(),
-				dto.getIsAdmin(),
-				toStringOrNull( dto.getStatus() )
-			);
-		return jdbcTemplate.getGeneratedKey();
-	}
-
-	private String toStringOrNull(Object obj) {
-		return obj == null ? null : obj.toString();
+	public User save(User dto) {
+		Jpa.getManager().persist(dto);
+		return dto;
 	}
 
 	@Override
-	public int update(User dto) {
-		return jdbcTemplate.execute("USER_UPDATE", 
-				dto.getLogin(), 
-				dto.getPassword(), 
-				dto.getEmail(),
-				dto.getIsAdmin(),
-				toStringOrNull( dto.getStatus() ),
-				dto.getId()
-			);
+	public User update(User dto) {
+		Jpa.getManager().persist(dto);
+		return dto;
 	}
 
 	@Override
-	public int delete(Long id) {
-		return jdbcTemplate.execute("USER_DELETE", id);
+	public User delete(Long id) {
+		EntityManager em = Jpa.getManager();
+		User user = em.find(User.class, id);
+		if (user != null)
+			em.remove(user);
+		return user;
 	}
-	
+
 	@Override
 	public void deleteAll() {
-		jdbcTemplate.execute("USER_DELETE_ALL");
+		Jpa.getManager().createQuery(Jdbc.getSqlQuery("USER_DELETE_ALL"))
+				.executeUpdate();
 	}
 
 	@Override
 	public User findById(Long id) {
-		return jdbcTemplate.queryForObject(
-				"USER_FIND_BY_ID", 
-				new UserMapper(), 
-				id
-			);
+		return Jpa.getManager().find(User.class, id);
 	}
 
 	@Override
 	public List<User> findAll() {
-		return jdbcTemplate.queryForList("USER_FIND_ALL", new UserMapper());
+		return Jpa.getManager()
+				.createQuery(Jdbc.getSqlQuery("USER_FIND_ALL"), User.class)
+				.getResultList();
 	}
 
 	@Override
 	public User findByLogin(String login) {
-		return jdbcTemplate.queryForObject(
-				"USER_FIND_BY_LOGIN", 
-				new UserMapper(), 
-				login
-			);
+		List<User> res = Jpa
+				.getManager()
+				.createQuery(Jdbc.getSqlQuery("USER_FIND_BY_LOGIN"), User.class)
+				.setParameter(1, login)
+				.getResultList();
+		
+		return res.size() == 0
+                ? null
+                : res.get(0);
 	}
 
 	@Override
 	public User findByLoginAndPassword(String login, String password) {
-		return jdbcTemplate.queryForObject(
-				"USER_FIND_BY_LOGIN_AND_PASSWORD", 
-				new UserMapper(), 
-				login, password
-			);
+		List<User> res = Jpa
+				.getManager()
+				.createQuery(
+						Jdbc.getSqlQuery("USER_FIND_BY_LOGIN_AND_PASSWORD"),
+						User.class)
+				.setParameter(1, login)
+				.setParameter(2, password)
+				.getResultList();
+		
+		return res.size() == 0
+                ? null
+                : res.get(0);
 	}
 
 }

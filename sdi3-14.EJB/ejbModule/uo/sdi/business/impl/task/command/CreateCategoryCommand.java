@@ -6,7 +6,7 @@ import uo.sdi.business.impl.util.CategoryCheck;
 import uo.sdi.dto.Category;
 import uo.sdi.infrastructure.Factories;
 
-public class CreateCategoryCommand implements Command<Long> {
+public class CreateCategoryCommand implements Command<Category> {
 
 	private Category category;
 
@@ -15,7 +15,7 @@ public class CreateCategoryCommand implements Command<Long> {
 	}
 
 	@Override
-	public Long execute() throws BusinessException {
+	public Category execute() throws BusinessException {
 		CategoryCheck.nameIsNotNull(category);
 		CategoryCheck.nameIsNotEmpty(category);
 		CategoryCheck.userIsNotNull(category);

@@ -35,14 +35,14 @@ public class EjbTaskService implements EjbTaskServiceRemote,
 	}
 
 	@Override
-	public Long createCategory(Category category) throws BusinessException {
-		return new CommandExecutor<Long>().execute(new CreateCategoryCommand(
+	public Category createCategory(Category category) throws BusinessException {
+		return new CommandExecutor<Category>().execute(new CreateCategoryCommand(
 				category));
 	}
 
 	@Override
-	public Long duplicateCategory(Long id) throws BusinessException {
-		return new CommandExecutor<Long>()
+	public Category duplicateCategory(Long id) throws BusinessException {
+		return new CommandExecutor<Category>()
 				.execute(new DuplicateCategoryCommand(id));
 	}
 
@@ -83,8 +83,8 @@ public class EjbTaskService implements EjbTaskServiceRemote,
 	}
 
 	@Override
-	public Long createTask(Task task) throws BusinessException {
-		return new CommandExecutor<Long>().execute(new CreateTaskCommand(task));
+	public Task createTask(Task task) throws BusinessException {
+		return new CommandExecutor<Task>().execute(new CreateTaskCommand(task));
 	}
 
 	@Override

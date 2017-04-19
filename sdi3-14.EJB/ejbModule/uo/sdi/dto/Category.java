@@ -1,14 +1,33 @@
 package uo.sdi.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
+
+@Entity
+@Table(name="TCategories")
 public class Category implements Serializable {
 
 	private static final long serialVersionUID = 5568866959974234572L;
 
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
-	private Long userId;
+
+	@ManyToOne
+	private User user;
+
+	@OneToMany(mappedBy = "category")
+	private List<Task> tasks = new ArrayList<>();
 
 	public String getName() {
 		return name;
@@ -18,9 +37,8 @@ public class Category implements Serializable {
 		return id;
 	}
 
-	public Category setId(Long id) {
+	public void setId(Long id) {
 		this.id = id;
-		return this;
 	}
 
 	public Category setName(String name) {
@@ -28,19 +46,19 @@ public class Category implements Serializable {
 		return this;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
-	public Category setUserId(Long userId) {
-		this.userId = userId;
+	public Category setUser(User user) {
+		this.user = user;
 		return this;
 	}
 
 	@Override
 	public String toString() {
-		return "CategoryDto [id=" + id + ", name=" + name + ", userId="
-				+ userId + "]";
+		return "CategoryDto [id=" + id + ", name=" + name + ", userId=" + user
+				+ "]";
 	}
 
 	@Override
@@ -49,7 +67,7 @@ public class Category implements Serializable {
 		int result = 1;
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -72,10 +90,10 @@ public class Category implements Serializable {
 				return false;
 		} else if (!name.equals(other.name))
 			return false;
-		if (userId == null) {
-			if (other.userId != null)
+		if (user == null) {
+			if (other.user != null)
 				return false;
-		} else if (!userId.equals(other.userId))
+		} else if (!user.equals(other.user))
 			return false;
 		return true;
 	}

@@ -5,7 +5,7 @@ import uo.sdi.dto.User;
 
 public interface UserService {
 
-	public Long registerUser(User user) throws BusinessException;
+	public User registerUser(User user) throws BusinessException;
 	public void updateUserDetails(User user) throws BusinessException;
 	public User findLoggableUser(String login, String password) throws BusinessException;
 	public User findUserByLogin(String login) throws BusinessException;

@@ -8,14 +8,14 @@ import uo.sdi.dto.Task;
 
 public interface TaskService {
 
-	public Long createCategory(Category category) throws BusinessException;
-	public Long duplicateCategory(Long id) throws BusinessException;
+	public Category createCategory(Category category) throws BusinessException;
+	public Category duplicateCategory(Long id) throws BusinessException;
 	public void updateCategory(Category category) throws BusinessException;
 	public void deleteCategory(Long id) throws BusinessException;
 	public Category findCategoryById(Long id) throws BusinessException;
 	public List<Category> findCategoriesByUserId(Long id) throws BusinessException;
 
-	public Long createTask(Task task) throws BusinessException;
+	public Task createTask(Task task) throws BusinessException;
 	public void deleteTask(Long id) throws BusinessException;
 	public void markTaskAsFinished(Long id) throws BusinessException;
 	public void updateTask(Task task) throws BusinessException;

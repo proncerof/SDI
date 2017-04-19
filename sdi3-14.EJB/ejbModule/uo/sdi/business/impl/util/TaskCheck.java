@@ -12,23 +12,23 @@ public class TaskCheck {
 
 	public static void categoryExists(Task task) throws BusinessException {
 		Category c = Factories.persistence.getCategoryDao().findById(
-				task.getCategoryId());
+				task.getCategory().getId());
 		BusinessCheck.isNotNull(c, "The category of the task does not exist");
 	}
 
 	public static void userExists(Task task) throws BusinessException {
-		User u = Factories.persistence.getUserDao().findById(task.getUserId());
+		User u = Factories.persistence.getUserDao().findById(task.getUser().getId());
 		BusinessCheck.isNotNull(u, "The user of the task does not exist");
 	}
 
 	public static void userIsNotDisabled(Task task) throws BusinessException {
-		User u = Factories.persistence.getUserDao().findById(task.getUserId());
+		User u = Factories.persistence.getUserDao().findById(task.getUser().getId());
 		BusinessCheck.isTrue(u.getStatus().equals(UserStatus.ENABLED),
 				"The user of the task is disabled");
 	}
 
 	public static void userIsNotAdmin(Task task) throws BusinessException {
-		User u = Factories.persistence.getUserDao().findById(task.getUserId());
+		User u = Factories.persistence.getUserDao().findById(task.getUser().getId());
 		BusinessCheck.isFalse(u.getIsAdmin(),
 				"The user of the task cannot be an admin");
 	}

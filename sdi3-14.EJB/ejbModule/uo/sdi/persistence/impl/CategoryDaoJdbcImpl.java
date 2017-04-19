@@ -1,91 +1,92 @@
 package uo.sdi.persistence.impl;
 
-import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.List;
+
+import javax.persistence.EntityManager;
 
 import uo.sdi.dto.Category;
 import uo.sdi.persistence.CategoryDao;
-import uo.sdi.persistence.util.JdbcTemplate;
-import uo.sdi.persistence.util.RowMapper;
+import uo.sdi.persistence.util.Jdbc;
+import uo.sdi.persistence.util.Jpa;
 
 public class CategoryDaoJdbcImpl implements CategoryDao {
 
-	public class CategoryDtoMapper implements RowMapper<Category> {
-
-		@Override
-		public Category toObject(ResultSet rs) throws SQLException {
-			return new Category()
-					.setId( rs.getLong( "id" ))
-					.setName( rs.getString( "name" ))
-					.setUserId( rs.getLong( "user_id" ));
-		}
-	}
-	
-	private JdbcTemplate jdbcTemplate = new JdbcTemplate();
-
 	@Override
-	public Long save(Category dto) {
-		jdbcTemplate.execute("CATEGORY_INSERT",	
-				dto.getName(), 
-				dto.getUserId()
-			);
-		return jdbcTemplate.getGeneratedKey();
+	public Category save(Category dto) {
+		Jpa.getManager().persist(dto);
+		return dto;
 	}
 
 	@Override
-	public int update(Category dto) {
-		return jdbcTemplate.execute("CATEGORY_UPDATE",
-				dto.getName(),
-				dto.getUserId(),
-				dto.getId()
-			);
+	public Category update(Category dto) {
+		Jpa.getManager().persist(dto);
+		return dto;
 	}
 
 	@Override
-	public int delete(Long id) {
-		return jdbcTemplate.execute("CATEGORY_DELETE", id);
+	public Category delete(Long id) {
+		EntityManager em = Jpa.getManager();
+		Category cat = em.find(Category.class, id);
+		if (cat != null)
+			em.remove(cat);
+		return cat;
 	}
 
 	@Override
 	public Category findById(Long id) {
-		return jdbcTemplate.queryForObject(
-				"CATEGORY_FIND_BY_ID", 
-				new CategoryDtoMapper(), 
-				id
-			);
+		return Jpa.getManager().find(Category.class, id);
 	}
 
 	@Override
 	public List<Category> findAll() {
-		return jdbcTemplate.queryForList("CATEGORY_FIND_ALL", new CategoryDtoMapper());
+		return Jpa
+				.getManager()
+				.createQuery(Jdbc.getSqlQuery("CATEGORY_FIND_ALL"),
+						Category.class)
+				.getResultList();
+
 	}
 
 	@Override
 	public List<Category> findByUserId(Long userId) {
-		return jdbcTemplate.queryForList("CATEGORY_FIND_BY_USER_ID", 
-				new CategoryDtoMapper(),
-				userId 
-			);
+		return Jpa
+				.getManager()
+				.createQuery(Jdbc.getSqlQuery("CATEGORY_FIND_BY_USER_ID"),
+						Category.class)
+				.setParameter(1, userId)
+				.getResultList();
 	}
 
 	@Override
 	public int deleteAllFromUserId(Long userId) {
-		return jdbcTemplate.execute("CATEGORY_DELETE_BY_USER_ID", userId);
+		return Jpa
+				.getManager()
+				.createQuery(Jdbc.getSqlQuery("CATEGORY_DELETE_BY_USER_ID"))
+				.setParameter(1, userId)
+				.executeUpdate();
 	}
 
 	@Override
 	public Category findByUserIdAndName(Long userId, String name) {
-		return jdbcTemplate.queryForObject(
-				"CATEGORY_FIND_BY_USER_ID_AND_NAME", 
-				new CategoryDtoMapper(), 
-				userId, name
-			);
+		List<Category> res = Jpa
+				.getManager()
+				.createQuery(
+						Jdbc.getSqlQuery("CATEGORY_FIND_BY_USER_ID_AND_NAME"),
+						Category.class)
+				.setParameter(1, userId)
+				.setParameter(2, name)
+				.getResultList();
+		
+		return res.size() == 0
+                ? null
+                : res.get(0);
 	}
 
 	@Override
 	public void deleteAll() {
-		jdbcTemplate.execute("CATEGORY_DELETE_ALL");
+		Jpa.getManager()
+				.createQuery(Jdbc.getSqlQuery("CATEGORY_DELETE_ALL"))
+				.executeUpdate();
 	}
 
 }

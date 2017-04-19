@@ -1,6 +1,17 @@
 package uo.sdi.dto;
 
 import java.io.Serializable;
+import java.util.ArrayList;
+import java.util.List;
+
+import javax.persistence.Entity;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import javax.persistence.Table;
 
 import uo.sdi.dto.types.UserStatus;
 
@@ -9,18 +20,30 @@ import uo.sdi.dto.types.UserStatus;
  * 
  * @author alb
  */
-public class User implements Serializable{
-	
+@Entity
+@Table(name="TUsers")
+public class User implements Serializable {
+
 	private static final long serialVersionUID = 5461745400344675866L;
 
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String login;
 	private String email;
 	private String password;
 	private Boolean isAdmin = false;
-	private UserStatus status = UserStatus.ENABLED;
 	
+	@Enumerated (EnumType.STRING)
+	private UserStatus status = UserStatus.ENABLED;
+
+	@OneToMany(mappedBy = "user")
+	public List<Category> categories = new ArrayList<>();
+	
+	@OneToMany(mappedBy = "user")
+	public List<Task> tasks = new ArrayList<>();
+
 	public User setIsAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
 		return this;
@@ -68,11 +91,8 @@ public class User implements Serializable{
 
 	@Override
 	public String toString() {
-		return "UserDto [id=" + id 
-				+ ", login=" + login 
-				+ ", email=" + email 
-				+ ", password=" + password 
-				+ ", isAdmin=" + isAdmin + "]";
+		return "UserDto [id=" + id + ", login=" + login + ", email=" + email
+				+ ", password=" + password + ", isAdmin=" + isAdmin + "]";
 	}
 
 	public UserStatus getStatus() {
@@ -92,7 +112,8 @@ public class User implements Serializable{
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((isAdmin == null) ? 0 : isAdmin.hashCode());
 		result = prime * result + ((login == null) ? 0 : login.hashCode());
-		result = prime * result + ((password == null) ? 0 : password.hashCode());
+		result = prime * result
+				+ ((password == null) ? 0 : password.hashCode());
 		result = prime * result + ((status == null) ? 0 : status.hashCode());
 		return result;
 	}
@@ -134,6 +155,6 @@ public class User implements Serializable{
 		if (status != other.status)
 			return false;
 		return true;
-	}	
-	
+	}
+
 }

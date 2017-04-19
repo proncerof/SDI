@@ -70,11 +70,12 @@
 					<h:outputText value="#{userBean.getCategoryName(tarea)}" />
 				</f:facet>
 				<f:facet name="input">
-					<h:selectOneMenu id="categoryMenu" value="#{tarea.categoryId}"
-						style="width:96%">
-						<f:selectItem itemLabel="Inbox" itemValue="" />
+					<h:selectOneMenu id="categoryMenu" value="#{tarea.category}" 
+						  style="width:96%">
+						<f:converter converterId="CategoryConverter" />
+						<f:selectItem itemLabel="Inbox" itemValue="#{null}" />
 						<f:selectItems value="#{userBean.categories}" var="c"
-							itemValue="#{c.id}" itemLabel="#{c.name}" />
+							itemValue="#{c}" itemLabel="#{c.name}" />
 					</h:selectOneMenu>
 				</f:facet>
 			</p:cellEditor>

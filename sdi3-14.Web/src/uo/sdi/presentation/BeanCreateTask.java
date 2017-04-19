@@ -76,7 +76,7 @@ public class BeanCreateTask {
 		String resultado = "exito";
 		try {
 			Task nuevaTarea = new Task();
-			nuevaTarea.setUserId(userBean.getUser().getId());
+			nuevaTarea.setUser(userBean.getUser());
 			nuevaTarea.setTitle(title);
 			nuevaTarea.setComments(comment);
 			nuevaTarea.setCreated(DateUtil.today());
@@ -86,14 +86,14 @@ public class BeanCreateTask {
 				nuevaTarea.setPlanned(DateUtil.today());
 
 			if (this.categoryNameToChange != null)
-				nuevaTarea.setCategoryId(userBean
-						.getCategoryIDFromName(this.categoryNameToChange));
+				nuevaTarea.setCategory(userBean
+						.getCategoryFromName(this.categoryNameToChange));
 
 			Factories.services.getTaskService().createTask(nuevaTarea);
 
 			Log.debug("Se ha creado una nueva tarea [%s] correctamente", title);
 
-			if (nuevaTarea.getCategoryId() == null) {
+			if (nuevaTarea.getCategory() == null) {
 				userBean.listarInbox();
 				resultado = "inbox";
 			} else {

@@ -7,7 +7,7 @@ import uo.sdi.dto.Task;
 import uo.sdi.infrastructure.Factories;
 import alb.util.date.DateUtil;
 
-public class CreateTaskCommand implements Command<Long> {
+public class CreateTaskCommand implements Command<Task> {
 
 	private Task task;
 
@@ -16,13 +16,13 @@ public class CreateTaskCommand implements Command<Long> {
 	}
 
 	@Override
-	public Long execute() throws BusinessException {
+	public Task execute() throws BusinessException {
 		TaskCheck.userExists(task);
 		TaskCheck.userIsNotDisabled(task);
 		TaskCheck.userIsNotAdmin(task);
 		TaskCheck.titleIsNotNull(task);
 		TaskCheck.titleIsNotEmpty(task);
-		if (task.getCategoryId() != null) {
+		if (task.getCategory() != null) {
 			TaskCheck.categoryExists(task);
 		}
 

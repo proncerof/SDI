@@ -277,12 +277,9 @@ public class UserBean {
 	 * @return
 	 */
 	public String getCategoryName(Task tarea) {
-		if (tarea.getCategoryId() == null)
+		if(tarea.getCategory()==null)
 			return "";
-		for (Category c : this.getCategories())
-			if (tarea.getCategoryId().equals(c.getId()))
-				return c.getName();
-		return "";
+		return tarea.getCategory().getName();
 	}
 
 	/**
@@ -332,10 +329,10 @@ public class UserBean {
 		return DateUtil.toString(date);
 	}
 
-	public Long getCategoryIDFromName(String name) {
+	public Category getCategoryFromName(String name) {
 		for (Category c : this.categories)
 			if (c.getName().equals(name))
-				return c.getId();
+				return c;
 		return null;
 	}
 
@@ -386,5 +383,7 @@ public class UserBean {
 		this.mostrarTodasEnInbox = false;
 		this.listarInbox();
 	}
+	
+
 
 }

@@ -3,12 +3,23 @@ package uo.sdi.dto;
 import java.io.Serializable;
 import java.util.Date;
 
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+
 import alb.util.date.DateUtil;
 
+@Entity
+@Table(name="TTasks")
 public class Task implements Serializable, Comparable<Task> {
 
 	private static final long serialVersionUID = -5194439578090536982L;
 
+	@Id
+	@GeneratedValue (strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String title;
@@ -17,8 +28,11 @@ public class Task implements Serializable, Comparable<Task> {
 	private Date planned;
 	private Date finished;
 
-	private Long categoryId;
-	private Long userId;
+	@ManyToOne(optional = true)
+	private Category category;
+
+	@ManyToOne
+	private User user;
 
 	public Long getId() {
 		return id;
@@ -71,16 +85,16 @@ public class Task implements Serializable, Comparable<Task> {
 		return this;
 	}
 
-	public Long getCategoryId() {
-		return categoryId;
+	public Category getCategory() {
+		return category;
 	}
 
-	public void setCategoryId(Long category_id) {
-		this.categoryId = category_id;
+	public void setCategory(Category category) {
+		this.category = category;
 	}
 
-	public Long getUserId() {
-		return userId;
+	public User getUser() {
+		return user;
 	}
 
 	public boolean isRetarded() {
@@ -92,26 +106,17 @@ public class Task implements Serializable, Comparable<Task> {
 		return this.getFinished() != null;
 	}
 
-	public Task setUserId(Long user_id) {
-		this.userId = user_id;
+	public Task setUser(User user) {
+		this.user = user;
 		return this;
 	}
-	
-//	public Category getCategory() throws BusinessException{
-//		TaskService service = Services.getTaskService();
-//		return service.findCategoryById(categoryId);
-//	}
-//	
-//	public void setCategory(Category category){
-//		this.categoryId = category.getId();
-//	}
 
 	@Override
 	public String toString() {
 		return "TaskDto [id=" + id + ", title=" + title + ", comments="
 				+ comments + ", created=" + created + ", planned=" + planned
-				+ ", finished=" + finished + ", categoryId=" + categoryId
-				+ ", userId=" + userId + "]";
+				+ ", finished=" + finished + ", category=" + category
+				+ ", userId=" + user + "]";
 	}
 
 	@Override
@@ -119,7 +124,7 @@ public class Task implements Serializable, Comparable<Task> {
 		final int prime = 31;
 		int result = 1;
 		result = prime * result
-				+ ((categoryId == null) ? 0 : categoryId.hashCode());
+				+ ((category == null) ? 0 : category.hashCode());
 		result = prime * result
 				+ ((comments == null) ? 0 : comments.hashCode());
 		result = prime * result + ((created == null) ? 0 : created.hashCode());
@@ -128,7 +133,7 @@ public class Task implements Serializable, Comparable<Task> {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((planned == null) ? 0 : planned.hashCode());
 		result = prime * result + ((title == null) ? 0 : title.hashCode());
-		result = prime * result + ((userId == null) ? 0 : userId.hashCode());
+		result = prime * result + ((user == null) ? 0 : user.hashCode());
 		return result;
 	}
 
@@ -141,10 +146,10 @@ public class Task implements Serializable, Comparable<Task> {
 		if (getClass() != obj.getClass())
 			return false;
 		Task other = (Task) obj;
-		if (categoryId == null) {
-			if (other.categoryId != null)
+		if (category == null) {
+			if (other.category != null)
 				return false;
-		} else if (!categoryId.equals(other.categoryId))
+		} else if (!category.equals(other.category))
 			return false;
 		if (comments == null) {
 			if (other.comments != null)
@@ -176,19 +181,19 @@ public class Task implements Serializable, Comparable<Task> {
 				return false;
 		} else if (!title.equals(other.title))
 			return false;
-		if (userId == null) {
-			if (other.userId != null)
+		if (user == null) {
+			if (other.user != null)
 				return false;
-		} else if (!userId.equals(other.userId))
+		} else if (!user.equals(other.user))
 			return false;
 		return true;
 	}
 
 	@Override
 	public int compareTo(Task o) {
-		if(o.getPlanned()!=null && getPlanned()!=null)
+		if (o.getPlanned() != null && getPlanned() != null)
 			return getPlanned().compareTo(o.getPlanned());
-		else if(o.getPlanned()==null)
+		else if (o.getPlanned() == null)
 			return -1;
 		else
 			return 1;

@@ -26,14 +26,14 @@ public class ResetDBCommand implements Command<Void> {
 
 		for (int i = 1; i < 4; i++) {
 			User u = generateUser(i);
-			long userID = uDao.save(u);
+			u = uDao.save(u);
 
 			for (int j = 1; j < 4; j++) {
 				Category c = new Category();
 				c.setName(String.format("categoria%d user%d", j, i));
-				c.setUserId(userID);
+				c.setUser(u);
 
-				long categoryID = cDao.save(c);
+				c = cDao.save(c);
 
 				// 10 tareas para el día que se ejecuta la tarea - (sin
 				// categorizar) y otras 10 retrasadas respecto al día que
@@ -43,9 +43,9 @@ public class ResetDBCommand implements Command<Void> {
 				for (int k = 1; k <= numberOfTasks; k++) {
 					Task t = new Task();
 					t.setTitle(String.format("cat%d tarea%02d", j, k));
-					t.setCategoryId(categoryID);
+					t.setCategory(c);
 					t.setCreated(DateUtil.today());
-					t.setUserId(userID);
+					t.setUser(u);
 					t.setPlanned(DateUtil.addDays(DateUtil.today(), -5));
 					tDao.save(t);
 				}
@@ -57,7 +57,7 @@ public class ResetDBCommand implements Command<Void> {
 				Task t = new Task();
 				t.setTitle(String.format("user%d tarea%02d futuras", i, k));
 				t.setCreated(DateUtil.today());
-				t.setUserId(userID);
+				t.setUser(u);
 				t.setPlanned(DateUtil.addDays(DateUtil.tomorrow(), k % 6));
 				tDao.save(t);
 			}
@@ -68,7 +68,7 @@ public class ResetDBCommand implements Command<Void> {
 				Task t = new Task();
 				t.setTitle(String.format("user%d tarea%02d hoy", i, k));
 				t.setCreated(DateUtil.today());
-				t.setUserId(userID);
+				t.setUser(u);
 				t.setPlanned(DateUtil.today());
 				tDao.save(t);
 			}

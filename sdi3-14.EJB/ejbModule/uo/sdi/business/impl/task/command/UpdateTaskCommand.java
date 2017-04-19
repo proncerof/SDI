@@ -20,29 +20,31 @@ public class UpdateTaskCommand implements Command<Void> {
 	public Void execute() throws BusinessException {
 		TaskCheck.titleIsNotNull(task);
 		TaskCheck.titleIsNotEmpty(task);
-		if ( task.getCategoryId() != null) {
-			TaskCheck.categoryExists( task );
+		if (task.getCategory().getId() != null) {
+			TaskCheck.categoryExists(task);
+		}else{
+			task.setCategory(null);
 		}
-		
+
 		TaskDao tDao = Factories.persistence.getTaskDao();
-		
-		Task previous = tDao.findById( task.getId() );
+
+		Task previous = tDao.findById(task.getId());
 		checktaskAlreadyExist(previous);
 		checkUserNotChanged(previous);
-		
-		task.setCreated( previous.getCreated() ); // change ignored
-		tDao.update( task );
+
+		task.setCreated(previous.getCreated()); // change ignored
+		tDao.update(task);
 		return null;
 	}
 
 	private void checktaskAlreadyExist(Task previous) throws BusinessException {
-		BusinessCheck.isNotNull( previous, "The task does not exist");
+		BusinessCheck.isNotNull(previous, "The task does not exist");
 	}
 
 	private void checkUserNotChanged(Task previous) throws BusinessException {
-		BusinessCheck.isTrue( task.getUserId().equals( previous.getUserId()),
-			"A task cannot be changed to other user"
-		);
+		BusinessCheck.isTrue(
+				task.getUser().getId().equals(previous.getUser().getId()),
+				"A task cannot be changed to other user");
 	}
 
 }

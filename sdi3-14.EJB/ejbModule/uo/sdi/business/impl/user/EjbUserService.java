@@ -27,8 +27,8 @@ public class EjbUserService implements EjbUserServiceRemote,
 	}
 
 	@Override
-	public Long registerUser(User user) throws BusinessException {
-		return new CommandExecutor<Long>()
+	public User registerUser(User user) throws BusinessException {
+		return new CommandExecutor<User>()
 				.execute(new RegisterUserCommand(user));
 	}
 

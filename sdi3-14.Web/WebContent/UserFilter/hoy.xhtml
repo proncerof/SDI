@@ -50,7 +50,7 @@
 					<h:outputText value="#{userBean.getCategoryName(tarea)}" />
 				</f:facet>
 				<f:facet name="input">
-					<h:selectOneMenu id="categoryMenu" value="#{tarea.categoryId}"
+					<h:selectOneMenu id="categoryMenu" value="#{tarea.category.id}"
 						style="width:96%">
 						<f:selectItem itemLabel="Inbox" itemValue="" />
 						<f:selectItems value="#{userBean.categories}" var="c"

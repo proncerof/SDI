@@ -6,7 +6,7 @@ import uo.sdi.business.impl.util.UserCheck;
 import uo.sdi.dto.User;
 import uo.sdi.infrastructure.Factories;
 
-public class RegisterUserCommand implements Command<Long> {
+public class RegisterUserCommand implements Command<User> {
 
 	private User user;
 
@@ -15,7 +15,7 @@ public class RegisterUserCommand implements Command<Long> {
 	}
 
 	@Override
-	public Long execute() throws BusinessException {
+	public User execute() throws BusinessException {
 		UserCheck.isNotAdmin( user );
 		UserCheck.isValidEmailSyntax( user ); 
 		UserCheck.minLoginLength( user );
