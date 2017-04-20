@@ -9,12 +9,15 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
 import alb.util.date.DateUtil;
 
 @Entity
 @Table(name="TTasks")
+@XmlRootElement(name="task")
 public class Task implements Serializable, Comparable<Task> {
 
 	private static final long serialVersionUID = -5194439578090536982L;
@@ -35,6 +38,7 @@ public class Task implements Serializable, Comparable<Task> {
 	@ManyToOne
 	private User user;
 
+	@XmlElement
 	public Long getId() {
 		return id;
 	}
@@ -44,6 +48,7 @@ public class Task implements Serializable, Comparable<Task> {
 		return this;
 	}
 
+	@XmlElement
 	public String getTitle() {
 		return title;
 	}
@@ -52,6 +57,7 @@ public class Task implements Serializable, Comparable<Task> {
 		this.title = title;
 	}
 
+	@XmlElement
 	public String getComments() {
 		return comments;
 	}
@@ -60,6 +66,7 @@ public class Task implements Serializable, Comparable<Task> {
 		this.comments = comments;
 	}
 
+	@XmlElement
 	public Date getCreated() {
 		return created;
 	}
@@ -69,6 +76,7 @@ public class Task implements Serializable, Comparable<Task> {
 		return this;
 	}
 
+	@XmlElement
 	public Date getPlanned() {
 		return planned;
 	}
@@ -77,6 +85,7 @@ public class Task implements Serializable, Comparable<Task> {
 		this.planned = planned;
 	}
 
+	@XmlElement
 	public Date getFinished() {
 		return finished;
 	}
@@ -86,6 +95,7 @@ public class Task implements Serializable, Comparable<Task> {
 		return this;
 	}
 
+	@XmlElement
 	public Category getCategory() {
 		return category;
 	}
