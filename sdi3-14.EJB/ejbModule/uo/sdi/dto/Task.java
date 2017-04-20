@@ -9,6 +9,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 
 import alb.util.date.DateUtil;
 
@@ -93,6 +94,7 @@ public class Task implements Serializable, Comparable<Task> {
 		this.category = category;
 	}
 
+	@XmlTransient
 	public User getUser() {
 		return user;
 	}

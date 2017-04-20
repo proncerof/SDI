@@ -5,28 +5,30 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
+import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
-@Table(name="TCategories")
+@Table(name = "TCategories")
 public class Category implements Serializable {
 
 	private static final long serialVersionUID = 5568866959974234572L;
 
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 
 	@ManyToOne
 	private User user;
 
-	@OneToMany(mappedBy = "category")
+	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
 	private List<Task> tasks = new ArrayList<>();
 
 	public String getName() {
@@ -46,6 +48,7 @@ public class Category implements Serializable {
 		return this;
 	}
 
+	@XmlTransient
 	public User getUser() {
 		return user;
 	}
@@ -57,8 +60,7 @@ public class Category implements Serializable {
 
 	@Override
 	public String toString() {
-		return "CategoryDto [id=" + id + ", name=" + name + ", userId=" + user
-				+ "]";
+		return "CategoryDto [id=" + id + ", name=" + name + "]";
 	}
 
 	@Override

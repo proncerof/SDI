@@ -2,8 +2,6 @@ package uo.sdi.ui.action;
 
 import java.util.List;
 
-import org.hibernate.Hibernate;
-
 import uo.sdi.business.AdminService;
 import uo.sdi.dto.Task;
 import uo.sdi.dto.User;
@@ -16,14 +14,13 @@ public class ListUsersAction implements Action {
 	@Override
 	public void execute() throws Exception {
 
-		// Procesar
+		// Processor
 		AdminService as = ServiceLocator.getAdminService();
 		List<User> users = as.findAllUsers();
 
 		// Mostrar resultado
 		Console.println("--LISTA DE USUARIOS--");
 		for (User u : users){
-			Hibernate.initialize(u.getTasks());
 			printUser(u);
 		}
 

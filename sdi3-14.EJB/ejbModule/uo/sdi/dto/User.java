@@ -39,15 +39,14 @@ public class User implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private UserStatus status = UserStatus.ENABLED;
 
-	@OneToMany(mappedBy = "user")
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	public List<Category> categories = new ArrayList<>();
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	public List<Task> tasks = new ArrayList<>();
 
-	public User setIsAdmin(Boolean isAdmin) {
+	public void setIsAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
-		return this;
 	}
 
 	public Long getId() {
@@ -97,7 +96,7 @@ public class User implements Serializable {
 	public List<Task> getTasks() {
 		return new ArrayList<>(tasks);
 	}
-	
+
 	@Override
 	public String toString() {
 		return "UserDto [id=" + id + ", login=" + login + ", email=" + email

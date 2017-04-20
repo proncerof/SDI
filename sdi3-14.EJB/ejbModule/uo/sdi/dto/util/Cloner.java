@@ -7,9 +7,14 @@ import uo.sdi.dto.User;
 public class Cloner {
 
 	public static User clone(User u) {
-		return new User().setId(u.getId()).setEmail(u.getEmail())
-				.setIsAdmin(u.getIsAdmin()).setLogin(u.getLogin())
-				.setPassword(u.getPassword()).setStatus(u.getStatus());
+		User n = new User();
+		n.setId(u.getId());
+		n.setEmail(u.getEmail());
+		n.setIsAdmin(u.getIsAdmin());
+		n.setLogin(u.getLogin());
+		n.setPassword(u.getPassword());
+		n.setStatus(u.getStatus());
+		return n;
 	}
 
 	public static Task clone(Task t) {
