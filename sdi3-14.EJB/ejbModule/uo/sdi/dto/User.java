@@ -15,6 +15,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import uo.sdi.dto.types.UserStatus;
 
@@ -97,10 +98,12 @@ public class User implements Serializable {
 		return isAdmin;
 	}
 
+	@XmlTransient
 	public List<Category> getCategories() {
 		return new ArrayList<>(categories);
 	}
 
+	@XmlTransient
 	public List<Task> getTasks() {
 		return new ArrayList<>(tasks);
 	}
