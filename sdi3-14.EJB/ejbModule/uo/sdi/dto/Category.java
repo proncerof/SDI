@@ -14,11 +14,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 @Entity
 @Table(name = "TCategories")
-@XmlRootElement(name="category")
+@XmlRootElement(name = "category")
 public class Category implements Serializable {
 
 	private static final long serialVersionUID = 5568866959974234572L;
@@ -53,7 +52,6 @@ public class Category implements Serializable {
 		return this;
 	}
 
-	@XmlTransient
 	public User getUser() {
 		return user;
 	}

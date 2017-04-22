@@ -104,7 +104,6 @@ public class Task implements Serializable, Comparable<Task> {
 		this.category = category;
 	}
 
-	@XmlTransient
 	public User getUser() {
 		return user;
 	}

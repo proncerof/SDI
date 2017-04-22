@@ -44,8 +44,11 @@ public class User implements Serializable {
 	private UserStatus status = UserStatus.ENABLED;
 
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	
+	@XmlTransient
 	public List<Category> categories = new ArrayList<>();
 
+	@XmlTransient
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	public List<Task> tasks = new ArrayList<>();
 
@@ -98,12 +101,10 @@ public class User implements Serializable {
 		return isAdmin;
 	}
 
-	@XmlTransient
 	public List<Category> getCategories() {
 		return new ArrayList<>(categories);
 	}
 
-	@XmlTransient
 	public List<Task> getTasks() {
 		return new ArrayList<>(tasks);
 	}
