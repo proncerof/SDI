@@ -28,7 +28,9 @@ public class LoginMenuItem implements MenuItem {
 		String login = Console.readString("Introduce tu login:");
 		String password = Console.readString("Introduce tu contrasenia");
 
-		User user = restService.login(login, password);
+		restService = new RestService(login, password);
+		
+		User user = restService.login();
 
 		if (user != null) {
 			items.add(new ListCategoriesMenuItem(restService, user));

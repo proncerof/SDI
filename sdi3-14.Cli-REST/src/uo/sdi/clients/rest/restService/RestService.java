@@ -28,21 +28,26 @@ public class RestService {
 
 	private Client client;
 
+	private String user;
+	private String password;
+
 	public RestService(String user, String password) {
 		this.client = ClientBuilder.newClient().register(
 				new Authenticator(user, password));
+		this.user = user;
+		this.password = password;
 	}
-	
-	public User login(String login, String password) {
-		User user;
+
+	public User login() {
+		User u;
 		try {
-			user = client.target(URL_LOGIN).path(login).path(password)
-					.request().accept(MediaType.APPLICATION_XML).get()
+			u = client.target(URL_LOGIN).path(user).path(password).request()
+					.accept(MediaType.APPLICATION_XML).get()
 					.readEntity(User.class);
 		} catch (javax.ws.rs.ProcessingException p) {
-			user = null;
+			u = null;
 		}
-		return user;
+		return u;
 	}
 
 	public Task createTask(Task tarea) {
@@ -82,6 +87,5 @@ public class RestService {
 
 		return res;
 	}
-
 
 }
