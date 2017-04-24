@@ -1,10 +1,9 @@
 package uo.sdi.business.impl.task.command;
 
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
 import uo.sdi.infrastructure.Factories;
 
-public class DeleteCategoryCommand implements Command<Void> {
+public class DeleteCategoryCommand{
 
 	private Long catId;
 
@@ -12,7 +11,6 @@ public class DeleteCategoryCommand implements Command<Void> {
 		this.catId = catId;
 	}
 
-	@Override
 	public Void execute() throws BusinessException {
 		Factories.persistence.getTaskDao().deleteAllFromCategory( catId );
 		Factories.persistence.getCategoryDao().delete( catId );

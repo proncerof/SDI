@@ -2,13 +2,12 @@ package uo.sdi.business.impl.user.command;
 
 import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
 import uo.sdi.business.impl.util.UserCheck;
 import uo.sdi.dto.User;
 import uo.sdi.infrastructure.Factories;
 import uo.sdi.persistence.UserDao;
 
-public class UpdateUserDetailsCommand implements Command<Void> {
+public class UpdateUserDetailsCommand{
 
 	private User user;
 
@@ -16,7 +15,6 @@ public class UpdateUserDetailsCommand implements Command<Void> {
 		this.user = user;
 	}
 
-	@Override
 	public Void execute() throws BusinessException {
 		UserDao uDao = Factories.persistence.getUserDao();
 		User previous = uDao.findById( user.getId() );

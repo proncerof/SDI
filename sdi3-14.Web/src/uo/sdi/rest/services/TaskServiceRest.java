@@ -16,7 +16,7 @@ import uo.sdi.dto.Task;
 public interface TaskServiceRest {
 
 	@POST
-	@Path("tasks")
+	@Path("createCategory")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public void createTask(Task task) throws BusinessException;
 

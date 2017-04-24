@@ -10,34 +10,38 @@ import uo.sdi.rest.services.TaskServiceRest;
 
 public class TaskServiceRestImpl implements TaskServiceRest {
 
-	private TaskService service = Factories.services.getTaskService();
-
+	private TaskService taskService = Factories.services.getTaskService();
+	
+	
 	@Override
 	public void createTask(Task task) throws BusinessException {
-		service.createTask(task);
+		taskService.createTask(task);
 	}
 
 	@Override
 	public Response findCategoriesByUserId(final Long id)
 			throws BusinessException {
-		return addHeaders(service.findCategoriesByUserId(id));
+		return addHeaders(taskService.findCategoriesByUserId(id));
 	}
 
 	@Override
 	public void markTaskAsFinished(Long id) throws BusinessException {
-		service.markTaskAsFinished(id);
+		taskService.markTaskAsFinished(id);
 	}
 
 	@Override
 	public Response findTasksByCategoryId(final Long id)
 			throws BusinessException {
-		return addHeaders(service.findTasksByCategoryId(id));
+		return addHeaders(taskService.findTasksByCategoryId(id));
 	}
 
 	private Response addHeaders(Object o) {
 		return Response
-				.status(200)
-				.header("Access-Control-Allow-Origin", "*")
+				.status(200) 
+				.header("Access-Control-Allow-Origin", "http://localhost:4200")
+				.header("Access-Control-Allow-Methods", "GET,POST,PUT")
+				.header("Access-Control-Allow-Credentials", "true")
+				.header("Access-Control-Allow-Headers", "Authorization")
 				.entity(o).build();
 	}
 }

@@ -1,13 +1,12 @@
 package uo.sdi.business.impl.task.command;
 
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
 import uo.sdi.business.impl.util.TaskCheck;
 import uo.sdi.dto.Task;
 import uo.sdi.infrastructure.Factories;
 import alb.util.date.DateUtil;
 
-public class CreateTaskCommand implements Command<Task> {
+public class CreateTaskCommand{
 
 	private Task task;
 
@@ -15,7 +14,6 @@ public class CreateTaskCommand implements Command<Task> {
 		this.task = task;
 	}
 
-	@Override
 	public Task execute() throws BusinessException {
 		TaskCheck.userExists(task);
 		TaskCheck.userIsNotDisabled(task);

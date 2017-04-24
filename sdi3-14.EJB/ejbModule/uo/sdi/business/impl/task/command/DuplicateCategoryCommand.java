@@ -4,7 +4,6 @@ import java.util.List;
 
 import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
 import uo.sdi.dto.Category;
 import uo.sdi.dto.Task;
 import uo.sdi.dto.util.Cloner;
@@ -12,7 +11,7 @@ import uo.sdi.infrastructure.Factories;
 import uo.sdi.persistence.CategoryDao;
 import uo.sdi.persistence.TaskDao;
 
-public class DuplicateCategoryCommand implements Command<Category> {
+public class DuplicateCategoryCommand{
 
 	private Long origId;
 
@@ -20,7 +19,6 @@ public class DuplicateCategoryCommand implements Command<Category> {
 		this.origId = id;
 	}
 
-	@Override
 	public Category execute() throws BusinessException {
 		Category copyId = duplicateCategory( origId );
 		duplicateTasks( origId, copyId );

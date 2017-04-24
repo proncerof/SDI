@@ -2,13 +2,12 @@ package uo.sdi.business.impl.admin.command;
 
 import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
 import uo.sdi.dto.User;
 import uo.sdi.dto.types.UserStatus;
 import uo.sdi.infrastructure.Factories;
 import uo.sdi.persistence.UserDao;
 
-public class DisableUserCommand implements Command<Void> {
+public class DisableUserCommand {
 
 	private Long id;
 
@@ -16,7 +15,6 @@ public class DisableUserCommand implements Command<Void> {
 		this.id = id;
 	}
 
-	@Override
 	public Void execute() throws BusinessException {
 		UserDao uDao = Factories.persistence.getUserDao();
 

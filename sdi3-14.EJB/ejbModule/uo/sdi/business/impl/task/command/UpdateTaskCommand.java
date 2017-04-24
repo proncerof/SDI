@@ -2,13 +2,12 @@ package uo.sdi.business.impl.task.command;
 
 import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
 import uo.sdi.business.impl.util.TaskCheck;
 import uo.sdi.dto.Task;
 import uo.sdi.infrastructure.Factories;
 import uo.sdi.persistence.TaskDao;
 
-public class UpdateTaskCommand implements Command<Void> {
+public class UpdateTaskCommand{
 
 	private Task task;
 
@@ -16,7 +15,6 @@ public class UpdateTaskCommand implements Command<Void> {
 		this.task = task;
 	}
 
-	@Override
 	public Void execute() throws BusinessException {
 		TaskCheck.titleIsNotNull(task);
 		TaskCheck.titleIsNotEmpty(task);

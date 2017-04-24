@@ -95,7 +95,7 @@ public class Task implements Serializable, Comparable<Task> {
 		return this;
 	}
 
-	@XmlElement
+	@XmlTransient
 	public Category getCategory() {
 		return category;
 	}
@@ -104,7 +104,6 @@ public class Task implements Serializable, Comparable<Task> {
 		this.category = category;
 	}
 
-	@XmlTransient
 	public User getUser() {
 		return user;
 	}

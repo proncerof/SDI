@@ -1,7 +1,6 @@
 package uo.sdi.business.impl.admin.command;
 
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
 import uo.sdi.dto.Category;
 import uo.sdi.dto.Task;
 import uo.sdi.dto.User;
@@ -12,9 +11,8 @@ import uo.sdi.persistence.TaskDao;
 import uo.sdi.persistence.UserDao;
 import alb.util.date.DateUtil;
 
-public class ResetDBCommand implements Command<Void> {
+public class ResetDBCommand {
 
-	@Override
 	public Void execute() throws BusinessException {
 		UserDao uDao = Factories.persistence.getUserDao();
 		CategoryDao cDao = Factories.persistence.getCategoryDao();

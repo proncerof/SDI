@@ -2,13 +2,12 @@ package uo.sdi.business.impl.task.command;
 
 import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
 import uo.sdi.business.impl.util.CategoryCheck;
 import uo.sdi.dto.Category;
 import uo.sdi.infrastructure.Factories;
 import uo.sdi.persistence.CategoryDao;
 
-public class UpdateCategoryCommand implements Command<Void> {
+public class UpdateCategoryCommand{
 
 	private Category category;
 
@@ -16,7 +15,6 @@ public class UpdateCategoryCommand implements Command<Void> {
 		this.category = category;
 	}
 
-	@Override
 	public Void execute() throws BusinessException {
 		CategoryDao cDao = Factories.persistence.getCategoryDao();
 		Category previous = cDao.findById(category.getId());
