@@ -26,7 +26,7 @@ public interface TaskServiceRest {
 			@PathParam("password") String password) throws BusinessException;
 
 	@POST
-	@Path("createCategory")
+	@Path("users/{id}/tasks")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Task createTask(Task task) throws BusinessException;
