@@ -9,6 +9,8 @@ local.properties
 .settings/
 .loadpath
 .recommenders
+.gitattributes
+.vscode/
 
 # External tool builders
 .externalToolBuilders/
