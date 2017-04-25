@@ -68,22 +68,6 @@
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
 
-	<!-- Seguridad basic en las url de rest -->
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>recursosrest</web-resource-name>
-			<url-pattern>/rest/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-			<role-name>NotaneitorAdmin</role-name>
-		</auth-constraint>
-	</security-constraint>
-
-	<login-config>
-		<auth-method>BASIC</auth-method>
-		<realm-name>ApplicationRealm</realm-name>
-	</login-config>
-
 	<context-param>
 		<description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
 		<param-name>javax.faces.STATE_SAVING_METHOD</param-name>

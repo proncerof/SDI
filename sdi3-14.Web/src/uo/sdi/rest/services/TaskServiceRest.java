@@ -20,30 +20,30 @@ import uo.sdi.dto.User;
 public interface TaskServiceRest {
 
 	@GET
-	@Path("login/{login}/{password}")
+	@Path("/user")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public User createTask(@PathParam("login") String login,
-			@PathParam("password") String password) throws BusinessException;
+	public User getUserByLogin()
+			throws BusinessException;
 
 	@POST
-	@Path("users/{id}/tasks")
+	@Path("/users/{id}/tasks")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public Task createTask(Task task) throws BusinessException;
 
 	@GET
-	@Path("findCategoriesByUserId/{id}")
+	@Path("/users/{id}/categories")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<Category> findCategoriesByUserId(@PathParam("id") Long id)
 			throws BusinessException;
 
 	@PUT
-	@Path("markTaskAsFinished/{id}")
+	@Path("tasks/{id}")
 	public void markTaskAsFinished(@PathParam("id") Long id)
 			throws BusinessException;
 
 	@GET
-	@Path("findTasksByCategoryId/{catId}")
+	@Path("categories/{catId}/tasks")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	public List<Task> findTasksByCategoryId(@PathParam("catId") Long catId)
 			throws BusinessException;

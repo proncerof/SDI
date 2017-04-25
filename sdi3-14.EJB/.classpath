@@ -12,5 +12,6 @@
 			<attribute name="owner.project.facets" value="java"/>
 		</attributes>
 	</classpathentry>
+	<classpathentry kind="lib" path="/sdi3-14.Cli-REST/lib/jackson-core-asl-1.9.12.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

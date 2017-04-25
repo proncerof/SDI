@@ -16,11 +16,6 @@ public class TaskServiceRestImpl implements TaskServiceRest {
 	private TaskService taskService = Factories.services.getTaskService();
 	private UserService userService = Factories.services.getUserService();
 	
-	@Override
-	public User createTask(String login, String password)
-			throws BusinessException {
-		return userService.findLoggableUser(login, password);
-	}
 	
 	@Override
 	public Task createTask(Task task) throws BusinessException {
@@ -42,5 +37,11 @@ public class TaskServiceRestImpl implements TaskServiceRest {
 	public List<Task> findTasksByCategoryId(final Long id)
 			throws BusinessException {
 		return taskService.findTasksByCategoryId(id);
+	}
+
+	@Override
+	public User getUserByLogin() throws BusinessException {
+		// TODO Auto-generated method stub
+		return userService.findLoggableUser("user2", "user2");
 	}
 }

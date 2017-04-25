@@ -15,6 +15,8 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 @Entity
 @Table(name = "TCategories")
 @XmlRootElement(name = "category")
@@ -52,6 +54,7 @@ public class Category implements Serializable {
 		return this;
 	}
 
+	@JsonBackReference
 	public User getUser() {
 		return user;
 	}

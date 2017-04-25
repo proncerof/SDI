@@ -9,7 +9,7 @@ import javax.ws.rs.core.MultivaluedMap;
 import javax.xml.bind.DatatypeConverter;
 
 public class Authenticator implements ClientRequestFilter {
-	
+	 
 	private final String user;
 	private final String password;
 
