@@ -11,8 +11,8 @@ namespace sdi3_14.Cli_SOAP_Csharp
     {
         static void Main(string[] args)
         {
-            //IEnumerable<user> users = new AdminServiceClient().findAllUsers();
             int option;
+
             do
             {
                 Console.WriteLine("Administrador");

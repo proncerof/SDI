@@ -61,10 +61,9 @@ public class UserRestFilter implements Filter {
 		HttpServletResponse res = (HttpServletResponse) response;
 
 		String basicHeader = req.getHeader("Authorization");
-		String id = req.getPathInfo().split("/")[3];
+//		String id = req.getPathInfo().split("/")[3];
 
 		String decoded = null;
-
 
 		decoded = basicHeader.replace("Basic ", "");
 
@@ -91,4 +90,5 @@ public class UserRestFilter implements Filter {
 
 		chain.doFilter(request, response);
 	}
+	
 }

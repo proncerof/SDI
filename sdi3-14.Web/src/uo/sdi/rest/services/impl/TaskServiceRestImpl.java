@@ -8,6 +8,7 @@ import uo.sdi.business.TaskService;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.Category;
 import uo.sdi.dto.Task;
+import uo.sdi.dto.User;
 import uo.sdi.infrastructure.Factories;
 import uo.sdi.rest.services.TaskServiceRest;
 
@@ -49,8 +50,9 @@ public class TaskServiceRestImpl implements TaskServiceRest {
 	}
 
 	@Override
-	public void getUserID(String authenticacion) {
+	public User getUserByLogin() throws BusinessException {
 		// TODO Auto-generated method stub
-		
+		return null;
 	}
+
 }
