@@ -13,6 +13,8 @@ import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 import javax.xml.bind.annotation.XmlTransient;
 
+import org.codehaus.jackson.annotate.JsonBackReference;
+
 import alb.util.date.DateUtil;
 
 @Entity
@@ -104,6 +106,7 @@ public class Task implements Serializable, Comparable<Task> {
 		this.category = category;
 	}
 
+	@JsonBackReference
 	public User getUser() {
 		return user;
 	}
