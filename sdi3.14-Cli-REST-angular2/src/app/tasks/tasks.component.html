@@ -1,0 +1,15 @@
+<input [(ngModel)]="categoryId" type="number" (onkeyup)="getTasks()"/>
+<button (click)="getTasks()">Buscar</button>
+<table>
+  <thead>
+    <th>ID</th>
+    <th>Titulo</th>
+  </thead>
+  <tbody *ngFor="let t of tasks">
+  <tr>
+    <td>{{t.id}}</td>
+    <td>{{t.title}}</td>
+    <td><button (click)="finishTask(t.id)">Finalizar</button>
+  </tr>
+  </tbody>
+</table>
