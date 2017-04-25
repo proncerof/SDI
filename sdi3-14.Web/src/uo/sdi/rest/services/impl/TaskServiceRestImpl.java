@@ -1,9 +1,12 @@
 package uo.sdi.rest.services.impl;
 
+import java.util.List;
+
 import javax.ws.rs.core.Response;
 
 import uo.sdi.business.TaskService;
 import uo.sdi.business.exception.BusinessException;
+import uo.sdi.dto.Category;
 import uo.sdi.dto.Task;
 import uo.sdi.infrastructure.Factories;
 import uo.sdi.rest.services.TaskServiceRest;
@@ -19,9 +22,9 @@ public class TaskServiceRestImpl implements TaskServiceRest {
 	}
 
 	@Override
-	public Response findCategoriesByUserId(final Long id)
+	public List<Category> findCategoriesByUserId(final Long id)
 			throws BusinessException {
-		return addHeaders(taskService.findCategoriesByUserId(id));
+		return taskService.findCategoriesByUserId(id);
 	}
 
 	@Override
@@ -43,5 +46,11 @@ public class TaskServiceRestImpl implements TaskServiceRest {
 				.header("Access-Control-Allow-Credentials", "true")
 				.header("Access-Control-Allow-Headers", "Authorization")
 				.entity(o).build();
+	}
+
+	@Override
+	public void getUserID(String authenticacion) {
+		// TODO Auto-generated method stub
+		
 	}
 }

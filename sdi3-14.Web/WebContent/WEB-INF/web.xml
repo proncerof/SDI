@@ -48,8 +48,7 @@
 	<servlet>
 		<servlet-name>resteasy</servlet-name>
 		<servlet-class>
-			org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher
-		</servlet-class>
+			org.jboss.resteasy.plugins.server.servlet.HttpServletDispatcher</servlet-class>
 		<init-param>
 			<param-name>javax.ws.rs.Application</param-name>
 			<param-value>uo.sdi.rest.Application</param-value>
@@ -67,21 +66,6 @@
 		<servlet-name>resteasy</servlet-name>
 		<url-pattern>/rest/*</url-pattern>
 	</servlet-mapping>
-
-	<!-- Seguridad basic en las url de rest -->
-	<security-constraint>
-		<web-resource-collection>
-			<web-resource-name>recursosrest</web-resource-name>
-			<url-pattern>/rest/*</url-pattern>
-		</web-resource-collection>
-		<auth-constraint>
-		</auth-constraint>
-	</security-constraint>
-
-	<login-config>
-		<auth-method>BASIC</auth-method>
-		<realm-name>ApplicationRealm</realm-name>
-	</login-config>
 
 	<context-param>
 		<description>State saving method: 'client' or 'server' (=default). See JSF Specification 2.5.2</description>
