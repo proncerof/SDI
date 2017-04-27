@@ -1,0 +1,8 @@
+C:\Users\jlo\git\SDI\sdi3-14.Cli-REST-CSharp\sdi3-14.Cli-REST-CSharp\bin\Debug\sdi3-14.Cli-REST-CSharp.exe.config
+C:\Users\jlo\git\SDI\sdi3-14.Cli-REST-CSharp\sdi3-14.Cli-REST-CSharp\bin\Debug\sdi3-14.Cli-REST-CSharp.exe
+C:\Users\jlo\git\SDI\sdi3-14.Cli-REST-CSharp\sdi3-14.Cli-REST-CSharp\bin\Debug\sdi3-14.Cli-REST-CSharp.pdb
+C:\Users\jlo\git\SDI\sdi3-14.Cli-REST-CSharp\sdi3-14.Cli-REST-CSharp\obj\Debug\sdi3-14.Cli-REST-CSharp.csprojResolveAssemblyReference.cache
+C:\Users\jlo\git\SDI\sdi3-14.Cli-REST-CSharp\sdi3-14.Cli-REST-CSharp\obj\Debug\sdi3-14.Cli-REST-CSharp.exe
+C:\Users\jlo\git\SDI\sdi3-14.Cli-REST-CSharp\sdi3-14.Cli-REST-CSharp\obj\Debug\sdi3-14.Cli-REST-CSharp.pdb
+C:\Users\jlo\git\SDI\sdi3-14.Cli-REST-CSharp\sdi3-14.Cli-REST-CSharp\bin\Debug\Newtonsoft.Json.dll
+C:\Users\jlo\git\SDI\sdi3-14.Cli-REST-CSharp\sdi3-14.Cli-REST-CSharp\bin\Debug\Newtonsoft.Json.xml

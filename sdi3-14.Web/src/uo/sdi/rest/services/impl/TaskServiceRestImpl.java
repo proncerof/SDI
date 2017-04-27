@@ -14,6 +14,7 @@ import uo.sdi.dto.Task;
 import uo.sdi.dto.User;
 import uo.sdi.infrastructure.Factories;
 import uo.sdi.rest.services.TaskServiceRest;
+import alb.util.date.DateUtil;
 
 public class TaskServiceRestImpl implements TaskServiceRest {
 
@@ -26,8 +27,11 @@ public class TaskServiceRestImpl implements TaskServiceRest {
 
 	@Override
 	public void createTask(Long userId, String authorization, Task task) {
-		if (userId.equals(getUser(authorization).getId())) {
+		User u = getUser(authorization);
+		if (userId.equals(u.getId())) {
 			try {
+				task.setUser(u);
+				task.setCreated(DateUtil.now());
 				taskService.createTask(task);
 			} catch (BusinessException e) {
 				throw new InternalServerErrorException(e.getMessage());

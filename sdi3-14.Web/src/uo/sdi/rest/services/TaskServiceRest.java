@@ -20,7 +20,7 @@ public interface TaskServiceRest {
 
 	@GET
 	@Path("/login")
-	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	@Produces(MediaType.APPLICATION_JSON)
 	public Long login(@HeaderParam("Authorization") String authentication);
 
 	@POST
