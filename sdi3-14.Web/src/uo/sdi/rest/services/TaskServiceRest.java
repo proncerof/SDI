@@ -12,7 +12,6 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.Category;
 import uo.sdi.dto.Task;
 

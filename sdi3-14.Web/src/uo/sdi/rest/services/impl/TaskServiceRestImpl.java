@@ -4,7 +4,6 @@ import java.util.List;
 
 import javax.ws.rs.ForbiddenException;
 import javax.ws.rs.InternalServerErrorException;
-import javax.ws.rs.ForbiddenException;
 import javax.xml.bind.DatatypeConverter;
 
 import uo.sdi.business.TaskService;
