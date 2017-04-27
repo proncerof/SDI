@@ -1,12 +1,11 @@
 package uo.sdi.business.impl.user.command;
 
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
 import uo.sdi.dto.User;
 import uo.sdi.dto.types.UserStatus;
 import uo.sdi.infrastructure.Factories;
 
-public class FindLoggableUSerCommand<T> implements Command<User> {
+public class FindLoggableUSerCommand<T>{
 
 	private String login;
 	private String password;
@@ -16,7 +15,6 @@ public class FindLoggableUSerCommand<T> implements Command<User> {
 		this.password = password;
 	}
 
-	@Override
 	public User execute() throws BusinessException {
 		User user = Factories.persistence.getUserDao()
 						.findByLoginAndPassword(login, password);

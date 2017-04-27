@@ -3,7 +3,6 @@ package uo.sdi.clients.rest.menu.items;
 import java.util.ArrayList;
 import java.util.List;
 
-import uo.sdi.clients.rest.dto.User;
 import uo.sdi.clients.rest.menu.MenuItem;
 import uo.sdi.clients.rest.restService.RestService;
 import alb.util.console.Console;
@@ -12,8 +11,7 @@ public class LoginMenuItem implements MenuItem {
 
 	private RestService restService;
 
-	public LoginMenuItem(RestService restService) {
-		this.restService = restService;
+	public LoginMenuItem() {
 	}
 
 	@Override
@@ -30,13 +28,14 @@ public class LoginMenuItem implements MenuItem {
 
 		restService = new RestService(login, password);
 		
-		User user = restService.login();
+		Long user = restService.login();
 
 		if (user != null) {
-			items.add(new ListCategoriesMenuItem(restService, user));
-			items.add(new ListTaskFromCategoryMenuItem(restService, user));
-			items.add(new CreateTaskMenuItem(restService, user));
-			items.add(new MarkTaskAsFinishedMenuItem(restService, user));
+			items.add(new ListCategoriesMenuItem(restService));
+			items.add(new ListTaskFromCategoryMenuItem(restService));
+			items.add(new CreateTaskMenuItem(restService));
+			items.add(new MarkTaskAsFinishedMenuItem(restService));
+			items.add(new LogoutMenuItem());
 			
 			System.out.println("Login correcto");
 			

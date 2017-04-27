@@ -4,14 +4,13 @@ import java.util.Collections;
 import java.util.List;
 
 import uo.sdi.clients.rest.dto.Task;
-import uo.sdi.clients.rest.dto.User;
 import uo.sdi.clients.rest.restService.RestService;
 import alb.util.console.Console;
 
 public class ListTaskFromCategoryMenuItem extends MainMenuItem {
 
-	public ListTaskFromCategoryMenuItem(RestService restService, User user) {
-		super(restService, user);
+	public ListTaskFromCategoryMenuItem(RestService restService) {
+		super(restService);
 	}
 
 	@Override
@@ -21,12 +20,15 @@ public class ListTaskFromCategoryMenuItem extends MainMenuItem {
 
 	@Override
 	protected void executeInternal() {
-		Long id = Console.readLong("Introduzca el id de la categoria:");
-		List<Task> tasks = restService.getTasksFromCategoryId(id);
-		Collections.sort(tasks);
-		for (Task t : tasks)
-			if (t.getUser().getId().equals(user.getId()))
+		Long id = Console.readLong("Introduzca el id de la categoria");
+		if (id == null) {
+			Console.println("Formato de id incorrecto");
+		} else {
+			List<Task> tasks = restService.getTasksFromCategoryId(id);
+			Collections.sort(tasks);
+			for (Task t : tasks)
 				System.out.println(t);
+		}
 	}
 
 }

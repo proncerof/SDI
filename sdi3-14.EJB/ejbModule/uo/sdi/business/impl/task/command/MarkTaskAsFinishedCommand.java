@@ -2,13 +2,12 @@ package uo.sdi.business.impl.task.command;
 
 import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.business.impl.command.Command;
 import uo.sdi.dto.Task;
 import uo.sdi.infrastructure.Factories;
 import uo.sdi.persistence.TaskDao;
 import alb.util.date.DateUtil;
 
-public class MarkTaskAsFinishedCommand implements Command<Void> {
+public class MarkTaskAsFinishedCommand{
 
 	private Long id;
 
@@ -16,7 +15,6 @@ public class MarkTaskAsFinishedCommand implements Command<Void> {
 		this.id = id;
 	}
 
-	@Override
 	public Void execute() throws BusinessException {
 		TaskDao tDao = Factories.persistence.getTaskDao();
 

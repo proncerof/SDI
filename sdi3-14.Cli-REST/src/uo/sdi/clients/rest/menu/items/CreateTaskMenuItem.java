@@ -3,15 +3,14 @@ package uo.sdi.clients.rest.menu.items;
 import java.util.Date;
 
 import uo.sdi.clients.rest.dto.Task;
-import uo.sdi.clients.rest.dto.User;
 import uo.sdi.clients.rest.restService.RestService;
 import alb.util.console.Console;
 import alb.util.date.DateUtil;
 
 public class CreateTaskMenuItem extends MainMenuItem {
 
-	public CreateTaskMenuItem(RestService restService, User user) {
-		super(restService, user);
+	public CreateTaskMenuItem(RestService restService) {
+		super(restService);
 	}
 
 	@Override
@@ -28,9 +27,15 @@ public class CreateTaskMenuItem extends MainMenuItem {
 		this.setPlanned(tarea);
 
 		tarea.setCreated(DateUtil.now());
-		tarea.setUser(user);
 
 		restService.createTask(tarea);
+
+//		if (t == null)
+//			Console.println("No se ha podido enviar la tarea correctamente");
+//		else {
+//			Console.println("La tarea se ha enviado correctamente:");
+//			Console.println(t);
+//		}
 
 	}
 
@@ -46,11 +51,11 @@ public class CreateTaskMenuItem extends MainMenuItem {
 		Date fecha = null;
 		boolean formatoIncorrecto = true;
 		while (formatoIncorrecto) {
-			int day = Console.readInt("Introduzca el dia:");
-			int month = Console.readInt("Introduzca el mes:");
-			int year = Console.readInt("Introduzca el anio:");
+			int day = Console.readInt("Introduzca el dia");
+			int month = Console.readInt("Introduzca el mes");
+			int year = Console.readInt("Introduzca el anio");
 			try {
-				fecha=DateUtil.fromDdMmYyyy(day, month, year);
+				fecha = DateUtil.fromDdMmYyyy(day, month, year);
 				formatoIncorrecto = false;
 			} catch (IndexOutOfBoundsException i) {
 				Console.println("El formato de la fecha no es correcto");

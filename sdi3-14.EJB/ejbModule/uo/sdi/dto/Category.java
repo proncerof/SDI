@@ -76,6 +76,7 @@ public class Category implements Serializable {
 		result = prime * result + ((id == null) ? 0 : id.hashCode());
 		result = prime * result + ((name == null) ? 0 : name.hashCode());
 		result = prime * result + ((user == null) ? 0 : user.hashCode());
+
 		return result;
 	}
 

@@ -1,0 +1,11 @@
+<form>
+
+  <label>Titulo</label>
+  <input type="text" [(ngModel)]="title" name="title" required />
+  <br/>
+  <label>Fecha planificada</label>
+  <input type="date" [(ngModel)]="planned" name="planned" />
+  <br/>
+  <input type="submit" (click)="createTask(title,planned)" value="Crear"/>
+
+</form>

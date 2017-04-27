@@ -2,16 +2,14 @@ package uo.sdi.clients.rest.menu.items;
 
 import java.util.List;
 
-import alb.util.console.Console;
 import uo.sdi.clients.rest.dto.Category;
-import uo.sdi.clients.rest.dto.User;
 import uo.sdi.clients.rest.restService.RestService;
+import alb.util.console.Console;
 
 public class ListCategoriesMenuItem extends MainMenuItem {
 
-
-	public ListCategoriesMenuItem(RestService restService, User user) {
-		super(restService, user);
+	public ListCategoriesMenuItem(RestService restService) {
+		super(restService);
 	}
 
 	@Override
@@ -22,8 +20,7 @@ public class ListCategoriesMenuItem extends MainMenuItem {
 	@Override
 	protected void executeInternal() {
 
-		List<Category> categories = restService.findCategoriesByUserID(user
-				.getId());
+		List<Category> categories = restService.findCategoriesByUserID();
 
 		for (Category c : categories) {
 			Console.println(c);

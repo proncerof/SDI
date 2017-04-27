@@ -1,14 +1,13 @@
 package uo.sdi.clients.rest.menu.items;
 
-import alb.util.console.Console;
-import uo.sdi.clients.rest.dto.User;
 import uo.sdi.clients.rest.restService.RestService;
+import alb.util.console.Console;
 
 public class MarkTaskAsFinishedMenuItem extends MainMenuItem {
 
 
-	public MarkTaskAsFinishedMenuItem(RestService restService, User user) {
-		super(restService, user);
+	public MarkTaskAsFinishedMenuItem(RestService restService) {
+		super(restService);
 	}
 
 	@Override

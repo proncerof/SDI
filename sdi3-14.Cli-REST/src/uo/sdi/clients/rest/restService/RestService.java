@@ -1,7 +1,9 @@
 package uo.sdi.clients.rest.restService;
 
+import java.util.ArrayList;
 import java.util.List;
 
+import javax.ws.rs.ProcessingException;
 import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
@@ -10,70 +12,63 @@ import javax.ws.rs.core.MediaType;
 
 import uo.sdi.clients.rest.dto.Category;
 import uo.sdi.clients.rest.dto.Task;
-import uo.sdi.clients.rest.dto.User;
 
 public class RestService {
 
-	private static final String URL_BASE = "http://localhost:8280/sdi3-14.Web/rest/";
-
-	private static final String URL_CREATE_CATEGORY = URL_BASE
-			+ "TaskServiceRs/createCategory";
-	private static final String URL_FIND_CATEGORIES_BY_USER = URL_BASE
-			+ "TaskServiceRs/findCategoriesByUserId";
-	private static final String URL_MARK_AS_FINISHED = URL_BASE
-			+ "TaskServiceRs/markTaskAsFinished";
-	private static final String URL_FIND_TASKS_BY_CATEGORY = URL_BASE
-			+ "TaskServiceRs/findTasksByCategoryId";
-	private static final String URL_LOGIN = URL_BASE + "TaskServiceRs/login";
+	private static final String URL_BASE = "http://localhost:8280/sdi3-14.Web/rest/TaskServiceRs";
 
 	private Client client;
 
-	private String user;
-	private String password;
+	private Long userId;
 
 	public RestService(String user, String password) {
 		this.client = ClientBuilder.newClient().register(
 				new Authenticator(user, password));
-		this.user = user;
-		this.password = password;
+
+		this.userId = login();
 	}
 
-	public User login() {
-		User u;
+	public Long login() {
+		Long u;
 		try {
-			u = client.target(URL_LOGIN).path(user).path(password).request()
-					.accept(MediaType.APPLICATION_XML).get()
-					.readEntity(User.class);
+			u = client.target(URL_BASE).path("login").request()
+					.accept(MediaType.APPLICATION_JSON).get()
+					.readEntity(Long.class);
 		} catch (javax.ws.rs.ProcessingException p) {
 			u = null;
 		}
 		return u;
 	}
 
-	public Task createTask(Task tarea) {
-
-		return client.target(URL_CREATE_CATEGORY).request()
-				.accept(MediaType.APPLICATION_XML)
-				.post(Entity.entity(tarea, MediaType.APPLICATION_XML))
-				.readEntity(Task.class);
+	public void createTask(Task tarea) {
+		client.target(URL_BASE).path("users").path(userId.toString())
+				.path("tasks").request().accept(MediaType.APPLICATION_XML)
+				.post(Entity.entity(tarea, MediaType.APPLICATION_XML));
 
 	}
 
-	public List<Category> findCategoriesByUserID(Long id) {
+	public List<Category> findCategoriesByUserID() {
 		GenericType<List<Category>> listm = new GenericType<List<Category>>() {
 		};
 
-		List<Category> res = client.target(URL_FIND_CATEGORIES_BY_USER)
-				.path(id.toString()).request()
-				.accept(MediaType.APPLICATION_XML).get().readEntity(listm);
+		List<Category> res;
+
+		try {
+			res = client.target(URL_BASE).path("users").path(userId.toString())
+					.path("categories").request()
+					.accept(MediaType.APPLICATION_XML).get().readEntity(listm);
+
+		} catch (ProcessingException p) {
+			res = new ArrayList<Category>();
+		}
 
 		return res;
 	}
 
 	public void markTaskAsFinished(Long id) {
 		// PREGUNTAR A ALBERTO
-		client.target(URL_MARK_AS_FINISHED).path(id.toString()).request()
-				.put(null);
+		client.target(URL_BASE).path("users").path(userId.toString())
+				.path("tasks").path(id.toString()).request().put(null);
 	}
 
 	public List<Task> getTasksFromCategoryId(Long id) {
@@ -81,9 +76,16 @@ public class RestService {
 		GenericType<List<Task>> listm = new GenericType<List<Task>>() {
 		};
 
-		List<Task> res = client.target(URL_FIND_TASKS_BY_CATEGORY)
-				.path(id.toString()).request()
-				.accept(MediaType.APPLICATION_XML).get().readEntity(listm);
+		List<Task> res;
+
+		try {
+			res = client.target(URL_BASE).path("users").path(userId.toString())
+					.path("categories").path(id.toString()).path("tasks")
+					.request().accept(MediaType.APPLICATION_XML).get()
+					.readEntity(listm);
+		} catch (ProcessingException p) {
+			res = new ArrayList<Task>();
+		}
 
 		return res;
 	}
