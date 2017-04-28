@@ -2,95 +2,96 @@ package uo.sdi.messages;
 
 import java.io.Serializable;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.ejb.ActivationConfigProperty;
 import javax.ejb.MessageDriven;
-import javax.jms.Connection;
-import javax.jms.ConnectionFactory;
 import javax.jms.JMSException;
 import javax.jms.MapMessage;
-import javax.jms.Message;
-import javax.jms.MessageListener;
-import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
-import javax.jms.Session;
 
 import uo.sdi.business.TaskService;
+import uo.sdi.business.UserService;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.dto.Task;
+import uo.sdi.dto.User;
 import uo.sdi.infrastructure.Factories;
-import uo.sdi.messages.util.Jndi;
+import uo.sdi.messages.util.AbstractMessageListener;
 
 @MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destination", propertyValue = "queue/NotaneitorQueue") })
-public class GTDListener implements MessageListener {
+public class GTDListener extends AbstractMessageListener {
 
-	private static final String JMS_CONNECTION_FACTORY = "java:/ConnectionFactory";
-
-	private static Connection con;
-	private static Session session;
-	private static MessageProducer responseProducer;
-
-	private TaskService service = Factories.services.getTaskService();
+	private TaskService taskService = Factories.services.getTaskService();
+	private UserService userService = Factories.services.getUserService();
+	private User user;
 
 	@Override
-	public void onMessage(Message msg) {
-		System.out.println("NotaneitorListener: Msg received");
-		try {
-			process(msg);
-		} catch (JMSException jex) {
-			jex.printStackTrace();
-		} catch (BusinessException e) {
-			e.printStackTrace();
-		}
+	protected void createResponse(MapMessage message, ObjectMessage response)
+			throws JMSException, BusinessException {
+		String cmd = message.getString("command");
+
+		authenticateUser(message, response);
+		if (cmd.equals("login")) {
+			response.setObject(user != null);
+		} else if (cmd.equals("getTareas")) {
+			getTasks(message, response);
+		} else if (cmd.equals("finishTask")) {
+			finishTask(message, response);
+		} else if (cmd.equals("newTask")) {
+			createTask(message, response);
+		} else
+			throw new JMSException("Comando incorrecto");
+
+		response.setJMSCorrelationID(message.getJMSCorrelationID());
+
 	}
 
-	private void process(Message m) throws BusinessException, JMSException {
-		if (!messageOfExpectedType(m)) {
-			System.out.println("Not of expected type " + m);
-			return;
-		}
-		
-		initialize();
-		
-		MapMessage msg = (MapMessage) m;
-		String cmd = msg.getString("command");
-		
-		ObjectMessage response = session.createObjectMessage();
-		
-		if(cmd.equals("getTareas")){
+	private void finishTask(MapMessage message, ObjectMessage response)
+			throws JMSException, BusinessException {
+		if (user != null) {
+			Long taskId = message.getLong("taskId");
+			for (Task t : user.getTasks())
+				if (t.getId().equals(taskId)) {
+					taskService.markTaskAsFinished(taskId);
+					response.setObject("La tarea " + taskId
+							+ " ha sido finalizada");
+					return;
+				}
+			response.setObject("El usuario no tiene acceso a la tarea");
+		} else
+			response.setObject("Debes iniciar sesion");
+	}
+
+	private void getTasks(MapMessage message, ObjectMessage response)
+			throws BusinessException, JMSException {
+		if (user != null) {
 			List<String> tareas = new ArrayList<>();
-			for(Task t : service.findTodayTasksByUserId(msg.getLong("userId")))
-					tareas.add(t.toString());
+			for (Task t : taskService.findTodayTasksByUserId(user.getId()))
+				tareas.add(t.toString());
 			response.setObject((Serializable) tareas);
 		}
-		
-		response.setJMSCorrelationID(msg.getJMSCorrelationID());
-
-		responseProducer = session.createProducer(msg
-				.getJMSReplyTo());
-
-		responseProducer.send(response);
-
-		close();
 	}
 
-	private boolean messageOfExpectedType(Message m) {
-		return m instanceof MapMessage;
+	private void createTask(MapMessage message, ObjectMessage response)
+			throws JMSException, BusinessException {
+		if (user != null) {
+			Task t = new Task();
+			t.setTitle(message.getString("title"));
+			t.setPlanned(new Date(message.getLong("planned")));
+			t.setUser(user);
+			taskService.createTask(t);
+			response.setObject("La tarea se ha creado correctamente");
+		} else
+			response.setObject("Debes iniciar sesion");
 	}
 
-	private static void initialize() throws JMSException {
-		ConnectionFactory factory = (ConnectionFactory) Jndi
-				.find(JMS_CONNECTION_FACTORY);
-		con = factory.createConnection("sdi", "password");
-		session = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
-		con.start();
-	}
-	
-	private static void close() throws JMSException {
-		con.close();
-		session.close();
-		responseProducer.close();
+	private void authenticateUser(MapMessage message, ObjectMessage response)
+			throws JMSException, BusinessException {
+		String login = message.getString("login");
+		String password = message.getString("password");
+
+		user = userService.findLoggableUser(login, password);
 	}
 
 }
