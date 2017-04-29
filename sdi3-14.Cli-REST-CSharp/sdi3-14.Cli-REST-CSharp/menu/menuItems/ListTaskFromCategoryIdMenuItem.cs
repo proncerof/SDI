@@ -11,7 +11,7 @@ namespace sdi3_14.Cli_REST_CSharp.menu.menuItems
     class ListTaskFromCategoryIdMenuItem : MainMenuItem
     {
 
-        public ListTaskFromCategoryIdMenuItem(RestService restService, User user) : base(restService, user)
+        public ListTaskFromCategoryIdMenuItem(RestService restService) : base(restService)
         {
         }
 

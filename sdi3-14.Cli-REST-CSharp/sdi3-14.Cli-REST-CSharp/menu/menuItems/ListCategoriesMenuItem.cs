@@ -11,7 +11,7 @@ namespace sdi3_14.Cli_REST_CSharp.menu.menuItems
     class ListCategoriesMenuItem : MainMenuItem
     {
 
-        public ListCategoriesMenuItem(RestService restService, User user) : base(restService, user)
+        public ListCategoriesMenuItem(RestService restService) : base(restService)
         {
         }
 
@@ -23,8 +23,7 @@ namespace sdi3_14.Cli_REST_CSharp.menu.menuItems
         protected override void executeInternal()
         {
 
-            List<Category> categories = restService.findCategoriesByUserID(user
-                    .id);
+            List<Category> categories = restService.findCategoriesByUserID();
 
             foreach (Category c in categories)
             {

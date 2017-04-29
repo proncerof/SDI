@@ -11,7 +11,7 @@ namespace sdi3_14.Cli_REST_CSharp.menu.menuItems
     class CreateTaskMenuItem : MainMenuItem
     {
 
-        public CreateTaskMenuItem(RestService restService, User user) : base(restService, user)
+        public CreateTaskMenuItem(RestService restService) : base(restService)
         {
         }
 

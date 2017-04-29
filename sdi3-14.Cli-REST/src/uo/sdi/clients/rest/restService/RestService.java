@@ -4,7 +4,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import javax.ws.rs.ProcessingException;
-import javax.ws.rs.client.Client;
 import javax.ws.rs.client.ClientBuilder;
 import javax.ws.rs.client.Entity;
 import javax.ws.rs.core.GenericType;
@@ -17,21 +16,23 @@ public class RestService {
 
 	private static final String URL_BASE = "http://localhost:8280/sdi3-14.Web/rest/TaskServiceRs";
 
-	private Client client;
+	private String user;
+	private String password;
 
 	private Long userId;
 
 	public RestService(String user, String password) {
-		this.client = ClientBuilder.newClient().register(
-				new Authenticator(user, password));
-
+		this.user = user;
+		this.password = password;
 		this.userId = login();
 	}
 
 	public Long login() {
 		Long u;
 		try {
-			u = client.target(URL_BASE).path("login").request()
+			u = ClientBuilder.newClient()
+					.register(new Authenticator(user, password))
+					.target(URL_BASE).path("login").request()
 					.accept(MediaType.APPLICATION_JSON).get()
 					.readEntity(Long.class);
 		} catch (javax.ws.rs.ProcessingException p) {
@@ -41,7 +42,8 @@ public class RestService {
 	}
 
 	public void createTask(Task tarea) {
-		client.target(URL_BASE).path("users").path(userId.toString())
+		ClientBuilder.newClient().register(new Authenticator(user, password))
+				.target(URL_BASE).path("users").path(userId.toString())
 				.path("tasks").request().accept(MediaType.APPLICATION_XML)
 				.post(Entity.entity(tarea, MediaType.APPLICATION_XML));
 
@@ -54,7 +56,9 @@ public class RestService {
 		List<Category> res;
 
 		try {
-			res = client.target(URL_BASE).path("users").path(userId.toString())
+			res = ClientBuilder.newClient()
+					.register(new Authenticator(user, password))
+					.target(URL_BASE).path("users").path(userId.toString())
 					.path("categories").request()
 					.accept(MediaType.APPLICATION_XML).get().readEntity(listm);
 
@@ -67,7 +71,8 @@ public class RestService {
 
 	public void markTaskAsFinished(Long id) {
 		// PREGUNTAR A ALBERTO
-		client.target(URL_BASE).path("users").path(userId.toString())
+		ClientBuilder.newClient().register(new Authenticator(user, password))
+				.target(URL_BASE).path("users").path(userId.toString())
 				.path("tasks").path(id.toString()).request().put(null);
 	}
 
@@ -79,7 +84,9 @@ public class RestService {
 		List<Task> res;
 
 		try {
-			res = client.target(URL_BASE).path("users").path(userId.toString())
+			res = ClientBuilder.newClient()
+					.register(new Authenticator(user, password))
+					.target(URL_BASE).path("users").path(userId.toString())
 					.path("categories").path(id.toString()).path("tasks")
 					.request().accept(MediaType.APPLICATION_XML).get()
 					.readEntity(listm);

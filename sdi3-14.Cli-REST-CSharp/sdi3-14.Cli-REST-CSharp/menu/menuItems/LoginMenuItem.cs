@@ -12,9 +12,8 @@ namespace sdi3_14.Cli_REST_CSharp.menu.menuItems
     {
         private RestService restService;
 
-        public LoginMenuItem(RestService restService)
+        public LoginMenuItem()
         {
-            this.restService = restService;
         }
 
         public String GetMenuName()
@@ -34,14 +33,15 @@ namespace sdi3_14.Cli_REST_CSharp.menu.menuItems
 
             restService = new RestService(login, password);
 
-            User user = restService.login();
+            Int64? user = restService.login();
 
             if (user != null)
             {
-                items.Add(new ListCategoriesMenuItem(restService, user));
-                items.Add(new ListTaskFromCategoryIdMenuItem(restService, user));
-                items.Add(new CreateTaskMenuItem(restService, user));
-                items.Add(new MarkTaskAsFinishedMenuItem(restService, user));
+                items.Add(new ListCategoriesMenuItem(restService));
+                items.Add(new ListTaskFromCategoryIdMenuItem(restService));
+                items.Add(new CreateTaskMenuItem(restService));
+                items.Add(new MarkTaskAsFinishedMenuItem(restService));
+                items.Add(new LogoutMenuItem());
 
                 Console.WriteLine("Login correcto");
 

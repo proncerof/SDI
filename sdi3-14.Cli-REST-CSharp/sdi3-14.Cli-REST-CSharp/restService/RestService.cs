@@ -12,9 +12,11 @@ namespace sdi3_14.Cli_REST_CSharp.restService
 {
     public class RestService
     {
+        private const string URL_BASE = "http://localhost:8280/sdi3-14.Web/rest/TaskServiceRs";
+
 
         private String encodedCredentials;
-        private User user = null;
+        private Int64? userId;
 
         public RestService(String user, String password)
         {
@@ -22,14 +24,14 @@ namespace sdi3_14.Cli_REST_CSharp.restService
 
         }
 
-        public User login()
+        public Int64? login()
         {
-            User u = null;
-            
-            System.Net.HttpWebRequest webrequest = (HttpWebRequest)System.Net.WebRequest.Create("http://localhost:8280/sdi3-14.Web/rest/TaskServiceRs/user");
+            Int64? u = null;
+
+            System.Net.HttpWebRequest webrequest = (HttpWebRequest)System.Net.WebRequest.Create(URL_BASE + "/login");
             webrequest.Method = "GET";
             webrequest.ContentType = "application/json";
-            
+
             webrequest.Headers.Add("Authorization", encodedCredentials);
 
             string result;
@@ -51,20 +53,20 @@ namespace sdi3_14.Cli_REST_CSharp.restService
             }
 
 
-            u = JsonConvert.DeserializeObject<User>(result);
+            u = JsonConvert.DeserializeObject<Int64?>(result);
 
-            user = u;
+            userId = u;
 
             return u;
         }
 
-        public dto.Task createTask(dto.Task tarea)
+        public void createTask(dto.Task tarea)
         {
             string parsedTask = JsonConvert.SerializeObject(tarea);
 
             dto.Task responseTask = null;
 
-            System.Net.HttpWebRequest webrequest = (HttpWebRequest)System.Net.WebRequest.Create("http://localhost:8280/sdi3-14.Web/rest/TaskServiceRs/users/" + user.id + "/tasks");
+            System.Net.HttpWebRequest webrequest = (HttpWebRequest)System.Net.WebRequest.Create(URL_BASE + "/users/" + userId + "/tasks");
             webrequest.Method = "POST";
             webrequest.ContentType = "application/json";
 
@@ -85,22 +87,16 @@ namespace sdi3_14.Cli_REST_CSharp.restService
             }
             catch (WebException e)
             {
-                return null;
+
             }
-
-
-            responseTask = JsonConvert.DeserializeObject<dto.Task>(result);
-
-            return responseTask;
-
         }
 
-        public List<Category> findCategoriesByUserID(long id)
+        public List<Category> findCategoriesByUserID()
         {
 
-            List < Category > categories = null;
+            List<Category> categories = null;
 
-            System.Net.HttpWebRequest webrequest = (HttpWebRequest)System.Net.WebRequest.Create("http://localhost:8280/sdi3-14.Web/rest/TaskServiceRs/users/" + user.id + "/categories");
+            System.Net.HttpWebRequest webrequest = (HttpWebRequest)System.Net.WebRequest.Create(URL_BASE + "/users/" + userId + "/categories");
             webrequest.Method = "GET";
             webrequest.ContentType = "application/json";
 
@@ -133,13 +129,11 @@ namespace sdi3_14.Cli_REST_CSharp.restService
         public void markTaskAsFinished(long id)
         {
 
-            System.Net.HttpWebRequest webrequest = (HttpWebRequest)System.Net.WebRequest.Create("http://localhost:8280/sdi3-14.Web/rest/TaskServiceRs/tasks/" + id);
+            System.Net.HttpWebRequest webrequest = (HttpWebRequest)System.Net.WebRequest.Create(URL_BASE + "/users/" + userId + "/tasks/" + id);
             webrequest.Method = "PUT";
-            //webrequest.ContentType = "application/json";
+            webrequest.ContentType = "application/json";
 
             webrequest.Headers.Add("Authorization", encodedCredentials);
-
-            string result;
 
             try
             {
@@ -158,7 +152,7 @@ namespace sdi3_14.Cli_REST_CSharp.restService
 
             List<dto.Task> categories = null;
 
-            System.Net.HttpWebRequest webrequest = (HttpWebRequest)System.Net.WebRequest.Create("http://localhost:8280/sdi3-14.Web/rest/TaskServiceRs/categories/" + id + "/tasks");
+            System.Net.HttpWebRequest webrequest = (HttpWebRequest)System.Net.WebRequest.Create(URL_BASE + "/users/" + userId + "/categories/" + id + "/tasks");
             webrequest.Method = "GET";
             webrequest.ContentType = "application/json";
 

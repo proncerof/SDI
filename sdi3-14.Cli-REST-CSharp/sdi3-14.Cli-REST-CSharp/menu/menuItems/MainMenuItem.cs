@@ -12,12 +12,10 @@ namespace sdi3_14.Cli_REST_CSharp.menu
     public abstract class MainMenuItem : MenuItem
     {
         protected RestService restService;
-        protected User user;
 
-        public MainMenuItem(RestService restService, User user)
+        public MainMenuItem(RestService restService)
         {
             this.restService = restService;
-            this.user = user;
         }
 
         IList<MenuItem> MenuItem.Execute()
@@ -27,11 +25,12 @@ namespace sdi3_14.Cli_REST_CSharp.menu
 
             List<MenuItem> items = new List<MenuItem>();
 
-            items.Add(new ListCategoriesMenuItem(restService, user));
-            items.Add(new ListTaskFromCategoryIdMenuItem(restService, user));
-            items.Add(new CreateTaskMenuItem(restService, user));
-            items.Add(new MarkTaskAsFinishedMenuItem(restService, user));
-
+            items.Add(new ListCategoriesMenuItem(restService));
+            items.Add(new ListTaskFromCategoryIdMenuItem(restService));
+            items.Add(new CreateTaskMenuItem(restService));
+            items.Add(new MarkTaskAsFinishedMenuItem(restService));
+            items.Add(new LogoutMenuItem());
+            
             return items;
         }
 
