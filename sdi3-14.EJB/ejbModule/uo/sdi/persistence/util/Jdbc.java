@@ -17,27 +17,13 @@ import javax.sql.DataSource;
 import uo.sdi.persistence.PersistenceException;
 
 public class Jdbc {
-//	private static final String DATABASE_PROPERTIES_FILE = "database.properties";
 	private static final String QUERIES_PROPERTIES_FILE = "sql_queries.properties";
-
-//	private static final String DATABASE_URL;
-//	private static final String DATABASE_USER;
-//	private static final String DATABASE_PASSWORD;
-//	private static final String DATABASE_DRIVER;
 
 	private static Properties sqlQueries;
 	private static DataSource dataSource;
 
 	static {
-//		Properties dbConfig = loadProperties(DATABASE_PROPERTIES_FILE);
 		sqlQueries = loadProperties(QUERIES_PROPERTIES_FILE);
-
-		// DATABASE_URL = dbConfig.getProperty( "DATABASE_URL" );
-		// DATABASE_USER = dbConfig.getProperty( "DATABASE_USER" );
-		// DATABASE_PASSWORD = dbConfig.getProperty( "DATABASE_PASSWORD" );
-		// DATABASE_DRIVER = dbConfig.getProperty( "DATABASE_DRIVER" );
-
-		// dataSource = configureDataSource(dbConfig);
 
 		String jndiKey = sqlQueries.getProperty("JNDI_DATASOURCE");
 
@@ -50,15 +36,6 @@ public class Jdbc {
 		}
 
 	}
-
-//	private static DataSource configureDataSource(Properties dbConfig) {
-//		BasicDataSource ds = new BasicDataSource();
-//		ds.setDriverClassName(DATABASE_DRIVER);
-//		ds.setUsername(DATABASE_USER);
-//		ds.setPassword(DATABASE_PASSWORD);
-//		ds.setUrl(DATABASE_URL);
-//		return ds;
-//	}
 
 	private static ThreadLocal<Connection> threadLocal = new ThreadLocal<>();
 

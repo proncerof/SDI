@@ -15,7 +15,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 import uo.sdi.dto.types.UserStatus;
 
@@ -43,12 +42,9 @@ public class User implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private UserStatus status = UserStatus.ENABLED;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
-	
-	@XmlTransient
+	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)	
 	public List<Category> categories = new ArrayList<>();
 
-	@XmlTransient
 	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
 	public List<Task> tasks = new ArrayList<>();
 
