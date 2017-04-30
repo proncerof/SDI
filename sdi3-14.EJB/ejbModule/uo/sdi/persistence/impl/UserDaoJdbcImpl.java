@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 
 import uo.sdi.dto.User;
 import uo.sdi.persistence.UserDao;
-import uo.sdi.persistence.util.Jdbc;
 import uo.sdi.persistence.util.Jpa;
 
 public class UserDaoJdbcImpl implements UserDao {
@@ -34,7 +33,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
 	@Override
 	public void deleteAll() {
-		Jpa.getManager().createQuery(Jdbc.getSqlQuery("USER_DELETE_ALL"))
+		Jpa.getManager().createQuery(Jpa.getSqlQuery("USER_DELETE_ALL"))
 				.executeUpdate();
 	}
 
@@ -46,7 +45,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	@Override
 	public List<User> findAll() {
 		return Jpa.getManager()
-				.createQuery(Jdbc.getSqlQuery("USER_FIND_ALL"), User.class)
+				.createQuery(Jpa.getSqlQuery("USER_FIND_ALL"), User.class)
 				.getResultList();
 	}
 
@@ -54,7 +53,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	public User findByLogin(String login) {
 		List<User> res = Jpa
 				.getManager()
-				.createQuery(Jdbc.getSqlQuery("USER_FIND_BY_LOGIN"), User.class)
+				.createQuery(Jpa.getSqlQuery("USER_FIND_BY_LOGIN"), User.class)
 				.setParameter(1, login)
 				.getResultList();
 		
@@ -68,7 +67,7 @@ public class UserDaoJdbcImpl implements UserDao {
 		List<User> res = Jpa
 				.getManager()
 				.createQuery(
-						Jdbc.getSqlQuery("USER_FIND_BY_LOGIN_AND_PASSWORD"),
+						Jpa.getSqlQuery("USER_FIND_BY_LOGIN_AND_PASSWORD"),
 						User.class)
 				.setParameter(1, login)
 				.setParameter(2, password)

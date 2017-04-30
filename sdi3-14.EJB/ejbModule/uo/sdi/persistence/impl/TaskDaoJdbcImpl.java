@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 
 import uo.sdi.dto.Task;
 import uo.sdi.persistence.TaskDao;
-import uo.sdi.persistence.util.Jdbc;
 import uo.sdi.persistence.util.Jpa;
 
 public class TaskDaoJdbcImpl implements TaskDao {
@@ -40,7 +39,7 @@ public class TaskDaoJdbcImpl implements TaskDao {
 	@Override
 	public List<Task> findAll() {
 		return Jpa.getManager()
-				.createQuery(Jdbc.getSqlQuery("TASK_FIND_ALL"), Task.class)
+				.createQuery(Jpa.getSqlQuery("TASK_FIND_ALL"), Task.class)
 				.getResultList();
 	}
 
@@ -48,7 +47,7 @@ public class TaskDaoJdbcImpl implements TaskDao {
 	public int deleteAllFromUserId(Long userId) {
 		return Jpa
 				.getManager()
-				.createQuery(Jdbc.getSqlQuery("TASK_DELETE_BY_USER_ID"))
+				.createQuery(Jpa.getSqlQuery("TASK_DELETE_BY_USER_ID"))
 				.setParameter(1, userId)
 				.executeUpdate();
 	}
@@ -57,7 +56,7 @@ public class TaskDaoJdbcImpl implements TaskDao {
 	public int deleteAllFromCategory(Long catId) {
 		return Jpa
 				.getManager()
-				.createQuery(Jdbc.getSqlQuery("TASK_DELETE_BY_CATEGORY_ID"))
+				.createQuery(Jpa.getSqlQuery("TASK_DELETE_BY_CATEGORY_ID"))
 				.setParameter(1, catId)
 				.executeUpdate();
 	}
@@ -66,7 +65,7 @@ public class TaskDaoJdbcImpl implements TaskDao {
 	public List<Task> findByUserId(Long userId) {
 		return Jpa
 				.getManager()
-				.createQuery(Jdbc.getSqlQuery("TASK_FIND_BY_USER_ID"),
+				.createQuery(Jpa.getSqlQuery("TASK_FIND_BY_USER_ID"),
 						Task.class)
 				.setParameter(1, userId)
 				.getResultList();
@@ -76,7 +75,7 @@ public class TaskDaoJdbcImpl implements TaskDao {
 	public List<Task> findInboxTasksByUserId(Long userId) {
 		return Jpa
 				.getManager()
-				.createQuery(Jdbc.getSqlQuery("TASK_FIND_INBOX_BY_USER_ID"),
+				.createQuery(Jpa.getSqlQuery("TASK_FIND_INBOX_BY_USER_ID"),
 						Task.class)
 				.setParameter(1, userId)
 				.getResultList();
@@ -86,7 +85,7 @@ public class TaskDaoJdbcImpl implements TaskDao {
 	public List<Task> findTodayTasksByUserId(Long userId) {
 		return Jpa
 				.getManager()
-				.createQuery(Jdbc.getSqlQuery("TASK_FIND_TODAY_BY_USER_ID"),
+				.createQuery(Jpa.getSqlQuery("TASK_FIND_TODAY_BY_USER_ID"),
 						Task.class)
 				.setParameter(1, userId)
 				.getResultList();
@@ -96,7 +95,7 @@ public class TaskDaoJdbcImpl implements TaskDao {
 	public List<Task> findWeekTasksByUserId(Long userId) {
 		return Jpa
 				.getManager()
-				.createQuery(Jdbc.getSqlQuery("TASK_FIND_WEEK_BY_USER_ID"),
+				.createQuery(Jpa.getSqlQuery("TASK_FIND_WEEK_BY_USER_ID"),
 						Task.class)
 				.setParameter(1, userId)
 				.getResultList();
@@ -107,7 +106,7 @@ public class TaskDaoJdbcImpl implements TaskDao {
 		return Jpa
 				.getManager()
 				.createQuery(
-						Jdbc.getSqlQuery("TASK_FIND_UNFINISHED_BY_CATEGORY_ID"),
+						Jpa.getSqlQuery("TASK_FIND_UNFINISHED_BY_CATEGORY_ID"),
 						Task.class)
 				.setParameter(1, catId)
 				.getResultList();
@@ -118,7 +117,7 @@ public class TaskDaoJdbcImpl implements TaskDao {
 		return Jpa
 				.getManager()
 				.createQuery(
-						Jdbc.getSqlQuery("TASK_FIND_FINISHED_BY_CATEGORY_ID"),
+						Jpa.getSqlQuery("TASK_FIND_FINISHED_BY_CATEGORY_ID"),
 						Task.class)
 				.setParameter(1, catId)
 				.getResultList();
@@ -129,7 +128,7 @@ public class TaskDaoJdbcImpl implements TaskDao {
 		return Jpa
 				.getManager()
 				.createQuery(
-						Jdbc.getSqlQuery("TASK_FIND_FINISHED_INBOX_BY_USER_ID"),
+						Jpa.getSqlQuery("TASK_FIND_FINISHED_INBOX_BY_USER_ID"),
 						Task.class)
 				.setParameter(1, userId)
 				.getResultList();
@@ -139,7 +138,7 @@ public class TaskDaoJdbcImpl implements TaskDao {
 	@Override
 	public void deleteAll() {
 		Jpa.getManager()
-				.createQuery(Jdbc.getSqlQuery("TASK_DELETE_ALL"))
+				.createQuery(Jpa.getSqlQuery("TASK_DELETE_ALL"))
 				.executeUpdate();
 	}
 

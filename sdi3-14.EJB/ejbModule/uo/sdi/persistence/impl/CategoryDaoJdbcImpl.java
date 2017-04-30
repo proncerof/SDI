@@ -6,7 +6,6 @@ import javax.persistence.EntityManager;
 
 import uo.sdi.dto.Category;
 import uo.sdi.persistence.CategoryDao;
-import uo.sdi.persistence.util.Jdbc;
 import uo.sdi.persistence.util.Jpa;
 
 public class CategoryDaoJdbcImpl implements CategoryDao {
@@ -41,7 +40,7 @@ public class CategoryDaoJdbcImpl implements CategoryDao {
 	public List<Category> findAll() {
 		return Jpa
 				.getManager()
-				.createQuery(Jdbc.getSqlQuery("CATEGORY_FIND_ALL"),
+				.createQuery(Jpa.getSqlQuery("CATEGORY_FIND_ALL"),
 						Category.class)
 				.getResultList();
 
@@ -51,7 +50,7 @@ public class CategoryDaoJdbcImpl implements CategoryDao {
 	public List<Category> findByUserId(Long userId) {
 		return Jpa
 				.getManager()
-				.createQuery(Jdbc.getSqlQuery("CATEGORY_FIND_BY_USER_ID"),
+				.createQuery(Jpa.getSqlQuery("CATEGORY_FIND_BY_USER_ID"),
 						Category.class)
 				.setParameter(1, userId)
 				.getResultList();
@@ -61,7 +60,7 @@ public class CategoryDaoJdbcImpl implements CategoryDao {
 	public int deleteAllFromUserId(Long userId) {
 		return Jpa
 				.getManager()
-				.createQuery(Jdbc.getSqlQuery("CATEGORY_DELETE_BY_USER_ID"))
+				.createQuery(Jpa.getSqlQuery("CATEGORY_DELETE_BY_USER_ID"))
 				.setParameter(1, userId)
 				.executeUpdate();
 	}
@@ -71,7 +70,7 @@ public class CategoryDaoJdbcImpl implements CategoryDao {
 		List<Category> res = Jpa
 				.getManager()
 				.createQuery(
-						Jdbc.getSqlQuery("CATEGORY_FIND_BY_USER_ID_AND_NAME"),
+						Jpa.getSqlQuery("CATEGORY_FIND_BY_USER_ID_AND_NAME"),
 						Category.class)
 				.setParameter(1, userId)
 				.setParameter(2, name)
@@ -85,7 +84,7 @@ public class CategoryDaoJdbcImpl implements CategoryDao {
 	@Override
 	public void deleteAll() {
 		Jpa.getManager()
-				.createQuery(Jdbc.getSqlQuery("CATEGORY_DELETE_ALL"))
+				.createQuery(Jpa.getSqlQuery("CATEGORY_DELETE_ALL"))
 				.executeUpdate();
 	}
 
