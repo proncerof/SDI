@@ -24,10 +24,14 @@ namespace sdi3_14.Cli_REST_CSharp.menu.menuItems
         {
             long id = getLongFromUser("Introduzca el id de la categoria");
             List<dto.Task> tasks = restService.getTasksFromCategoryId(id);
-            tasks.OrderBy(t => t.planned);
+            if (tasks != null)
+            {
 
-            foreach (dto.Task t in tasks)
-                Console.WriteLine(t);
+                foreach (dto.Task t in tasks.OrderBy(t => t.plannedDate))
+                    Console.WriteLine(t);
+            }
+            else
+                Console.WriteLine("El id no es correcto o no se puede conectar con el servidor");
         }
 
 

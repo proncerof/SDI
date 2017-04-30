@@ -31,32 +31,57 @@ namespace sdi3_14.Cli_REST_CSharp.dto
         }
 
         [JsonProperty("created")]
-        public DateTime created
+        public long createdLong
+        {
+            get { return Convert.ToInt64(createdDate.ToUniversalTime().Subtract(new DateTime(1970, 1, 1).ToUniversalTime()).TotalMilliseconds); }
+            set { createdDate = new DateTime(1970, 1, 1).AddMilliseconds(value).ToLocalTime(); }
+
+        }
+
+        [JsonIgnore]
+        public DateTime createdDate
         {
             get;
             set;
         }
 
         [JsonProperty("planned")]
-        public DateTime planned
+        public long plannedLong
+        {
+            get { return Convert.ToInt64(plannedDate.ToUniversalTime().Subtract(new DateTime(1970, 1, 1).ToUniversalTime()).TotalMilliseconds); }
+            set { this.plannedDate = new DateTime(1970, 1, 1).AddMilliseconds(value).ToLocalTime(); }
+
+        }
+
+        [JsonIgnore]
+        public DateTime plannedDate
         {
             get;
             set;
         }
 
-        [JsonProperty("retarded")]
+        [JsonIgnore]
+        public bool retarded { get; set; }
+        /*
+        public long finishedLong
+        {
+            get { return finished.Ticks; }
+            set { this.finished = new DateTime(finishedLong); }
+
+        }
+
         public DateTime finished
         {
             get;
             set;
         }
-
+        */
 
         public override String ToString()
         {
-            return "Task [id=" + id + ", title=" + title + ", comments="
-                    + comments + ", created=" + created + ", planned=" + planned
-                    + ", finished=" + finished + "]";
+            return "Tarea [id=" + id + ", titulo = " + title + ", comentarios = "
+                    + comments + ", fecha de creacion = " + createdDate + ", fecha de planificacion = " + plannedDate
+                    + "]";
         }
 
     }

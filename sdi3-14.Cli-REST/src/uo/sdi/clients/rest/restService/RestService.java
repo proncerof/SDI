@@ -41,12 +41,20 @@ public class RestService {
 		return u;
 	}
 
-	public void createTask(Task tarea) {
-		ClientBuilder.newClient().register(new Authenticator(user, password))
-				.target(URL_BASE).path("users").path(userId.toString())
-				.path("tasks").request().accept(MediaType.APPLICATION_XML)
-				.post(Entity.entity(tarea, MediaType.APPLICATION_XML));
-
+	public Task createTask(Task tarea, Long catId) {
+		Task t;
+		try {
+			t = ClientBuilder.newClient()
+					.register(new Authenticator(user, password))
+					.target(URL_BASE).path("users").path(userId.toString())
+					.path("categories").path(catId.toString()).path("tasks")
+					.request().accept(MediaType.APPLICATION_XML)
+					.post(Entity.entity(tarea, MediaType.APPLICATION_XML))
+					.readEntity(Task.class);
+		} catch (javax.ws.rs.ProcessingException p) {
+			t = null;
+		}
+		return t;
 	}
 
 	public List<Category> findCategoriesByUserID() {

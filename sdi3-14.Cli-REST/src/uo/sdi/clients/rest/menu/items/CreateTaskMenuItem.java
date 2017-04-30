@@ -28,14 +28,25 @@ public class CreateTaskMenuItem extends MainMenuItem {
 
 		tarea.setCreated(DateUtil.now());
 
-		restService.createTask(tarea);
+		Long catId = Console.readLong("Introduzca el Id de la categoria");
 
-//		if (t == null)
-//			Console.println("No se ha podido enviar la tarea correctamente");
-//		else {
-//			Console.println("La tarea se ha enviado correctamente:");
-//			Console.println(t);
-//		}
+		if (catId == null) {
+			Console.println("Id de categoria incorrecto");
+			return;
+		}
+
+		Task t = restService.createTask(tarea, catId);
+
+		if (t == null)
+			Console.println("No se ha podido crear la tarea correctamente");
+		else
+			Console.println("Tarea creada: " + t);
+		// if (t == null)
+		// Console.println("No se ha podido enviar la tarea correctamente");
+		// else {
+		// Console.println("La tarea se ha enviado correctamente:");
+		// Console.println(t);
+		// }
 
 	}
 

@@ -29,9 +29,19 @@ namespace sdi3_14.Cli_REST_CSharp.menu.menuItems
             this.setComments(tarea);
             this.setPlanned(tarea);
 
-            tarea.created = new DateTime();
+            tarea.createdDate = new DateTime();
 
-            restService.createTask(tarea);
+            long catId = getLongFromUser("Introduzca el Id de la categoria");
+
+            dto.Task t = restService.createTask(tarea, catId);
+
+            if (t == null)
+                Console.WriteLine("No se ha podido crear la tarea");
+            else
+            {
+                Console.WriteLine("Tarea creada satisfactoriamente");
+                Console.WriteLine(t);
+            }
 
         }
 
@@ -57,7 +67,7 @@ namespace sdi3_14.Cli_REST_CSharp.menu.menuItems
                 int year = getIntFromUser("Introduzca el anio");
                 try
                 {
-                    fecha = new DateTime(day, month, year);
+                    fecha = new DateTime(year, month, day);
                     break;
                 }
                 catch (ArgumentOutOfRangeException a)
@@ -66,9 +76,27 @@ namespace sdi3_14.Cli_REST_CSharp.menu.menuItems
                 }
             }
 
-            tarea.planned = fecha;
+            tarea.plannedDate = fecha;
         }
 
+
+        private long getLongFromUser(String message)
+        {
+
+            long userInput = -1;
+
+            do
+            {
+                System.Console.Write(message + ": ");
+                String result = Console.ReadLine();
+
+                if (long.TryParse(result, out userInput))
+                    return userInput;
+
+                System.Console.WriteLine("Formato de numero incorrecto");
+            } while (true);
+
+        }
 
         private int getIntFromUser(String message)
         {

@@ -60,17 +60,24 @@ namespace sdi3_14.Cli_REST_CSharp.restService
             return u;
         }
 
-        public void createTask(dto.Task tarea)
+        public dto.Task createTask(dto.Task tarea, long catId)
         {
             string parsedTask = JsonConvert.SerializeObject(tarea);
 
             dto.Task responseTask = null;
 
-            System.Net.HttpWebRequest webrequest = (HttpWebRequest)System.Net.WebRequest.Create(URL_BASE + "/users/" + userId + "/tasks");
+            System.Net.HttpWebRequest webrequest = (HttpWebRequest)System.Net.WebRequest.Create(URL_BASE + "/users/" + userId + "/categories/" + catId + "/tasks");
             webrequest.Method = "POST";
-            webrequest.ContentType = "application/json";
+            
 
             webrequest.Headers.Add("Authorization", encodedCredentials);
+
+            byte[] bytes = Encoding.ASCII.GetBytes(parsedTask);
+
+            var newStream = webrequest.GetRequestStream();
+            newStream.Write(bytes, 0, bytes.Length);
+            newStream.Close();
+            webrequest.ContentType = "application/json";
 
             string result;
 
@@ -87,8 +94,11 @@ namespace sdi3_14.Cli_REST_CSharp.restService
             }
             catch (WebException e)
             {
-
+                return null;
             }
+            responseTask = JsonConvert.DeserializeObject<dto.Task>(result);
+
+            return responseTask;
         }
 
         public List<Category> findCategoriesByUserID()
