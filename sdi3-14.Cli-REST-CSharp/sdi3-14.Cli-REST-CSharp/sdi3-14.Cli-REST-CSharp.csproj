@@ -54,6 +54,7 @@
     <Compile Include="menu\menuItems\ListCategoriesMenuItem.cs" />
     <Compile Include="menu\menuItems\ListTaskFromCategoryIdMenuItem.cs" />
     <Compile Include="menu\menuItems\LoginMenuItem.cs" />
+    <Compile Include="menu\menuItems\LogoutMenuItem.cs" />
     <Compile Include="menu\menuItems\MainMenuItem.cs" />
     <Compile Include="menu\MenuItem.cs" />
     <Compile Include="menu\MenuItemExecutor.cs" />

@@ -24,9 +24,11 @@ public interface TaskServiceRest {
 	public Long login(@HeaderParam("Authorization") String authentication);
 
 	@POST
-	@Path("/users/{userId}/tasks")
+	@Path("/users/{userId}/categories/{catId}/tasks")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public void createTask(@PathParam("userId") Long userId,
+	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
+	public Task createTask(@PathParam("userId") Long userId,
+			@PathParam("catId") Long catId,
 			@HeaderParam("Authorization") String authorization, Task task);
 
 	@GET

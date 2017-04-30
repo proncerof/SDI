@@ -104,6 +104,10 @@ public class User implements Serializable {
 	public List<Task> getTasks() {
 		return new ArrayList<>(tasks);
 	}
+	
+	public List<Task> _getTasks() {
+		return tasks;
+	}
 
 	@Override
 	public String toString() {

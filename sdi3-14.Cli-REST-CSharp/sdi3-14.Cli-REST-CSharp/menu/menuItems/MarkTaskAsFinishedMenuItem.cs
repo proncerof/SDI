@@ -10,7 +10,7 @@ namespace sdi3_14.Cli_REST_CSharp.menu.menuItems
 {
     class MarkTaskAsFinishedMenuItem : MainMenuItem
     {
-        public MarkTaskAsFinishedMenuItem(RestService restService, User user) : base(restService, user)
+        public MarkTaskAsFinishedMenuItem(RestService restService) : base(restService)
         {
         }
 

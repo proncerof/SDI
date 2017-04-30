@@ -14,6 +14,7 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 
@@ -30,6 +31,7 @@ public class Category implements Serializable {
 	private String name;
 
 	@ManyToOne
+	@XmlTransient
 	private User user;
 
 	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
@@ -55,6 +57,7 @@ public class Category implements Serializable {
 	}
 
 	@JsonBackReference
+	@XmlTransient
 	public User getUser() {
 		return user;
 	}
@@ -64,6 +67,14 @@ public class Category implements Serializable {
 		return this;
 	}
 
+	public List<Task> getTasks() {
+		return new ArrayList<Task>(tasks);
+	}
+	
+	public List<Task> _getTasks() {
+		return tasks;
+	}
+	
 	@Override
 	public String toString() {
 		return "CategoryDto [id=" + id + ", name=" + name + "]";

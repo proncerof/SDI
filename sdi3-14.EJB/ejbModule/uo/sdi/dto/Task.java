@@ -38,6 +38,7 @@ public class Task implements Serializable, Comparable<Task> {
 	private Category category;
 
 	@ManyToOne
+	@XmlTransient
 	private User user;
 
 	@XmlElement
@@ -107,6 +108,7 @@ public class Task implements Serializable, Comparable<Task> {
 	}
 
 	@JsonBackReference
+	@XmlTransient
 	public User getUser() {
 		return user;
 	}
