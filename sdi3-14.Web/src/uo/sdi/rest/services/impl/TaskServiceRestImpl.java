@@ -37,8 +37,7 @@ public class TaskServiceRestImpl implements TaskServiceRest {
 				throw new InternalServerErrorException(e.getMessage());
 			}
 		} else {
-			throw new ForbiddenException(
-					"Id de usuario y login no coinciden");
+			throw new ForbiddenException("Id de usuario y login no coinciden");
 		}
 	}
 
@@ -49,8 +48,7 @@ public class TaskServiceRestImpl implements TaskServiceRest {
 		if (userId.equals(u.getId()))
 			return u.getCategories();
 		else
-			throw new ForbiddenException(
-					"Id de usuario y login no coinciden");
+			throw new ForbiddenException("Id de usuario y login no coinciden");
 	}
 
 	@Override
@@ -71,15 +69,13 @@ public class TaskServiceRestImpl implements TaskServiceRest {
 					+ " no tiene acceso a la tarea " + taskId);
 
 		} else
-			throw new ForbiddenException(
-					"Id de usuario y login no coinciden");
+			throw new ForbiddenException("Id de usuario y login no coinciden");
 
 	}
 
 	@Override
 	public List<Task> findTasksByCategoryId(Long userId, Long catId,
-			String authorization){
-
+			String authorization) {
 		User u = getUser(authorization);
 		if (userId.equals(u.getId())) {
 			for (Category c : u.getCategories())
@@ -94,8 +90,7 @@ public class TaskServiceRestImpl implements TaskServiceRest {
 					+ " no tiene acceso a la tarea " + catId);
 
 		} else
-			throw new ForbiddenException(
-					"Id de usuario y login no coinciden");
+			throw new ForbiddenException("Id de usuario y login no coinciden");
 	}
 
 	private User getUser(String authorization) {

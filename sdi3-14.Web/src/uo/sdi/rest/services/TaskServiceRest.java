@@ -32,7 +32,8 @@ public interface TaskServiceRest {
 	@GET
 	@Path("/users/{userId}/categories")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public List<Category> findCategoriesByUserId(@PathParam("userId") Long userId,
+	public List<Category> findCategoriesByUserId(
+			@PathParam("userId") Long userId,
 			@HeaderParam("Authorization") String authentication);
 
 	@PUT

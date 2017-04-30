@@ -9,7 +9,7 @@ import { Task } from "app/task";
 @Injectable()
 export class TaskService {
 
-  url:string = "http://lvh.me:8280/sdi3-14.Web/rest/TaskServiceRs/";
+  url:string = "http://localhost:8280/sdi3-14.Web/rest/TaskServiceRs/";
 
   constructor(private http:Http) {
    }
