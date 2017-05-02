@@ -6,6 +6,6 @@
   <label>Fecha planificada</label>
   <input type="date" [(ngModel)]="planned" name="planned" />
   <br/>
-  <input type="submit" (click)="createTask(title,planned)" value="Crear"/>
+  <button class="btn btn-primary" (click)="createTask(title,planned)">Crear</button>
 
 </form>

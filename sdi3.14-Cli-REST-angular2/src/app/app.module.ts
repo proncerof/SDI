@@ -10,6 +10,7 @@ import { TasksComponent } from './tasks/tasks.component';
 import { CreateTaskComponent } from './create-task/create-task.component';
 import { LoginComponent } from './login/login.component';
 import { Subject } from "rxjs/Subject";
+import { AppRoutingModule } from "app/app-routing.module";
 
 @NgModule({
   declarations: [
@@ -22,7 +23,8 @@ import { Subject } from "rxjs/Subject";
   imports: [
     BrowserModule,
     FormsModule,
-    HttpModule
+    HttpModule,
+    AppRoutingModule
   ],
   providers: [TaskService, Subject],
   bootstrap: [AppComponent]

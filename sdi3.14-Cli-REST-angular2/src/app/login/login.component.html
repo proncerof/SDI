@@ -2,8 +2,7 @@
 <input [(ngModel)]="username"/>
 <label>Password</label>
 <input [(ngModel)]="password" type="password"/>
-<button (click)="login()">Login</button>
-
-<app-categories></app-categories>
-<app-tasks></app-tasks>
-<app-create-task></app-create-task>
+<a routerLink="categories" (click)="login()">Login</a>
+<br/>
+<a routerLink="categories" (click)="showCategories()">Categorias</a>
+<router-outlet></router-outlet>

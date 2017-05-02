@@ -1,12 +1,16 @@
-<table>
+<table class="table">
   <thead>
     <th>ID</th>
     <th>Nombre</th>
+    <th>Tareas</th>
+    <th>Crear Tarea</th>
   </thead>
   <tbody *ngFor="let c of categories">
   <tr>
     <td>{{c.id}}</td>
     <td>{{c.name}}</td>
+    <td><a routerLink="{{c.id}}/tasks">Tareas</a></td>
+    <td><a routerLink="{{c.id}}/task">CreateTask</a></td>
   </tr>
   </tbody>
 </table>

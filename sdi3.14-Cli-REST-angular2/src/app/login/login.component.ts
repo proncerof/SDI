@@ -23,4 +23,8 @@ export class LoginComponent implements OnInit {
   login(){
     this.service.getUserId(this.username, this.password);
   }
+
+  showCategories(){
+    this.service.getCategories();
+  }
 }

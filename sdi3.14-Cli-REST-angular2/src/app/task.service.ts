@@ -10,7 +10,7 @@ import { Subject } from "rxjs/Subject";
 @Injectable()
 export class TaskService {
 
-  url: string = "http://192.168.0.34:8280/sdi3-14.Web/rest/TaskServiceRs/";
+  url: string = "http://localhost:8280/sdi3-14.Web/rest/TaskServiceRs/";
   id;
   username: string;
   password: string;
@@ -25,7 +25,7 @@ export class TaskService {
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + btoa(this.username + ":" + this.password));
 
-    this.http.get(url, { headers: headers }).map(res => { return res.text() }).subscribe(id => { this.id = id; this.subject.next(); });
+    this.http.get(url, { headers: headers }).map(res => { return res.text() }).subscribe(id => { this.id = id; this.showCategories();  });
   }
 
   getCategories(): Observable<Category[]> {
@@ -66,22 +66,26 @@ export class TaskService {
     return tasks;
   }
 
-  public finishTask(id: number) {
+  public finishTask(id: number): Observable<any> {
     var url: string = this.url + "users/" + this.id + "/tasks/" + id;
 
     let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + btoa(this.username + ":" + this.password));
 
-    this.http.put(url, "", { headers: headers }).subscribe();
+    return this.http.put(url, "", { headers: headers });
   }
 
-  public createTask(task: Task) {
-    var url: string = this.url + "users/"+this.id+"/categories/"+10671+"/tasks";
+  public createTask(task: Task, id:number) {
+    var url: string = this.url + "users/"+this.id+"/categories/"+id+"/tasks";
 
      let headers: Headers = new Headers();
     headers.append('Authorization', 'Basic ' + btoa(this.username + ":" + this.password));
 
     this.http.post(url, task, {headers:headers}).subscribe();
+  }
+
+  showCategories(){
+    this.subject.next();
   }
 
   private handleError(error: Response | any) {
