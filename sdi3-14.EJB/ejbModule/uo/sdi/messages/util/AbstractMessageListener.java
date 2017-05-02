@@ -20,8 +20,9 @@ public abstract class AbstractMessageListener implements MessageListener {
 	private static final String JMS_AUDIT_QUEUE = "java:jboss/exported/jms/queue/ErrorQueue";
 
 	private Connection con;
-	private Session session;
-	private MessageProducer responseProducer, errorSender;
+	protected Session session;
+	protected MessageProducer responseProducer;
+	private MessageProducer errorSender;
 
 	@Override
 	public void onMessage(Message m) {
@@ -30,16 +31,9 @@ public abstract class AbstractMessageListener implements MessageListener {
 			if (messageOfExpectedType(m))
 				process((MapMessage) m);
 		} catch (BusinessException e) {
-			try {
-				TextMessage errorMessage = session.createTextMessage();
-				errorMessage.setText(e.getMessage());
-				errorSender.send(errorMessage);
-			} catch (JMSException jex) {
-				e.printStackTrace();
-			}
-
+			sendErrorMessage(e.getMessage());
 		} catch (JMSException jex) {
-			
+			jex.printStackTrace();
 		}
 	}
 
@@ -54,12 +48,6 @@ public abstract class AbstractMessageListener implements MessageListener {
 		ObjectMessage response = session.createObjectMessage();
 
 		createResponse(message, response);
-		
-		response.setJMSCorrelationID(message.getJMSCorrelationID());
-
-		responseProducer = session.createProducer(message.getJMSReplyTo());
-
-		responseProducer.send(response);
 
 		close();
 	}
@@ -77,10 +65,12 @@ public abstract class AbstractMessageListener implements MessageListener {
 	private void close() throws JMSException {
 		con.close();
 		session.close();
-		responseProducer.close();
+		if (responseProducer != null)
+			responseProducer.close();
+		errorSender.close();
 	}
-	
-	protected void sendErrorMessage(String message){
+
+	protected void sendErrorMessage(String message) {
 		try {
 			TextMessage m = session.createTextMessage();
 			m.setText(message);

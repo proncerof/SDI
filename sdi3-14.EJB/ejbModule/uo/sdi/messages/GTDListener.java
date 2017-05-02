@@ -14,6 +14,7 @@ import javax.jms.ObjectMessage;
 import uo.sdi.business.TaskService;
 import uo.sdi.business.UserService;
 import uo.sdi.business.exception.BusinessException;
+import uo.sdi.dto.Category;
 import uo.sdi.dto.Task;
 import uo.sdi.dto.User;
 import uo.sdi.infrastructure.Factories;
@@ -35,19 +36,35 @@ public class GTDListener extends AbstractMessageListener {
 		if (cmd.equals("login")) {
 			response.setObject(user != null);
 		} else if (this.user != null) {
-
 			if (cmd.equals("getTareas")) {
 				getTasks(message, response);
 			} else if (cmd.equals("finishTask")) {
 				finishTask(message, response);
 			} else if (cmd.equals("newTask")) {
 				createTask(message, response);
-			} else
-				throw new BusinessException("Comando incorrecto");
-		} else {
-			sendErrorMessage("Intento de acceso de usuario no logeado");
+			}
 		}
 
+		if (!correctCommand(cmd)) {
+			sendErrorMessage("Comando incorrecto");
+		} else {
+			response.setJMSCorrelationID(message.getJMSCorrelationID());
+			responseProducer = session.createProducer(message.getJMSReplyTo());
+			responseProducer.send(response);
+		}
+		if (user == null) {
+			sendErrorMessage("Usuario o contraseña incorrectos");
+		}
+	}
+
+	private boolean correctCommand(String command) {
+		List<String> commands = new ArrayList<>();
+		commands.add("login");
+		commands.add("getTareas");
+		commands.add("finishTask");
+		commands.add("newTask");
+
+		return commands.contains(command);
 	}
 
 	private void finishTask(MapMessage message, ObjectMessage response)
@@ -60,6 +77,7 @@ public class GTDListener extends AbstractMessageListener {
 				return;
 			}
 		response.setObject("El usuario no tiene acceso a la tarea");
+		sendErrorMessage("El usuario no tiene acceso a la tarea");
 	}
 
 	private void getTasks(MapMessage message, ObjectMessage response)
@@ -76,8 +94,15 @@ public class GTDListener extends AbstractMessageListener {
 		t.setTitle(message.getString("title"));
 		t.setPlanned(new Date(message.getLong("planned")));
 		t.setUser(user);
-		taskService.createTask(t);
-		response.setObject("La tarea se ha creado correctamente");
+		
+		for(Category c : user.getCategories())
+			if(c.getId().equals(message.getLong("category"))){
+				taskService.createTask(t);
+				response.setObject("La tarea se ha creado correctamente");
+				return;
+			}
+		response.setObject("La categoria no pertenece al usuario");
+		sendErrorMessage("La categoria no pertenece al usuario");
 	}
 
 	private void authenticateUser(MapMessage message, ObjectMessage response)

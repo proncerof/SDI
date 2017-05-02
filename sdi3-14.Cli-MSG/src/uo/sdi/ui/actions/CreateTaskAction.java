@@ -25,13 +25,15 @@ public class CreateTaskAction extends AbstractMessageListener{
 		int day = Console.readInt("\tDia");
 		int month = Console.readInt("\tMes");
 		int year = Console.readInt("\tAño");
+		Long categoria = Console.readLong("Caregoria");
 		
 		Date planned = DateUtil.fromDdMmYyyy(day, month, year);
 		
 		msg.setString("command", "newTask");
-		msg.setLong("userId",5019);
 		msg.setString("title", title);
 		msg.setLong("planned", planned.getTime());
+		msg.setLong("category", categoria);
+
 	}
 
 }
