@@ -40,7 +40,7 @@ public class EjbAdminService implements EjbAdminServiceRemote,
 
 	@Override
 	public void enableUser(Long id) throws BusinessException {
-		new EnableUserCommand(id);
+		new EnableUserCommand(id).execute();
 	}
 
 	@Override

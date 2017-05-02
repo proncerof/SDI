@@ -19,7 +19,7 @@ import uo.sdi.dto.User;
 import uo.sdi.infrastructure.Factories;
 import uo.sdi.messages.util.AbstractMessageListener;
 
-@MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destination", propertyValue = "queue/NotaneitorQueue") })
+@MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destination", propertyValue = "jms/queue/GTDQueue") })
 public class GTDListener extends AbstractMessageListener {
 
 	private TaskService taskService = Factories.services.getTaskService();
@@ -41,9 +41,10 @@ public class GTDListener extends AbstractMessageListener {
 		} else if (cmd.equals("newTask")) {
 			createTask(message, response);
 		} else
-			throw new JMSException("Comando incorrecto");
-
-		response.setJMSCorrelationID(message.getJMSCorrelationID());
+			throw new BusinessException("Comando incorrecto");
+		
+		if(user == null)
+			throw new BusinessException("Login o contraseña incorrectos");
 
 	}
 

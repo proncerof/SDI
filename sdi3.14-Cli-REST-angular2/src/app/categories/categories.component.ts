@@ -9,12 +9,16 @@ import { TaskService } from "app/task.service";
 })
 export class CategoriesComponent implements OnInit {
 
-  private categories:Category[];
+  private categories: Category[];
 
-  constructor(private service:TaskService) {  }
+  constructor(private service: TaskService) { }
 
   ngOnInit() {
-    this.service.getCategories().subscribe(list => this.categories=list);
+    this.service.subject.subscribe(a=>this.getCategories());
+  }
+
+  getCategories() {
+    this.service.getCategories().subscribe(list => this.categories = list);
   }
 
 }

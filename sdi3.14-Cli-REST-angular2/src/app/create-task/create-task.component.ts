@@ -18,7 +18,7 @@ export class CreateTaskComponent implements OnInit {
   }
 
   createTask(){
-    var task:Task = new Task(undefined,this.title,undefined,this.planned,undefined);
+    var task:Task = new Task(undefined,this.title,undefined,this.planned);
     this.service.createTask(task);
   }
 

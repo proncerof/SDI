@@ -9,7 +9,7 @@ public class DeleteUserAction implements Action{
 	@Override
 	public void execute() throws Exception {
 		//Pedir datos
-		Long id = Console.readLong("Id del usuario:");
+		Long id = Console.readLong("Id del usuario");
 		
 		//Procesar
 		ServiceLocator.getAdminService().deepDeleteUser(id);

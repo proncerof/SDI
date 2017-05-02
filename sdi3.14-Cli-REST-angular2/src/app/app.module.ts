@@ -8,20 +8,23 @@ import { CategoriesComponent } from './categories/categories.component';
 import { TaskService } from "app/task.service";
 import { TasksComponent } from './tasks/tasks.component';
 import { CreateTaskComponent } from './create-task/create-task.component';
+import { LoginComponent } from './login/login.component';
+import { Subject } from "rxjs/Subject";
 
 @NgModule({
   declarations: [
     AppComponent,
     CategoriesComponent,
     TasksComponent,
-    CreateTaskComponent
+    CreateTaskComponent,
+    LoginComponent
   ],
   imports: [
     BrowserModule,
     FormsModule,
     HttpModule
   ],
-  providers: [TaskService],
+  providers: [TaskService, Subject],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

@@ -24,6 +24,9 @@ public class MenuItemExecutor {
 			}
 			// get the user option
 			Integer userOption = Console.readInt("Opcion");
+			if (userOption == null) {
+				userOption = -1;
+			}
 
 			if (userOption > items.size() || userOption < 0) {
 				Console.println("Opcion marcada incorrecta");
@@ -31,8 +34,7 @@ public class MenuItemExecutor {
 				Console.println("Saliendo");
 				break;
 			} else {
-				this.items = items.get(userOption-1).execute();
-				// this.items.add(new ExitMenuItem());
+				this.items = items.get(userOption - 1).execute();
 			}
 		}
 	}

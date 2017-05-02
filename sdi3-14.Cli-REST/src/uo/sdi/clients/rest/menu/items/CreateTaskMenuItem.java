@@ -41,12 +41,7 @@ public class CreateTaskMenuItem extends MainMenuItem {
 			Console.println("No se ha podido crear la tarea correctamente");
 		else
 			Console.println("Tarea creada: " + t);
-		// if (t == null)
-		// Console.println("No se ha podido enviar la tarea correctamente");
-		// else {
-		// Console.println("La tarea se ha enviado correctamente:");
-		// Console.println(t);
-		// }
+
 
 	}
 

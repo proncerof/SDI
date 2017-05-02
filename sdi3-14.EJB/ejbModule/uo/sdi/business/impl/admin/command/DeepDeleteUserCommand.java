@@ -18,6 +18,10 @@ public class DeepDeleteUserCommand{
 		TaskDao tDao = Factories.persistence.getTaskDao();
 		CategoryDao cDao = Factories.persistence.getCategoryDao();
 		UserDao uDao = Factories.persistence.getUserDao();
+		
+		if(uDao.findById(userId)==null){
+			throw new BusinessException("El usuario no existe");
+		}
 
 		tDao.deleteAllFromUserId(userId);
 		cDao.deleteAllFromUserId(userId);

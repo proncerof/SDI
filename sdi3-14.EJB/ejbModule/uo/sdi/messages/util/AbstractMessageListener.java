@@ -17,7 +17,7 @@ import uo.sdi.business.exception.BusinessException;
 public abstract class AbstractMessageListener implements MessageListener {
 
 	private static final String JMS_CONNECTION_FACTORY = "java:/ConnectionFactory";
-	private static final String JMS_AUDIT_QUEUE = "java:/queue/AuditQueue";
+	private static final String JMS_AUDIT_QUEUE = "java:jboss/exported/jms/queue/ErrorQueue";
 
 	private Connection con;
 	private Session session;
@@ -25,18 +25,10 @@ public abstract class AbstractMessageListener implements MessageListener {
 
 	@Override
 	public void onMessage(Message m) {
-		System.out.println("NotaneitorListener: Msg received");
+		System.out.println("GTDListener: Msg received");
 		try {
 			if (messageOfExpectedType(m))
 				process((MapMessage) m);
-		} catch (JMSException jex) {
-			try {
-				TextMessage errorMessage = session.createTextMessage();
-				errorMessage.setText(jex.getMessage());
-				errorSender.send(errorMessage);
-			} catch (JMSException e) {
-				e.printStackTrace();
-			}
 		} catch (BusinessException e) {
 			try {
 				TextMessage errorMessage = session.createTextMessage();
@@ -45,6 +37,9 @@ public abstract class AbstractMessageListener implements MessageListener {
 			} catch (JMSException jex) {
 				e.printStackTrace();
 			}
+
+		} catch (JMSException jex) {
+			
 		}
 	}
 
@@ -59,6 +54,8 @@ public abstract class AbstractMessageListener implements MessageListener {
 		ObjectMessage response = session.createObjectMessage();
 
 		createResponse(message, response);
+		
+		response.setJMSCorrelationID(message.getJMSCorrelationID());
 
 		responseProducer = session.createProducer(message.getJMSReplyTo());
 

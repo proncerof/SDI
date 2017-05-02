@@ -21,7 +21,7 @@ public abstract class AbstractMessageListener implements Action,
 		MessageListener {
 
 	private static final String JMS_CONNECTION_FACTORY = "jms/RemoteConnectionFactory";
-	private static final String NOTANEITOR_QUEUE = "jms/queue/NotaneitorQueue";
+	private static final String GTD_QUEUE = "jms/queue/GTDQueue";
 
 	private Connection con;
 	private Session session;
@@ -60,7 +60,7 @@ public abstract class AbstractMessageListener implements Action,
 	private void initialize() throws JMSException {
 		ConnectionFactory factory = (ConnectionFactory) Jndi
 				.find(JMS_CONNECTION_FACTORY);
-		Destination queue = (Destination) Jndi.find(NOTANEITOR_QUEUE);
+		Destination queue = (Destination) Jndi.find(GTD_QUEUE);
 		con = factory.createConnection("sdi", "password");
 		session = con.createSession(false, Session.AUTO_ACKNOWLEDGE);
 		sender = session.createProducer(queue);

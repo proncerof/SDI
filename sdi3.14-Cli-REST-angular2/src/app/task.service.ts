@@ -1,75 +1,96 @@
 import { Injectable } from '@angular/core';
-import { Http , Headers, RequestOptions, Response } from "@angular/http";
+import { Http, Headers, RequestOptions, Response } from "@angular/http";
 import { Observable } from "rxjs/Observable";
 import { Category } from "app/category";
 import "rxjs/Rx";
 import { Task } from "app/task";
+import { Subject } from "rxjs/Subject";
 
 
 @Injectable()
 export class TaskService {
 
-  url:string = "http://localhost:8280/sdi3-14.Web/rest/TaskServiceRs/";
+  url: string = "http://192.168.0.34:8280/sdi3-14.Web/rest/TaskServiceRs/";
+  id;
+  username: string;
+  password: string;
 
-  constructor(private http:Http) {
-   }
-
-  getCategories():Observable<Category[]>{
-    var url:string = this.url+"users/5015/categories"
-    
-    let username: string = "user1";
-      let password: string = "user1";
-      let headers: Headers = new Headers();
-      headers.append("Authorization", "Basic " + btoa(username +":"+ password));
-
-      var options:RequestOptions = new RequestOptions({headers:headers});
-
-    return this.http.get(url,options).
-            map(this.parseCategory).
-            catch(this.handleError);
+  constructor(private http: Http, public subject: Subject<any>) {
   }
 
-  private parseCategory(res:Response):Category[]{
+  getUserId(username: string, password: string) {
+    this.username = username;
+    this.password = password;
+    var url = this.url + "login";
+    let headers: Headers = new Headers();
+    headers.append('Authorization', 'Basic ' + btoa(this.username + ":" + this.password));
+
+    this.http.get(url, { headers: headers }).map(res => { return res.text() }).subscribe(id => { this.id = id; this.subject.next(); });
+  }
+
+  getCategories(): Observable<Category[]> {
+    var url: string = this.url + "users/" + this.id + "/categories"
+
+    let headers: Headers = new Headers();
+    headers.append('Authorization', 'Basic ' + btoa(this.username + ":" + this.password));
+
+    return this.http.get(url, { headers: headers }).
+      map(this.parseCategory).
+      catch(this.handleError);
+  }
+
+  private parseCategory(res: Response): Category[] {
     var categories: Category[] = [];
-    for(let result of res.json()){
-      categories.push(new Category(result["id"],result["name"]))
+    for (let result of res.json()) {
+      categories.push(new Category(result["id"], result["name"]))
     }
     return categories;
   }
 
-  getTasks(id:number):Observable<Task[]>{
-    var url:string = this.url+"categories/"+id+"/tasks";
-    
-    return this.http.get(url).
-            map(this.parseTask).
-            catch(this.handleError);
+  getTasks(id: number): Observable<Task[]> {
+    var url: string = this.url + "users/" + this.id + "/categories/" + id + "/tasks";
+
+    let headers: Headers = new Headers();
+    headers.append('Authorization', 'Basic ' + btoa(this.username + ":" + this.password));
+
+    return this.http.get(url, { headers: headers }).
+      map(this.parseTask).
+      catch(this.handleError);
   }
 
-  private parseTask(res:Response):Task[]{
+  private parseTask(res: Response): Task[] {
     var tasks: Task[] = [];
-    for(let result of res.json()){
-      tasks.push(new Task(result["id"],result["title"],result["created"],result["planned"],result["retarded"]));
+    for (let result of res.json()) {
+      tasks.push(new Task(result["id"], result["title"], result["created"], result["planned"]));
     }
     return tasks;
   }
 
-  public finishTask(id:number){
-    var url:string = this.url+"tasks/"+id;
-    this.http.post(url,"").subscribe();
+  public finishTask(id: number) {
+    var url: string = this.url + "users/" + this.id + "/tasks/" + id;
+
+    let headers: Headers = new Headers();
+    headers.append('Authorization', 'Basic ' + btoa(this.username + ":" + this.password));
+
+    this.http.put(url, "", { headers: headers }).subscribe();
   }
 
- public createTask(task:Task){
-   var url:string = this.url+"tasks";
-   this.http.post(url,task).subscribe();
- }
+  public createTask(task: Task) {
+    var url: string = this.url + "users/"+this.id+"/categories/"+10671+"/tasks";
 
-  private handleError(error : Response | any){
-    let errMsg : string;
-    if(error instanceof Response){
+     let headers: Headers = new Headers();
+    headers.append('Authorization', 'Basic ' + btoa(this.username + ":" + this.password));
+
+    this.http.post(url, task, {headers:headers}).subscribe();
+  }
+
+  private handleError(error: Response | any) {
+    let errMsg: string;
+    if (error instanceof Response) {
       const body = error.json() || '';
-      const err = body.error || JSON.stringify(body); 
+      const err = body.error || JSON.stringify(body);
       errMsg = `${error.status} - ${error.statusText || ''} ${err}`;
-    }else{
+    } else {
       errMsg = error.message ? error.message : error.toString();
     }
     console.error(errMsg);

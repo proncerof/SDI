@@ -78,7 +78,6 @@ public class RestService {
 	}
 
 	public void markTaskAsFinished(Long id) {
-		// PREGUNTAR A ALBERTO
 		ClientBuilder.newClient().register(new Authenticator(user, password))
 				.target(URL_BASE).path("users").path(userId.toString())
 				.path("tasks").path(id.toString()).request().put(null);

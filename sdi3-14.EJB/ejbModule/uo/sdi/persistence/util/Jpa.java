@@ -13,15 +13,16 @@ import alb.util.jdbc.Jdbc;
 import uo.sdi.persistence.PersistenceException;
 
 public class Jpa {
-	private static final String QUERIES_PROPERTIES_FILE = "sql_queries.properties";
+	private static final String PERSISTENCE_PROPERTIES_FILE = "persistence.properties";
 
 	private static ThreadLocal<EntityManager> emThread = new ThreadLocal<EntityManager>();
-	private static Properties sqlQueries = loadProperties(QUERIES_PROPERTIES_FILE);
+	private static Properties sqlQueries = loadProperties(PERSISTENCE_PROPERTIES_FILE);
 
 	public static EntityManager getManager() {
 		EntityManager entityManager = emThread.get();
 		if (entityManager == null) {
-			entityManager = jndiFind("java:/JpaEntityManager");
+			entityManager = jndiFind(sqlQueries
+					.getProperty("JNDI_ENTITY_MANAGER"));
 			emThread.set(entityManager);
 		}
 		return entityManager;
