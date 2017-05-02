@@ -14,7 +14,7 @@ public class FindTodayTasksAction extends AbstractMessageListener {
 	@SuppressWarnings("unchecked")
 	@Override
 	protected void processResponse(ObjectMessage message) throws JMSException {
-		if (message.getObject() != null) {
+		if (message.getObject() instanceof List) {
 			List<String> tasks = (List<String>) message.getObject();
 			for (String task : tasks) {
 				System.out.print("\n" + task);

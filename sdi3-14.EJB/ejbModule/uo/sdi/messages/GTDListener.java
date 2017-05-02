@@ -34,57 +34,50 @@ public class GTDListener extends AbstractMessageListener {
 		authenticateUser(message, response);
 		if (cmd.equals("login")) {
 			response.setObject(user != null);
-		} else if (cmd.equals("getTareas")) {
-			getTasks(message, response);
-		} else if (cmd.equals("finishTask")) {
-			finishTask(message, response);
-		} else if (cmd.equals("newTask")) {
-			createTask(message, response);
-		} else
-			throw new BusinessException("Comando incorrecto");
-		
-		if(user == null)
-			throw new BusinessException("Login o contraseña incorrectos");
+		} else if (this.user != null) {
+
+			if (cmd.equals("getTareas")) {
+				getTasks(message, response);
+			} else if (cmd.equals("finishTask")) {
+				finishTask(message, response);
+			} else if (cmd.equals("newTask")) {
+				createTask(message, response);
+			} else
+				throw new BusinessException("Comando incorrecto");
+		} else {
+			sendErrorMessage("Intento de acceso de usuario no logeado");
+		}
 
 	}
 
 	private void finishTask(MapMessage message, ObjectMessage response)
 			throws JMSException, BusinessException {
-		if (user != null) {
-			Long taskId = message.getLong("taskId");
-			for (Task t : user.getTasks())
-				if (t.getId().equals(taskId)) {
-					taskService.markTaskAsFinished(taskId);
-					response.setObject("La tarea " + taskId
-							+ " ha sido finalizada");
-					return;
-				}
-			response.setObject("El usuario no tiene acceso a la tarea");
-		} else
-			response.setObject("Debes iniciar sesion");
+		Long taskId = message.getLong("taskId");
+		for (Task t : user.getTasks())
+			if (t.getId().equals(taskId)) {
+				taskService.markTaskAsFinished(taskId);
+				response.setObject("La tarea " + taskId + " ha sido finalizada");
+				return;
+			}
+		response.setObject("El usuario no tiene acceso a la tarea");
 	}
 
 	private void getTasks(MapMessage message, ObjectMessage response)
 			throws BusinessException, JMSException {
-		if (user != null) {
-			List<String> tareas = new ArrayList<>();
-			for (Task t : taskService.findTodayTasksByUserId(user.getId()))
-				tareas.add(t.toString());
-			response.setObject((Serializable) tareas);
-		}
+		List<String> tareas = new ArrayList<>();
+		for (Task t : taskService.findTodayTasksByUserId(user.getId()))
+			tareas.add(t.toString());
+		response.setObject((Serializable) tareas);
 	}
 
 	private void createTask(MapMessage message, ObjectMessage response)
 			throws JMSException, BusinessException {
-		if (user != null) {
-			Task t = new Task();
-			t.setTitle(message.getString("title"));
-			t.setPlanned(new Date(message.getLong("planned")));
-			t.setUser(user);
-			taskService.createTask(t);
-			response.setObject("La tarea se ha creado correctamente");
-		} else
-			response.setObject("Debes iniciar sesion");
+		Task t = new Task();
+		t.setTitle(message.getString("title"));
+		t.setPlanned(new Date(message.getLong("planned")));
+		t.setUser(user);
+		taskService.createTask(t);
+		response.setObject("La tarea se ha creado correctamente");
 	}
 
 	private void authenticateUser(MapMessage message, ObjectMessage response)

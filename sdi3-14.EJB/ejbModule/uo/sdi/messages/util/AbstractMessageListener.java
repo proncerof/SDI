@@ -79,6 +79,16 @@ public abstract class AbstractMessageListener implements MessageListener {
 		session.close();
 		responseProducer.close();
 	}
+	
+	protected void sendErrorMessage(String message){
+		try {
+			TextMessage m = session.createTextMessage();
+			m.setText(message);
+			errorSender.send(m);
+		} catch (JMSException e) {
+			e.printStackTrace();
+		}
+	}
 
 	protected abstract void createResponse(MapMessage message, ObjectMessage msg)
 			throws JMSException, BusinessException;
