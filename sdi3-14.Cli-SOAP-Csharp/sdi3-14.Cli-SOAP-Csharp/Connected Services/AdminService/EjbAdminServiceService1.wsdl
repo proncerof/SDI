@@ -2,6 +2,7 @@
 <wsdl:definitions xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:tns="http://admin.impl.business.sdi.uo/" xmlns:ns1="http://schemas.xmlsoap.org/soap/http" name="EjbAdminServiceService" targetNamespace="http://admin.impl.business.sdi.uo/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
   <wsdl:types>
     <xs:schema attributeFormDefault="unqualified" elementFormDefault="unqualified" targetNamespace="http://admin.impl.business.sdi.uo/" xmlns:xs="http://www.w3.org/2001/XMLSchema">
+      <xs:element name="category" type="tns:category" />
       <xs:element name="deepDeleteUser" type="tns:deepDeleteUser" />
       <xs:element name="deepDeleteUserResponse" type="tns:deepDeleteUserResponse" />
       <xs:element name="disableUser" type="tns:disableUser" />
@@ -9,11 +10,36 @@
       <xs:element name="enableUser" type="tns:enableUser" />
       <xs:element name="enableUserResponse" type="tns:enableUserResponse" />
       <xs:element name="findAllUsers" type="tns:findAllUsers" />
+      <xs:element name="findAllUsersEjbClient" type="tns:findAllUsersEjbClient" />
+      <xs:element name="findAllUsersEjbClientResponse" type="tns:findAllUsersEjbClientResponse" />
       <xs:element name="findAllUsersResponse" type="tns:findAllUsersResponse" />
       <xs:element name="findUserById" type="tns:findUserById" />
       <xs:element name="findUserByIdResponse" type="tns:findUserByIdResponse" />
       <xs:element name="reseteaDB" type="tns:reseteaDB" />
       <xs:element name="reseteaDBResponse" type="tns:reseteaDBResponse" />
+      <xs:element name="task" type="tns:task" />
+      <xs:element name="user" type="tns:user" />
+      <xs:complexType name="findAllUsersEjbClient">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="findAllUsersEjbClientResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:ejbClientUser" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ejbClientUser">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="email" type="xs:string" />
+          <xs:element minOccurs="0" name="id" type="xs:long" />
+          <xs:element minOccurs="0" name="isAdmin" type="xs:boolean" />
+          <xs:element minOccurs="0" name="login" type="xs:string" />
+          <xs:element minOccurs="0" name="status" type="tns:userStatus" />
+          <xs:element name="tareasCompletadas" type="xs:int" />
+          <xs:element name="tareasCompletadasRetrasadas" type="xs:int" />
+          <xs:element name="tareasPlanificadas" type="xs:int" />
+          <xs:element name="tareasSinPlanificar" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
       <xs:complexType name="findUserById">
         <xs:sequence>
           <xs:element minOccurs="0" name="arg0" type="xs:long" />
@@ -44,7 +70,6 @@
       </xs:complexType>
       <xs:complexType name="task">
         <xs:sequence>
-          <xs:element minOccurs="0" name="category" type="tns:category" />
           <xs:element minOccurs="0" name="comments" type="xs:string" />
           <xs:element minOccurs="0" name="created" type="xs:dateTime" />
           <xs:element minOccurs="0" name="finished" type="xs:dateTime" />
@@ -108,11 +133,11 @@
   <wsdl:message name="BusinessException">
     <wsdl:part name="BusinessException" element="tns:BusinessException" />
   </wsdl:message>
-  <wsdl:message name="findUserById">
-    <wsdl:part name="parameters" element="tns:findUserById" />
-  </wsdl:message>
   <wsdl:message name="deepDeleteUser">
     <wsdl:part name="parameters" element="tns:deepDeleteUser" />
+  </wsdl:message>
+  <wsdl:message name="findUserById">
+    <wsdl:part name="parameters" element="tns:findUserById" />
   </wsdl:message>
   <wsdl:message name="findUserByIdResponse">
     <wsdl:part name="parameters" element="tns:findUserByIdResponse" />
@@ -123,11 +148,14 @@
   <wsdl:message name="findAllUsers">
     <wsdl:part name="parameters" element="tns:findAllUsers" />
   </wsdl:message>
-  <wsdl:message name="disableUser">
-    <wsdl:part name="parameters" element="tns:disableUser" />
+  <wsdl:message name="findAllUsersEjbClient">
+    <wsdl:part name="parameters" element="tns:findAllUsersEjbClient" />
   </wsdl:message>
   <wsdl:message name="reseteaDBResponse">
     <wsdl:part name="parameters" element="tns:reseteaDBResponse" />
+  </wsdl:message>
+  <wsdl:message name="disableUser">
+    <wsdl:part name="parameters" element="tns:disableUser" />
   </wsdl:message>
   <wsdl:message name="reseteaDB">
     <wsdl:part name="parameters" element="tns:reseteaDB" />
@@ -144,7 +172,15 @@
   <wsdl:message name="deepDeleteUserResponse">
     <wsdl:part name="parameters" element="tns:deepDeleteUserResponse" />
   </wsdl:message>
+  <wsdl:message name="findAllUsersEjbClientResponse">
+    <wsdl:part name="parameters" element="tns:findAllUsersEjbClientResponse" />
+  </wsdl:message>
   <wsdl:portType name="AdminService">
+    <wsdl:operation name="findAllUsersEjbClient">
+      <wsdl:input name="findAllUsersEjbClient" message="tns:findAllUsersEjbClient" />
+      <wsdl:output name="findAllUsersEjbClientResponse" message="tns:findAllUsersEjbClientResponse" />
+      <wsdl:fault name="BusinessException" message="tns:BusinessException" />
+    </wsdl:operation>
     <wsdl:operation name="findUserById">
       <wsdl:input name="findUserById" message="tns:findUserById" />
       <wsdl:output name="findUserByIdResponse" message="tns:findUserByIdResponse" />
@@ -178,6 +214,18 @@
   </wsdl:portType>
   <wsdl:binding name="EjbAdminServiceServiceSoapBinding" type="tns:AdminService">
     <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="findAllUsersEjbClient">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="findAllUsersEjbClient">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="findAllUsersEjbClientResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessException">
+        <soap:fault use="literal" name="BusinessException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
     <wsdl:operation name="disableUser">
       <soap:operation soapAction="" style="document" />
       <wsdl:input name="disableUser">
@@ -253,7 +301,7 @@
   </wsdl:binding>
   <wsdl:service name="EjbAdminServiceService">
     <wsdl:port name="AdminServicePort" binding="tns:EjbAdminServiceServiceSoapBinding">
-      <soap:address location="http://DESKTOP-87JS7ST:8280/sdi3-14.EJB/AdminService" />
+      <soap:address location="http://DESKTOP-K20Q73C:8280/sdi3-14.EJB/AdminService" />
     </wsdl:port>
   </wsdl:service>
 </wsdl:definitions>

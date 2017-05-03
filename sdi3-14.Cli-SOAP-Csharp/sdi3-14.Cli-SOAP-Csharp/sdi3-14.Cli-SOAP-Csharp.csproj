@@ -54,14 +54,20 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />
-    <None Include="Connected Services\AdminService\EjbAdminServiceService.wsdl" />
+    <None Include="Connected Services\AdminService\EjbAdminServiceService1.wsdl" />
     <None Include="Connected Services\AdminService\sdi3_14.Cli_SOAP_Csharp.AdminService.deepDeleteUserResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\AdminService\sdi3_14.Cli_SOAP_Csharp.AdminService.disableUserResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\AdminService\sdi3_14.Cli_SOAP_Csharp.AdminService.ejbClientUser.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\AdminService\sdi3_14.Cli_SOAP_Csharp.AdminService.enableUserResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
+    <None Include="Connected Services\AdminService\sdi3_14.Cli_SOAP_Csharp.AdminService.findAllUsersEjbClientResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
     <None Include="Connected Services\AdminService\sdi3_14.Cli_SOAP_Csharp.AdminService.findAllUsersResponse.datasource">
