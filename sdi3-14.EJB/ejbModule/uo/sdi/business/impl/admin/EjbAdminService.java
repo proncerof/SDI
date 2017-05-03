@@ -1,5 +1,6 @@
 package uo.sdi.business.impl.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
@@ -11,6 +12,7 @@ import uo.sdi.business.impl.admin.command.DisableUserCommand;
 import uo.sdi.business.impl.admin.command.EnableUserCommand;
 import uo.sdi.business.impl.admin.command.ResetDBCommand;
 import uo.sdi.dto.User;
+import uo.sdi.dto.ejb.EjbClientUser;
 import uo.sdi.infrastructure.Factories;
 
 /**
@@ -25,7 +27,6 @@ public class EjbAdminService implements EjbAdminServiceRemote,
 	 * Default constructor.
 	 */
 	public EjbAdminService() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -56,5 +57,17 @@ public class EjbAdminService implements EjbAdminServiceRemote,
 	@Override
 	public void reseteaDB() throws BusinessException {
 		new ResetDBCommand().execute();
+	}
+
+	@Override
+	public List<EjbClientUser> findAllUsersEjbClient() throws BusinessException {
+		List<User> users = Factories.persistence.getUserDao().findAll();
+
+		List<EjbClientUser> newUsers = new ArrayList<EjbClientUser>();
+
+		for (User u : users)
+			newUsers.add(new EjbClientUser(u));
+		
+		return newUsers;
 	}
 }
