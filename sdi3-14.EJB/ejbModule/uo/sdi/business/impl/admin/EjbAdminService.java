@@ -7,6 +7,7 @@ import javax.ejb.Stateless;
 import javax.jws.WebService;
 
 import uo.sdi.business.exception.BusinessException;
+import uo.sdi.business.impl.ModelDtoConverter;
 import uo.sdi.business.impl.admin.command.DeepDeleteUserCommand;
 import uo.sdi.business.impl.admin.command.DisableUserCommand;
 import uo.sdi.business.impl.admin.command.EnableUserCommand;
@@ -66,8 +67,14 @@ public class EjbAdminService implements EjbAdminServiceRemote,
 		List<EjbClientUser> newUsers = new ArrayList<EjbClientUser>();
 
 		for (User u : users)
-			newUsers.add(new EjbClientUser(u));
-		
+			newUsers.add(ModelDtoConverter.convertUser(u));
+
 		return newUsers;
+	}
+
+	@Override
+	public EjbClientUser findUserByIdEjbClient(Long id)
+			throws BusinessException {
+		return ModelDtoConverter.convertUser(findUserById(id));
 	}
 }

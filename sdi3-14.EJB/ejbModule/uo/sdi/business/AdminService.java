@@ -22,4 +22,8 @@ public interface AdminService {
 
 	// Servicios para el cliente ejb
 	public List<EjbClientUser> findAllUsersEjbClient() throws BusinessException;
+
+	public EjbClientUser findUserByIdEjbClient(Long id)
+			throws BusinessException;
+
 }

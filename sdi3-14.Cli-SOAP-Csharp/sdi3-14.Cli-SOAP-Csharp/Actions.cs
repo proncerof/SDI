@@ -45,7 +45,7 @@ namespace sdi3_14.Cli_SOAP_Csharp
         {
             Console.Write("Id del usuario:");
             long id = Convert.ToInt64(Console.ReadLine());
-            if (service.findUserById(id) != null)
+            if (service.findUserByIdEjbClient(id) != null)
                 service.disableUserAsync(id);
             else
                 Console.WriteLine("\tUsuario no encontrado");
@@ -55,7 +55,7 @@ namespace sdi3_14.Cli_SOAP_Csharp
         {
             Console.Write("Id del usuario:");
             long id = Convert.ToInt64(Console.ReadLine());
-            if (service.findUserById(id) != null)
+            if (service.findUserByIdEjbClient(id) != null)
                 service.enableUserAsync(id);
             else
                 Console.WriteLine("\tUsuario no encontrado");
@@ -66,7 +66,7 @@ namespace sdi3_14.Cli_SOAP_Csharp
 
             Console.Write("Id del usuario:");
             long id = Convert.ToInt64(Console.ReadLine());
-            if (service.findUserById(id) != null)
+            if (service.findUserByIdEjbClient(id) != null)
                 service.deepDeleteUserAsync(id);
             else
                 Console.WriteLine("\tUsuario no encontrado");

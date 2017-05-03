@@ -73,6 +73,9 @@
     <None Include="Connected Services\AdminService\sdi3_14.Cli_SOAP_Csharp.AdminService.findAllUsersResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>
+    <None Include="Connected Services\AdminService\sdi3_14.Cli_SOAP_Csharp.AdminService.findUserByIdEjbClientResponse.datasource">
+      <DependentUpon>Reference.svcmap</DependentUpon>
+    </None>
     <None Include="Connected Services\AdminService\sdi3_14.Cli_SOAP_Csharp.AdminService.findUserByIdResponse.datasource">
       <DependentUpon>Reference.svcmap</DependentUpon>
     </None>

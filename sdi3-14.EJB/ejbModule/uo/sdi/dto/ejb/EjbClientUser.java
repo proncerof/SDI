@@ -4,13 +4,11 @@ import java.io.Serializable;
 
 import javax.xml.bind.annotation.XmlElement;
 
-import uo.sdi.model.Task;
-import uo.sdi.model.User;
 import uo.sdi.model.types.UserStatus;
 
 public class EjbClientUser implements Serializable {
 
-	private static final long serialVersionUID = 5461745400344675866L;
+	private static final long serialVersionUID = 7521139039516091035L;
 
 	private Long id;
 
@@ -23,33 +21,10 @@ public class EjbClientUser implements Serializable {
 	private int tareasCompletadas, tareasCompletadasRetrasadas,
 			tareasPlanificadas, tareasSinPlanificar;
 
-	public EjbClientUser(User user) {
-		this.id = user.getId();
-		this.email = user.getEmail();
-		this.isAdmin = user.getIsAdmin();
-		this.status = user.getStatus();
-
-		for (Task t : user.getTasks()) {
-			if (t.getFinished() != null) {
-				this.tareasCompletadas++;
-
-				if (t.getFinished().compareTo(t.getPlanned()) > 0) {
-					this.tareasCompletadasRetrasadas++;
-				}
-
-			} else if (t.getPlanned() != null) {
-				this.tareasPlanificadas++;
-			} else {
-				tareasSinPlanificar++;
-			}
-		}
-	}
-
 	public void setIsAdmin(Boolean isAdmin) {
 		this.isAdmin = isAdmin;
 	}
 
-	@XmlElement
 	public Long getId() {
 		return id;
 	}
@@ -69,7 +44,6 @@ public class EjbClientUser implements Serializable {
 		return this;
 	}
 
-	@XmlElement
 	public String getEmail() {
 		return email;
 	}
@@ -79,7 +53,6 @@ public class EjbClientUser implements Serializable {
 		return this;
 	}
 
-	@XmlElement
 	public Boolean getIsAdmin() {
 		return isAdmin;
 	}
@@ -95,7 +68,6 @@ public class EjbClientUser implements Serializable {
 				+ tareasSinPlanificar + "]";
 	}
 
-	@XmlElement
 	public UserStatus getStatus() {
 		return status;
 	}

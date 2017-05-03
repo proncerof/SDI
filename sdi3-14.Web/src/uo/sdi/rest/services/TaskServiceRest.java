@@ -12,8 +12,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import uo.sdi.model.Category;
-import uo.sdi.model.Task;
+import uo.sdi.dto.rest.RestClientCategory;
+import uo.sdi.dto.rest.RestClientTask;
 
 @Path("/TaskServiceRs")
 public interface TaskServiceRest {
@@ -27,14 +27,14 @@ public interface TaskServiceRest {
 	@Path("/users/{userId}/categories/{catId}/tasks")
 	@Consumes({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public Task createTask(@PathParam("userId") Long userId,
+	public RestClientTask createTask(@PathParam("userId") Long userId,
 			@PathParam("catId") Long catId,
-			@HeaderParam("Authorization") String authorization, Task task);
+			@HeaderParam("Authorization") String authorization, RestClientTask task);
 
 	@GET
 	@Path("/users/{userId}/categories")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public List<Category> findCategoriesByUserId(
+	public List<RestClientCategory> findCategoriesByUserId(
 			@PathParam("userId") Long userId,
 			@HeaderParam("Authorization") String authentication);
 
@@ -47,7 +47,8 @@ public interface TaskServiceRest {
 	@GET
 	@Path("/users/{userId}/categories/{catId}/tasks")
 	@Produces({ MediaType.APPLICATION_JSON, MediaType.APPLICATION_XML })
-	public List<Task> findTasksByCategoryId(@PathParam("userId") Long userId,
+	public List<RestClientTask> findTasksByCategoryId(@PathParam("userId") Long userId,
 			@PathParam("catId") Long catId,
 			@HeaderParam("Authorization") String authentication);
+
 }
