@@ -6,10 +6,10 @@ import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.ObjectMessage;
 
+import uo.sdi.ui.actions.util.AbstractMessageProducer;
 import alb.util.console.Console;
-import uo.sdi.ui.actions.util.AbstractMessageListener;
 
-public class FindTodayTasksAction extends AbstractMessageListener {
+public class FindTodayTasksAction extends AbstractMessageProducer {
 
 	@SuppressWarnings("unchecked")
 	@Override

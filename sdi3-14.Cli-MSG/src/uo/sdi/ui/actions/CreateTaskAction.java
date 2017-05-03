@@ -6,11 +6,11 @@ import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.ObjectMessage;
 
+import uo.sdi.ui.actions.util.AbstractMessageProducer;
 import alb.util.console.Console;
 import alb.util.date.DateUtil;
-import uo.sdi.ui.actions.util.AbstractMessageListener;
 
-public class CreateTaskAction extends AbstractMessageListener{
+public class CreateTaskAction extends AbstractMessageProducer{
 
 	@Override
 	protected void processResponse(ObjectMessage message) throws JMSException {
