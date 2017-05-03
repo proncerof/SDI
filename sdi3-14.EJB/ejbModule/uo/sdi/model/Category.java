@@ -1,4 +1,4 @@
-package uo.sdi.dto;
+package uo.sdi.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,8 +12,6 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-
-import org.codehaus.jackson.annotate.JsonBackReference;
 
 @Entity
 @Table(name = "TCategories")
@@ -49,7 +47,7 @@ public class Category implements Serializable {
 		return this;
 	}
 
-	@JsonBackReference
+
 	public User getUser() {
 		return user;
 	}
@@ -62,11 +60,11 @@ public class Category implements Serializable {
 	public List<Task> getTasks() {
 		return new ArrayList<Task>(tasks);
 	}
-	
+
 	public List<Task> _getTasks() {
 		return tasks;
 	}
-	
+
 	@Override
 	public String toString() {
 		return "CategoryDto [id=" + id + ", name=" + name + "]";

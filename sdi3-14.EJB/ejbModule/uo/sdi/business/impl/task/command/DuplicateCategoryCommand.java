@@ -4,10 +4,10 @@ import java.util.List;
 
 import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.dto.Category;
-import uo.sdi.dto.Task;
-import uo.sdi.dto.util.Cloner;
 import uo.sdi.infrastructure.Factories;
+import uo.sdi.model.Category;
+import uo.sdi.model.Task;
+import uo.sdi.model.util.Cloner;
 import uo.sdi.persistence.CategoryDao;
 import uo.sdi.persistence.TaskDao;
 

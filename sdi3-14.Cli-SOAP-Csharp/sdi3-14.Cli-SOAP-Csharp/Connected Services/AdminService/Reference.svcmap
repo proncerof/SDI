@@ -19,10 +19,10 @@
     <ServiceContractMappings />
   </ClientOptions>
   <MetadataSources>
-    <MetadataSource Address="http://desktop-87js7st:8280/sdi3-14.EJB/AdminService?wsdl" Protocol="http" SourceId="1" />
+    <MetadataSource Address="http://localhost:8280/sdi3-14.EJB/AdminService?wsdl" Protocol="http" SourceId="1" />
   </MetadataSources>
   <Metadata>
-    <MetadataFile FileName="EjbAdminServiceService.wsdl" MetadataType="Wsdl" ID="3975f52f-591d-4758-9b17-693eab2b9c3b" SourceId="1" SourceUrl="http://desktop-87js7st:8280/sdi3-14.EJB/AdminService?wsdl" />
+    <MetadataFile FileName="EjbAdminServiceService1.wsdl" MetadataType="Wsdl" ID="d48c38a2-ad10-49d2-ad0b-370157c4b5ea" SourceId="1" SourceUrl="http://localhost:8280/sdi3-14.EJB/AdminService?wsdl" />
   </Metadata>
   <Extensions>
     <ExtensionFile FileName="configuration91.svcinfo" Name="configuration91.svcinfo" />

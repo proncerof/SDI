@@ -73,6 +73,8 @@ namespace sdi3_14.Cli_SOAP_Csharp.AdminService {
         
         private string titleField;
         
+        private user userField;
+        
         /// <comentarios/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
         public category category {
@@ -205,6 +207,18 @@ namespace sdi3_14.Cli_SOAP_Csharp.AdminService {
             }
         }
         
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=7)]
+        public user user {
+            get {
+                return this.userField;
+            }
+            set {
+                this.userField = value;
+                this.RaisePropertyChanged("user");
+            }
+        }
+        
         public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
         
         protected void RaisePropertyChanged(string propertyName) {
@@ -228,6 +242,8 @@ namespace sdi3_14.Cli_SOAP_Csharp.AdminService {
         private bool idFieldSpecified;
         
         private string nameField;
+        
+        private user userField;
         
         /// <comentarios/>
         [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
@@ -262,6 +278,18 @@ namespace sdi3_14.Cli_SOAP_Csharp.AdminService {
             set {
                 this.nameField = value;
                 this.RaisePropertyChanged("name");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        public user user {
+            get {
+                return this.userField;
+            }
+            set {
+                this.userField = value;
+                this.RaisePropertyChanged("user");
             }
         }
         
@@ -483,6 +511,26 @@ namespace sdi3_14.Cli_SOAP_Csharp.AdminService {
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         System.Threading.Tasks.Task<sdi3_14.Cli_SOAP_Csharp.AdminService.disableUserResponse> disableUserAsync(sdi3_14.Cli_SOAP_Csharp.AdminService.disableUser request);
         
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
+        [System.ServiceModel.FaultContractAttribute(typeof(sdi3_14.Cli_SOAP_Csharp.AdminService.BusinessException), Action="", Name="BusinessException")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        sdi3_14.Cli_SOAP_Csharp.AdminService.findUserByIdEjbClientResponse findUserByIdEjbClient(sdi3_14.Cli_SOAP_Csharp.AdminService.findUserByIdEjbClient request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
+        System.Threading.Tasks.Task<sdi3_14.Cli_SOAP_Csharp.AdminService.findUserByIdEjbClientResponse> findUserByIdEjbClientAsync(sdi3_14.Cli_SOAP_Csharp.AdminService.findUserByIdEjbClient request);
+        
+        // CODEGEN: El parámetro 'return' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
+        [System.ServiceModel.FaultContractAttribute(typeof(sdi3_14.Cli_SOAP_Csharp.AdminService.BusinessException), Action="", Name="BusinessException")]
+        [System.ServiceModel.XmlSerializerFormatAttribute(SupportFaults=true)]
+        [return: System.ServiceModel.MessageParameterAttribute(Name="return")]
+        sdi3_14.Cli_SOAP_Csharp.AdminService.findAllUsersEjbClientResponse findAllUsersEjbClient(sdi3_14.Cli_SOAP_Csharp.AdminService.findAllUsersEjbClient request);
+        
+        [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
+        System.Threading.Tasks.Task<sdi3_14.Cli_SOAP_Csharp.AdminService.findAllUsersEjbClientResponse> findAllUsersEjbClientAsync(sdi3_14.Cli_SOAP_Csharp.AdminService.findAllUsersEjbClient request);
+        
         // CODEGEN: El parámetro 'arg0' requiere información adicional de esquema que no se puede capturar con el modo de parámetros. El atributo específico es 'System.Xml.Serialization.XmlElementAttribute'.
         [System.ServiceModel.OperationContractAttribute(Action="", ReplyAction="*")]
         [System.ServiceModel.FaultContractAttribute(typeof(sdi3_14.Cli_SOAP_Csharp.AdminService.BusinessException), Action="", Name="BusinessException")]
@@ -581,6 +629,256 @@ namespace sdi3_14.Cli_SOAP_Csharp.AdminService {
     public partial class disableUserResponse {
         
         public disableUserResponse() {
+        }
+    }
+    
+    /// <comentarios/>
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.Xml", "4.6.1586.0")]
+    [System.SerializableAttribute()]
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.ComponentModel.DesignerCategoryAttribute("code")]
+    [System.Xml.Serialization.XmlTypeAttribute(Namespace="http://admin.impl.business.sdi.uo/")]
+    public partial class ejbClientUser : object, System.ComponentModel.INotifyPropertyChanged {
+        
+        private string emailField;
+        
+        private long idField;
+        
+        private bool idFieldSpecified;
+        
+        private bool isAdminField;
+        
+        private bool isAdminFieldSpecified;
+        
+        private string loginField;
+        
+        private userStatus statusField;
+        
+        private bool statusFieldSpecified;
+        
+        private int tareasCompletadasField;
+        
+        private int tareasCompletadasRetrasadasField;
+        
+        private int tareasPlanificadasField;
+        
+        private int tareasSinPlanificarField;
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=0)]
+        public string email {
+            get {
+                return this.emailField;
+            }
+            set {
+                this.emailField = value;
+                this.RaisePropertyChanged("email");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=1)]
+        public long id {
+            get {
+                return this.idField;
+            }
+            set {
+                this.idField = value;
+                this.RaisePropertyChanged("id");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool idSpecified {
+            get {
+                return this.idFieldSpecified;
+            }
+            set {
+                this.idFieldSpecified = value;
+                this.RaisePropertyChanged("idSpecified");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=2)]
+        public bool isAdmin {
+            get {
+                return this.isAdminField;
+            }
+            set {
+                this.isAdminField = value;
+                this.RaisePropertyChanged("isAdmin");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool isAdminSpecified {
+            get {
+                return this.isAdminFieldSpecified;
+            }
+            set {
+                this.isAdminFieldSpecified = value;
+                this.RaisePropertyChanged("isAdminSpecified");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=3)]
+        public string login {
+            get {
+                return this.loginField;
+            }
+            set {
+                this.loginField = value;
+                this.RaisePropertyChanged("login");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=4)]
+        public userStatus status {
+            get {
+                return this.statusField;
+            }
+            set {
+                this.statusField = value;
+                this.RaisePropertyChanged("status");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlIgnoreAttribute()]
+        public bool statusSpecified {
+            get {
+                return this.statusFieldSpecified;
+            }
+            set {
+                this.statusFieldSpecified = value;
+                this.RaisePropertyChanged("statusSpecified");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=5)]
+        public int tareasCompletadas {
+            get {
+                return this.tareasCompletadasField;
+            }
+            set {
+                this.tareasCompletadasField = value;
+                this.RaisePropertyChanged("tareasCompletadas");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=6)]
+        public int tareasCompletadasRetrasadas {
+            get {
+                return this.tareasCompletadasRetrasadasField;
+            }
+            set {
+                this.tareasCompletadasRetrasadasField = value;
+                this.RaisePropertyChanged("tareasCompletadasRetrasadas");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=7)]
+        public int tareasPlanificadas {
+            get {
+                return this.tareasPlanificadasField;
+            }
+            set {
+                this.tareasPlanificadasField = value;
+                this.RaisePropertyChanged("tareasPlanificadas");
+            }
+        }
+        
+        /// <comentarios/>
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified, Order=8)]
+        public int tareasSinPlanificar {
+            get {
+                return this.tareasSinPlanificarField;
+            }
+            set {
+                this.tareasSinPlanificarField = value;
+                this.RaisePropertyChanged("tareasSinPlanificar");
+            }
+        }
+        
+        public event System.ComponentModel.PropertyChangedEventHandler PropertyChanged;
+        
+        protected void RaisePropertyChanged(string propertyName) {
+            System.ComponentModel.PropertyChangedEventHandler propertyChanged = this.PropertyChanged;
+            if ((propertyChanged != null)) {
+                propertyChanged(this, new System.ComponentModel.PropertyChangedEventArgs(propertyName));
+            }
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="findUserByIdEjbClient", WrapperNamespace="http://admin.impl.business.sdi.uo/", IsWrapped=true)]
+    public partial class findUserByIdEjbClient {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://admin.impl.business.sdi.uo/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public long arg0;
+        
+        public findUserByIdEjbClient() {
+        }
+        
+        public findUserByIdEjbClient(long arg0) {
+            this.arg0 = arg0;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="findUserByIdEjbClientResponse", WrapperNamespace="http://admin.impl.business.sdi.uo/", IsWrapped=true)]
+    public partial class findUserByIdEjbClientResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://admin.impl.business.sdi.uo/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute(Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public sdi3_14.Cli_SOAP_Csharp.AdminService.ejbClientUser @return;
+        
+        public findUserByIdEjbClientResponse() {
+        }
+        
+        public findUserByIdEjbClientResponse(sdi3_14.Cli_SOAP_Csharp.AdminService.ejbClientUser @return) {
+            this.@return = @return;
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="findAllUsersEjbClient", WrapperNamespace="http://admin.impl.business.sdi.uo/", IsWrapped=true)]
+    public partial class findAllUsersEjbClient {
+        
+        public findAllUsersEjbClient() {
+        }
+    }
+    
+    [System.Diagnostics.DebuggerStepThroughAttribute()]
+    [System.CodeDom.Compiler.GeneratedCodeAttribute("System.ServiceModel", "4.0.0.0")]
+    [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+    [System.ServiceModel.MessageContractAttribute(WrapperName="findAllUsersEjbClientResponse", WrapperNamespace="http://admin.impl.business.sdi.uo/", IsWrapped=true)]
+    public partial class findAllUsersEjbClientResponse {
+        
+        [System.ServiceModel.MessageBodyMemberAttribute(Namespace="http://admin.impl.business.sdi.uo/", Order=0)]
+        [System.Xml.Serialization.XmlElementAttribute("return", Form=System.Xml.Schema.XmlSchemaForm.Unqualified)]
+        public sdi3_14.Cli_SOAP_Csharp.AdminService.ejbClientUser[] @return;
+        
+        public findAllUsersEjbClientResponse() {
+        }
+        
+        public findAllUsersEjbClientResponse(sdi3_14.Cli_SOAP_Csharp.AdminService.ejbClientUser[] @return) {
+            this.@return = @return;
         }
     }
     
@@ -738,6 +1036,50 @@ namespace sdi3_14.Cli_SOAP_Csharp.AdminService {
             sdi3_14.Cli_SOAP_Csharp.AdminService.disableUser inValue = new sdi3_14.Cli_SOAP_Csharp.AdminService.disableUser();
             inValue.arg0 = arg0;
             return ((sdi3_14.Cli_SOAP_Csharp.AdminService.AdminService)(this)).disableUserAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        sdi3_14.Cli_SOAP_Csharp.AdminService.findUserByIdEjbClientResponse sdi3_14.Cli_SOAP_Csharp.AdminService.AdminService.findUserByIdEjbClient(sdi3_14.Cli_SOAP_Csharp.AdminService.findUserByIdEjbClient request) {
+            return base.Channel.findUserByIdEjbClient(request);
+        }
+        
+        public sdi3_14.Cli_SOAP_Csharp.AdminService.ejbClientUser findUserByIdEjbClient(long arg0) {
+            sdi3_14.Cli_SOAP_Csharp.AdminService.findUserByIdEjbClient inValue = new sdi3_14.Cli_SOAP_Csharp.AdminService.findUserByIdEjbClient();
+            inValue.arg0 = arg0;
+            sdi3_14.Cli_SOAP_Csharp.AdminService.findUserByIdEjbClientResponse retVal = ((sdi3_14.Cli_SOAP_Csharp.AdminService.AdminService)(this)).findUserByIdEjbClient(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<sdi3_14.Cli_SOAP_Csharp.AdminService.findUserByIdEjbClientResponse> sdi3_14.Cli_SOAP_Csharp.AdminService.AdminService.findUserByIdEjbClientAsync(sdi3_14.Cli_SOAP_Csharp.AdminService.findUserByIdEjbClient request) {
+            return base.Channel.findUserByIdEjbClientAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<sdi3_14.Cli_SOAP_Csharp.AdminService.findUserByIdEjbClientResponse> findUserByIdEjbClientAsync(long arg0) {
+            sdi3_14.Cli_SOAP_Csharp.AdminService.findUserByIdEjbClient inValue = new sdi3_14.Cli_SOAP_Csharp.AdminService.findUserByIdEjbClient();
+            inValue.arg0 = arg0;
+            return ((sdi3_14.Cli_SOAP_Csharp.AdminService.AdminService)(this)).findUserByIdEjbClientAsync(inValue);
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        sdi3_14.Cli_SOAP_Csharp.AdminService.findAllUsersEjbClientResponse sdi3_14.Cli_SOAP_Csharp.AdminService.AdminService.findAllUsersEjbClient(sdi3_14.Cli_SOAP_Csharp.AdminService.findAllUsersEjbClient request) {
+            return base.Channel.findAllUsersEjbClient(request);
+        }
+        
+        public sdi3_14.Cli_SOAP_Csharp.AdminService.ejbClientUser[] findAllUsersEjbClient() {
+            sdi3_14.Cli_SOAP_Csharp.AdminService.findAllUsersEjbClient inValue = new sdi3_14.Cli_SOAP_Csharp.AdminService.findAllUsersEjbClient();
+            sdi3_14.Cli_SOAP_Csharp.AdminService.findAllUsersEjbClientResponse retVal = ((sdi3_14.Cli_SOAP_Csharp.AdminService.AdminService)(this)).findAllUsersEjbClient(inValue);
+            return retVal.@return;
+        }
+        
+        [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]
+        System.Threading.Tasks.Task<sdi3_14.Cli_SOAP_Csharp.AdminService.findAllUsersEjbClientResponse> sdi3_14.Cli_SOAP_Csharp.AdminService.AdminService.findAllUsersEjbClientAsync(sdi3_14.Cli_SOAP_Csharp.AdminService.findAllUsersEjbClient request) {
+            return base.Channel.findAllUsersEjbClientAsync(request);
+        }
+        
+        public System.Threading.Tasks.Task<sdi3_14.Cli_SOAP_Csharp.AdminService.findAllUsersEjbClientResponse> findAllUsersEjbClientAsync() {
+            sdi3_14.Cli_SOAP_Csharp.AdminService.findAllUsersEjbClient inValue = new sdi3_14.Cli_SOAP_Csharp.AdminService.findAllUsersEjbClient();
+            return ((sdi3_14.Cli_SOAP_Csharp.AdminService.AdminService)(this)).findAllUsersEjbClientAsync(inValue);
         }
         
         [System.ComponentModel.EditorBrowsableAttribute(System.ComponentModel.EditorBrowsableState.Advanced)]

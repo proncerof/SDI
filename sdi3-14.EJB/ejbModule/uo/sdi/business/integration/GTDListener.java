@@ -14,9 +14,10 @@ import uo.sdi.business.TaskService;
 import uo.sdi.business.UserService;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.business.integration.util.AbstractMessageListener;
-import uo.sdi.dto.Task;
-import uo.sdi.dto.User;
 import uo.sdi.infrastructure.Factories;
+import uo.sdi.model.Task;
+import uo.sdi.model.User;
+
 
 @MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destination", propertyValue = "jms/queue/GTDQueue") })
 public class GTDListener extends AbstractMessageListener {

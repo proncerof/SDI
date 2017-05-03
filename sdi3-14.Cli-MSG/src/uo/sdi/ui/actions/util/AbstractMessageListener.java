@@ -45,7 +45,6 @@ public abstract class AbstractMessageListener implements Action{
 		createMessage(msg);
 		
 		LoginAction.addAuthentication(msg);
-
 		msg.setJMSReplyTo(tempQueue);
 		msg.setJMSCorrelationID(createRandomString());
 

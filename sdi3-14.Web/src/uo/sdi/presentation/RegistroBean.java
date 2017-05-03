@@ -5,8 +5,8 @@ import javax.faces.context.FacesContext;
 
 import uo.sdi.business.UserService;
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.dto.User;
 import uo.sdi.infrastructure.Factories;
+import uo.sdi.model.User;
 
 public class RegistroBean {
 

@@ -1,4 +1,4 @@
-package uo.sdi.dto;
+package uo.sdi.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -12,10 +12,8 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
 
-import uo.sdi.dto.types.UserStatus;
+import uo.sdi.model.types.UserStatus;
 
 /**
  * An implementation of the DTO pattern
@@ -24,7 +22,6 @@ import uo.sdi.dto.types.UserStatus;
  */
 @Entity
 @Table(name = "TUsers")
-@XmlRootElement(name="user")
 public class User implements Serializable {
 
 	private static final long serialVersionUID = 5461745400344675866L;
@@ -51,7 +48,6 @@ public class User implements Serializable {
 		this.isAdmin = isAdmin;
 	}
 
-	@XmlElement
 	public Long getId() {
 		return id;
 	}
@@ -61,7 +57,6 @@ public class User implements Serializable {
 		return this;
 	}
 
-	@XmlElement
 	public String getLogin() {
 		return login;
 	}
@@ -71,7 +66,6 @@ public class User implements Serializable {
 		return this;
 	}
 
-	@XmlElement
 	public String getEmail() {
 		return email;
 	}
@@ -81,7 +75,6 @@ public class User implements Serializable {
 		return this;
 	}
 
-	@XmlElement
 	public String getPassword() {
 		return password;
 	}
@@ -91,7 +84,6 @@ public class User implements Serializable {
 		return this;
 	}
 
-	@XmlElement
 	public Boolean getIsAdmin() {
 		return isAdmin;
 	}
@@ -103,7 +95,7 @@ public class User implements Serializable {
 	public List<Task> getTasks() {
 		return new ArrayList<>(tasks);
 	}
-	
+
 	public List<Task> _getTasks() {
 		return tasks;
 	}
@@ -114,7 +106,6 @@ public class User implements Serializable {
 				+ ", password=" + password + ", isAdmin=" + isAdmin + "]";
 	}
 
-	@XmlElement
 	public UserStatus getStatus() {
 		return status;
 	}

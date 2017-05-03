@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import uo.sdi.dto.Task;
+import uo.sdi.model.Task;
 import uo.sdi.persistence.TaskDao;
 import uo.sdi.persistence.util.Jpa;
 
@@ -47,7 +47,7 @@ public class TaskDaoJdbcImpl implements TaskDao {
 	public int deleteAllFromUserId(Long userId) {
 		return Jpa
 				.getManager()
-				.createNamedQuery("Task.deleteAllFromUserId")
+				.createNamedQuery("Task.deleteByUserId")
 				.setParameter(1, userId)
 				.executeUpdate();
 	}
@@ -56,7 +56,7 @@ public class TaskDaoJdbcImpl implements TaskDao {
 	public int deleteAllFromCategory(Long catId) {
 		return Jpa
 				.getManager()
-				.createNamedQuery("Task.deleteAllFromCategoryId")
+				.createNamedQuery("Task.deleteById")
 				.setParameter(1, catId)
 				.executeUpdate();
 	}
@@ -106,7 +106,7 @@ public class TaskDaoJdbcImpl implements TaskDao {
 		return Jpa
 				.getManager()
 				.createNamedQuery(
-						"Task.findByCategoryId",
+						"Task.findUnfinishedByCategoryId",
 						Task.class)
 				.setParameter(1, catId)
 				.getResultList();

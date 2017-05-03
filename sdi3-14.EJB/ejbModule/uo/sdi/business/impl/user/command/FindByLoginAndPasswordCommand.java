@@ -1,7 +1,7 @@
 package uo.sdi.business.impl.user.command;
 
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.dto.User;
+import uo.sdi.model.User;
 
 public class FindByLoginAndPasswordCommand{ 
 

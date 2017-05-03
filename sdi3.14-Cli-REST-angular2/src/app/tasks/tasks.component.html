@@ -2,12 +2,16 @@
   <thead>
     <th>ID</th>
     <th>Titulo</th>
+    <th>Creada</th>
+    <th>Planeada</th>
     <th>Terminar Tarea</th>
   </thead>
   <tbody *ngFor="let t of tasks">
   <tr>
     <td>{{t.id}}</td>
     <td>{{t.title}}</td>
+    <td>{{t.created | date:'shortDate' }}</td>
+    <td>{{t.planned | date:'shortDate' }}</td>
     <td><button class="btn btn-primary" (click)="finishTask(t.id)">Finalizar</button>
   </tr>
   </tbody>

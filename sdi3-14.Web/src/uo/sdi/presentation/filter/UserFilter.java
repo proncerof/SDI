@@ -15,7 +15,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
-import uo.sdi.dto.User;
+import uo.sdi.model.User;
 
 /**
  * Servlet Filter implementation class UserFilter

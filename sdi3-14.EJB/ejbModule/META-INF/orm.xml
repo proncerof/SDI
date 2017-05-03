@@ -30,7 +30,7 @@
 		<query>delete from Task t where t.category.id = ?1</query>
 	</named-query>
 
-	<named-query name="Task.deleteALl">
+	<named-query name="Task.deleteAll">
 		<query>delete from Task t</query>
 	</named-query>
 

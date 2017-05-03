@@ -9,8 +9,12 @@
       <xs:element name="enableUser" type="tns:enableUser" />
       <xs:element name="enableUserResponse" type="tns:enableUserResponse" />
       <xs:element name="findAllUsers" type="tns:findAllUsers" />
+      <xs:element name="findAllUsersEjbClient" type="tns:findAllUsersEjbClient" />
+      <xs:element name="findAllUsersEjbClientResponse" type="tns:findAllUsersEjbClientResponse" />
       <xs:element name="findAllUsersResponse" type="tns:findAllUsersResponse" />
       <xs:element name="findUserById" type="tns:findUserById" />
+      <xs:element name="findUserByIdEjbClient" type="tns:findUserByIdEjbClient" />
+      <xs:element name="findUserByIdEjbClientResponse" type="tns:findUserByIdEjbClientResponse" />
       <xs:element name="findUserByIdResponse" type="tns:findUserByIdResponse" />
       <xs:element name="reseteaDB" type="tns:reseteaDB" />
       <xs:element name="reseteaDBResponse" type="tns:reseteaDBResponse" />
@@ -40,6 +44,7 @@
         <xs:sequence>
           <xs:element minOccurs="0" name="id" type="xs:long" />
           <xs:element minOccurs="0" name="name" type="xs:string" />
+          <xs:element minOccurs="0" name="user" type="tns:user" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="task">
@@ -51,6 +56,7 @@
           <xs:element minOccurs="0" name="id" type="xs:long" />
           <xs:element minOccurs="0" name="planned" type="xs:dateTime" />
           <xs:element minOccurs="0" name="title" type="xs:string" />
+          <xs:element minOccurs="0" name="user" type="tns:user" />
         </xs:sequence>
       </xs:complexType>
       <xs:complexType name="disableUser">
@@ -60,6 +66,37 @@
       </xs:complexType>
       <xs:complexType name="disableUserResponse">
         <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="findUserByIdEjbClient">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="arg0" type="xs:long" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="findUserByIdEjbClientResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="return" type="tns:ejbClientUser" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="ejbClientUser">
+        <xs:sequence>
+          <xs:element minOccurs="0" name="email" type="xs:string" />
+          <xs:element minOccurs="0" name="id" type="xs:long" />
+          <xs:element minOccurs="0" name="isAdmin" type="xs:boolean" />
+          <xs:element minOccurs="0" name="login" type="xs:string" />
+          <xs:element minOccurs="0" name="status" type="tns:userStatus" />
+          <xs:element name="tareasCompletadas" type="xs:int" />
+          <xs:element name="tareasCompletadasRetrasadas" type="xs:int" />
+          <xs:element name="tareasPlanificadas" type="xs:int" />
+          <xs:element name="tareasSinPlanificar" type="xs:int" />
+        </xs:sequence>
+      </xs:complexType>
+      <xs:complexType name="findAllUsersEjbClient">
+        <xs:sequence />
+      </xs:complexType>
+      <xs:complexType name="findAllUsersEjbClientResponse">
+        <xs:sequence>
+          <xs:element minOccurs="0" maxOccurs="unbounded" name="return" type="tns:ejbClientUser" />
+        </xs:sequence>
       </xs:complexType>
       <xs:complexType name="enableUser">
         <xs:sequence>
@@ -105,14 +142,17 @@
       </xs:complexType>
     </xs:schema>
   </wsdl:types>
+  <wsdl:message name="findUserByIdEjbClientResponse">
+    <wsdl:part name="parameters" element="tns:findUserByIdEjbClientResponse" />
+  </wsdl:message>
   <wsdl:message name="BusinessException">
     <wsdl:part name="BusinessException" element="tns:BusinessException" />
   </wsdl:message>
-  <wsdl:message name="findUserById">
-    <wsdl:part name="parameters" element="tns:findUserById" />
-  </wsdl:message>
   <wsdl:message name="deepDeleteUser">
     <wsdl:part name="parameters" element="tns:deepDeleteUser" />
+  </wsdl:message>
+  <wsdl:message name="findUserById">
+    <wsdl:part name="parameters" element="tns:findUserById" />
   </wsdl:message>
   <wsdl:message name="findUserByIdResponse">
     <wsdl:part name="parameters" element="tns:findUserByIdResponse" />
@@ -123,14 +163,20 @@
   <wsdl:message name="findAllUsers">
     <wsdl:part name="parameters" element="tns:findAllUsers" />
   </wsdl:message>
-  <wsdl:message name="disableUser">
-    <wsdl:part name="parameters" element="tns:disableUser" />
+  <wsdl:message name="findAllUsersEjbClient">
+    <wsdl:part name="parameters" element="tns:findAllUsersEjbClient" />
   </wsdl:message>
   <wsdl:message name="reseteaDBResponse">
     <wsdl:part name="parameters" element="tns:reseteaDBResponse" />
   </wsdl:message>
+  <wsdl:message name="disableUser">
+    <wsdl:part name="parameters" element="tns:disableUser" />
+  </wsdl:message>
   <wsdl:message name="reseteaDB">
     <wsdl:part name="parameters" element="tns:reseteaDB" />
+  </wsdl:message>
+  <wsdl:message name="findUserByIdEjbClient">
+    <wsdl:part name="parameters" element="tns:findUserByIdEjbClient" />
   </wsdl:message>
   <wsdl:message name="enableUser">
     <wsdl:part name="parameters" element="tns:enableUser" />
@@ -144,6 +190,9 @@
   <wsdl:message name="deepDeleteUserResponse">
     <wsdl:part name="parameters" element="tns:deepDeleteUserResponse" />
   </wsdl:message>
+  <wsdl:message name="findAllUsersEjbClientResponse">
+    <wsdl:part name="parameters" element="tns:findAllUsersEjbClientResponse" />
+  </wsdl:message>
   <wsdl:portType name="AdminService">
     <wsdl:operation name="findUserById">
       <wsdl:input name="findUserById" message="tns:findUserById" />
@@ -153,6 +202,16 @@
     <wsdl:operation name="disableUser">
       <wsdl:input name="disableUser" message="tns:disableUser" />
       <wsdl:output name="disableUserResponse" message="tns:disableUserResponse" />
+      <wsdl:fault name="BusinessException" message="tns:BusinessException" />
+    </wsdl:operation>
+    <wsdl:operation name="findUserByIdEjbClient">
+      <wsdl:input name="findUserByIdEjbClient" message="tns:findUserByIdEjbClient" />
+      <wsdl:output name="findUserByIdEjbClientResponse" message="tns:findUserByIdEjbClientResponse" />
+      <wsdl:fault name="BusinessException" message="tns:BusinessException" />
+    </wsdl:operation>
+    <wsdl:operation name="findAllUsersEjbClient">
+      <wsdl:input name="findAllUsersEjbClient" message="tns:findAllUsersEjbClient" />
+      <wsdl:output name="findAllUsersEjbClientResponse" message="tns:findAllUsersEjbClientResponse" />
       <wsdl:fault name="BusinessException" message="tns:BusinessException" />
     </wsdl:operation>
     <wsdl:operation name="enableUser">
@@ -196,6 +255,30 @@
         <soap:body use="literal" />
       </wsdl:input>
       <wsdl:output name="findUserByIdResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessException">
+        <soap:fault use="literal" name="BusinessException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="findAllUsersEjbClient">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="findAllUsersEjbClient">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="findAllUsersEjbClientResponse">
+        <soap:body use="literal" />
+      </wsdl:output>
+      <wsdl:fault name="BusinessException">
+        <soap:fault use="literal" name="BusinessException" namespace="" />
+      </wsdl:fault>
+    </wsdl:operation>
+    <wsdl:operation name="findUserByIdEjbClient">
+      <soap:operation soapAction="" style="document" />
+      <wsdl:input name="findUserByIdEjbClient">
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output name="findUserByIdEjbClientResponse">
         <soap:body use="literal" />
       </wsdl:output>
       <wsdl:fault name="BusinessException">

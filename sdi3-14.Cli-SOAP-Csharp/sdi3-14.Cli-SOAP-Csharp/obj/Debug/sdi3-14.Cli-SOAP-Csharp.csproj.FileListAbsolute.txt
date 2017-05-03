@@ -4,3 +4,9 @@ C:\Users\paron\Desktop\ENTREGA3\sdi3-14.Cli-SOAP-Csharp\sdi3-14.Cli-SOAP-Csharp\
 C:\Users\paron\Desktop\ENTREGA3\sdi3-14.Cli-SOAP-Csharp\sdi3-14.Cli-SOAP-Csharp\obj\Debug\sdi3-14.Cli-SOAP-Csharp.csprojResolveAssemblyReference.cache
 C:\Users\paron\Desktop\ENTREGA3\sdi3-14.Cli-SOAP-Csharp\sdi3-14.Cli-SOAP-Csharp\obj\Debug\sdi3-14.Cli-SOAP-Csharp.exe
 C:\Users\paron\Desktop\ENTREGA3\sdi3-14.Cli-SOAP-Csharp\sdi3-14.Cli-SOAP-Csharp\obj\Debug\sdi3-14.Cli-SOAP-Csharp.pdb
+C:\Users\jlo\git\SDI\sdi3-14.Cli-SOAP-Csharp\sdi3-14.Cli-SOAP-Csharp\bin\Debug\sdi3-14.Cli-SOAP-Csharp.exe.config
+C:\Users\jlo\git\SDI\sdi3-14.Cli-SOAP-Csharp\sdi3-14.Cli-SOAP-Csharp\obj\Debug\sdi3-14.Cli-SOAP-Csharp.exe
+C:\Users\jlo\git\SDI\sdi3-14.Cli-SOAP-Csharp\sdi3-14.Cli-SOAP-Csharp\obj\Debug\sdi3-14.Cli-SOAP-Csharp.pdb
+C:\Users\jlo\git\SDI\sdi3-14.Cli-SOAP-Csharp\sdi3-14.Cli-SOAP-Csharp\bin\Debug\sdi3-14.Cli-SOAP-Csharp.exe
+C:\Users\jlo\git\SDI\sdi3-14.Cli-SOAP-Csharp\sdi3-14.Cli-SOAP-Csharp\bin\Debug\sdi3-14.Cli-SOAP-Csharp.pdb
+C:\Users\jlo\git\SDI\sdi3-14.Cli-SOAP-Csharp\sdi3-14.Cli-SOAP-Csharp\obj\Debug\sdi3-14.Cli-SOAP-Csharp.csprojResolveAssemblyReference.cache

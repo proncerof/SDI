@@ -1,17 +1,20 @@
 package uo.sdi.business.impl.admin;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import javax.ejb.Stateless;
 import javax.jws.WebService;
 
 import uo.sdi.business.exception.BusinessException;
+import uo.sdi.business.impl.ModelDtoConverter;
 import uo.sdi.business.impl.admin.command.DeepDeleteUserCommand;
 import uo.sdi.business.impl.admin.command.DisableUserCommand;
 import uo.sdi.business.impl.admin.command.EnableUserCommand;
 import uo.sdi.business.impl.admin.command.ResetDBCommand;
-import uo.sdi.dto.User;
+import uo.sdi.dto.ejb.EjbClientUser;
 import uo.sdi.infrastructure.Factories;
+import uo.sdi.model.User;
 
 /**
  * Session Bean implementation class EjbAdminService
@@ -25,7 +28,6 @@ public class EjbAdminService implements EjbAdminServiceRemote,
 	 * Default constructor.
 	 */
 	public EjbAdminService() {
-		// TODO Auto-generated constructor stub
 	}
 
 	@Override
@@ -56,5 +58,26 @@ public class EjbAdminService implements EjbAdminServiceRemote,
 	@Override
 	public void reseteaDB() throws BusinessException {
 		new ResetDBCommand().execute();
+	}
+
+	@Override
+	public List<EjbClientUser> findAllUsersEjbClient() throws BusinessException {
+		List<User> users = Factories.persistence.getUserDao().findAll();
+
+		List<EjbClientUser> newUsers = new ArrayList<EjbClientUser>();
+
+		for (User u : users)
+			newUsers.add(ModelDtoConverter.convertUser(u));
+
+		return newUsers;
+	}
+
+	@Override
+	public EjbClientUser findUserByIdEjbClient(Long id)
+			throws BusinessException {
+		User u = findUserById(id);
+		if(u!=null)
+			return ModelDtoConverter.convertUser(u);
+		return null;
 	}
 }

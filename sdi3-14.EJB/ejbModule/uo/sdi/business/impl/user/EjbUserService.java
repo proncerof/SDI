@@ -7,7 +7,7 @@ import uo.sdi.business.impl.user.command.FindLoggableUSerCommand;
 import uo.sdi.business.impl.user.command.FindUserByLoginCommand;
 import uo.sdi.business.impl.user.command.RegisterUserCommand;
 import uo.sdi.business.impl.user.command.UpdateUserDetailsCommand;
-import uo.sdi.dto.User;
+import uo.sdi.model.User;
 
 /**
  * Session Bean implementation class EjbUserService

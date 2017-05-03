@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import uo.sdi.dto.Category;
+import uo.sdi.model.Category;
 import uo.sdi.persistence.CategoryDao;
 import uo.sdi.persistence.util.Jpa;
 
@@ -55,7 +55,7 @@ public class CategoryDaoJdbcImpl implements CategoryDao {
 	@Override
 	public int deleteAllFromUserId(Long userId) {
 		return Jpa.getManager()
-				.createNamedQuery("Category.deletAllFromUserId")
+				.createNamedQuery("Category.deleteByUserId")
 				.setParameter(1, userId).executeUpdate();
 	}
 

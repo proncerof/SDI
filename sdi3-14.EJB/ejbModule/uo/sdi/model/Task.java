@@ -1,4 +1,4 @@
-package uo.sdi.dto;
+package uo.sdi.model;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -19,7 +19,7 @@ public class Task implements Serializable, Comparable<Task> {
 	private static final long serialVersionUID = -5194439578090536982L;
 
 	@Id
-	@GeneratedValue (strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 
 	private String title;
