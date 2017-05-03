@@ -2,7 +2,7 @@ package uo.sdi.persistence;
 
 import java.util.List;
 
-import uo.sdi.dto.Task;
+import uo.sdi.model.Task;
 import uo.sdi.persistence.util.GenericDao;
 
 public interface TaskDao extends GenericDao<Task, Long> {

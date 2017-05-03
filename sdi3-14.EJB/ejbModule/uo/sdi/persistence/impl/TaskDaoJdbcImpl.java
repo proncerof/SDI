@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import uo.sdi.dto.Task;
+import uo.sdi.model.Task;
 import uo.sdi.persistence.TaskDao;
 import uo.sdi.persistence.util.Jpa;
 

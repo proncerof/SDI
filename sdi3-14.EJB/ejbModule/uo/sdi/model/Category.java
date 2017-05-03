@@ -1,4 +1,4 @@
-package uo.sdi.dto.ejb;
+package uo.sdi.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,18 +18,24 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 
+@Entity
+@Table(name = "TCategories")
 @XmlRootElement(name = "category")
-public class EjbClientCategory implements Serializable {
+public class Category implements Serializable {
 
 	private static final long serialVersionUID = 5568866959974234572L;
 
+	@Id
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 
 	@ManyToOne
 	@XmlTransient
-	private EjbClientUser user;
+	private User user;
 
+	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
+	private List<Task> tasks = new ArrayList<>();
 
 	@XmlElement
 	public String getName() {
@@ -45,22 +51,30 @@ public class EjbClientCategory implements Serializable {
 		this.id = id;
 	}
 
-	public EjbClientCategory setName(String name) {
+	public Category setName(String name) {
 		this.name = name;
 		return this;
 	}
 
 	@JsonBackReference
 	@XmlTransient
-	public EjbClientUser getUser() {
+	public User getUser() {
 		return user;
 	}
 
-	public EjbClientCategory setUser(EjbClientUser user) {
+	public Category setUser(User user) {
 		this.user = user;
 		return this;
 	}
 
+	public List<Task> getTasks() {
+		return new ArrayList<Task>(tasks);
+	}
+	
+	public List<Task> _getTasks() {
+		return tasks;
+	}
+	
 	@Override
 	public String toString() {
 		return "CategoryDto [id=" + id + ", name=" + name + "]";
@@ -85,7 +99,7 @@ public class EjbClientCategory implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		EjbClientCategory other = (EjbClientCategory) obj;
+		Category other = (Category) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

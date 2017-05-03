@@ -1,4 +1,4 @@
-package uo.sdi.dto;
+package uo.sdi.dto.rest;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -18,24 +18,20 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 
-@Entity
-@Table(name = "TCategories")
+import uo.sdi.dto.ejb.EjbClientUser;
+
 @XmlRootElement(name = "category")
-public class Category implements Serializable {
+public class RestClientCategory implements Serializable {
 
 	private static final long serialVersionUID = 5568866959974234572L;
 
-	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	private Long id;
 	private String name;
 
 	@ManyToOne
 	@XmlTransient
-	private User user;
+	private EjbClientUser user;
 
-	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
-	private List<Task> tasks = new ArrayList<>();
 
 	@XmlElement
 	public String getName() {
@@ -51,30 +47,22 @@ public class Category implements Serializable {
 		this.id = id;
 	}
 
-	public Category setName(String name) {
+	public RestClientCategory setName(String name) {
 		this.name = name;
 		return this;
 	}
 
 	@JsonBackReference
 	@XmlTransient
-	public User getUser() {
+	public EjbClientUser getUser() {
 		return user;
 	}
 
-	public Category setUser(User user) {
+	public RestClientCategory setUser(EjbClientUser user) {
 		this.user = user;
 		return this;
 	}
 
-	public List<Task> getTasks() {
-		return new ArrayList<Task>(tasks);
-	}
-	
-	public List<Task> _getTasks() {
-		return tasks;
-	}
-	
 	@Override
 	public String toString() {
 		return "CategoryDto [id=" + id + ", name=" + name + "]";
@@ -99,7 +87,7 @@ public class Category implements Serializable {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		Category other = (Category) obj;
+		RestClientCategory other = (RestClientCategory) obj;
 		if (id == null) {
 			if (other.id != null)
 				return false;

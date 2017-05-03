@@ -1,7 +1,7 @@
 package uo.sdi.business;
 
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.dto.User;
+import uo.sdi.model.User;
 
 public interface UserService {
 

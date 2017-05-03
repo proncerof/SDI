@@ -11,9 +11,9 @@ import uo.sdi.business.impl.admin.command.DeepDeleteUserCommand;
 import uo.sdi.business.impl.admin.command.DisableUserCommand;
 import uo.sdi.business.impl.admin.command.EnableUserCommand;
 import uo.sdi.business.impl.admin.command.ResetDBCommand;
-import uo.sdi.dto.User;
 import uo.sdi.dto.ejb.EjbClientUser;
 import uo.sdi.infrastructure.Factories;
+import uo.sdi.model.User;
 
 /**
  * Session Bean implementation class EjbAdminService

@@ -14,11 +14,11 @@ import javax.jms.ObjectMessage;
 import uo.sdi.business.TaskService;
 import uo.sdi.business.UserService;
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.dto.Category;
-import uo.sdi.dto.Task;
-import uo.sdi.dto.User;
 import uo.sdi.infrastructure.Factories;
 import uo.sdi.messages.util.AbstractMessageListener;
+import uo.sdi.model.Category;
+import uo.sdi.model.Task;
+import uo.sdi.model.User;
 
 @MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destination", propertyValue = "jms/queue/GTDQueue") })
 public class GTDListener extends AbstractMessageListener {

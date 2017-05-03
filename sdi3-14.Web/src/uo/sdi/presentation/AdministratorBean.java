@@ -4,8 +4,8 @@ import java.util.List;
 
 import uo.sdi.business.AdminService;
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.dto.User;
 import uo.sdi.infrastructure.Factories;
+import uo.sdi.model.User;
 import alb.util.log.Log;
 
 public class AdministratorBean {

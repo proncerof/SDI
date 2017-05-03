@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import uo.sdi.dto.Category;
+import uo.sdi.model.Category;
 import uo.sdi.persistence.CategoryDao;
 import uo.sdi.persistence.util.Jpa;
 

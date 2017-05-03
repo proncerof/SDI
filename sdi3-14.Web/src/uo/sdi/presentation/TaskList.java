@@ -7,7 +7,7 @@ import javax.faces.model.ListDataModel;
 
 import org.primefaces.model.SelectableDataModel;
 
-import uo.sdi.dto.Task;
+import uo.sdi.model.Task;
 
 public class TaskList extends ListDataModel<Task> implements
 		SelectableDataModel<Task> {

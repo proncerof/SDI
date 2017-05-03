@@ -1,4 +1,4 @@
-package uo.sdi.dto;
+package uo.sdi.model;
 
 import java.io.Serializable;
 import java.util.Date;

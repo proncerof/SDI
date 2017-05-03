@@ -4,7 +4,7 @@ import java.util.List;
 
 import javax.persistence.EntityManager;
 
-import uo.sdi.dto.User;
+import uo.sdi.model.User;
 import uo.sdi.persistence.UserDao;
 import uo.sdi.persistence.util.Jpa;
 

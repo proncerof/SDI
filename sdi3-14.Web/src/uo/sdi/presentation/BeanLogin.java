@@ -8,8 +8,8 @@ import javax.faces.application.FacesMessage;
 import javax.faces.context.FacesContext;
 
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.dto.User;
 import uo.sdi.infrastructure.Factories;
+import uo.sdi.model.User;
 import alb.util.log.Log;
 
 public class BeanLogin {

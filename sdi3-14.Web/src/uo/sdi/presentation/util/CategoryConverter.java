@@ -7,8 +7,8 @@ import javax.faces.context.FacesContext;
 import javax.faces.convert.Converter;
 import javax.faces.convert.FacesConverter;
 
-import uo.sdi.dto.Category;
 import uo.sdi.infrastructure.Factories;
+import uo.sdi.model.Category;
 
 @FacesConverter("CategoryConverter")
 public class CategoryConverter implements Converter {

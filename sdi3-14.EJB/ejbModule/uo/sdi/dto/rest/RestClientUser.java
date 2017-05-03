@@ -1,4 +1,4 @@
-package uo.sdi.dto.ejb;
+package uo.sdi.dto.rest;
 
 import java.io.Serializable;
 
@@ -8,7 +8,7 @@ import uo.sdi.model.Task;
 import uo.sdi.model.User;
 import uo.sdi.model.types.UserStatus;
 
-public class EjbClientUser implements Serializable {
+public class RestClientUser implements Serializable {
 
 	private static final long serialVersionUID = 5461745400344675866L;
 
@@ -23,7 +23,7 @@ public class EjbClientUser implements Serializable {
 	private int tareasCompletadas, tareasCompletadasRetrasadas,
 			tareasPlanificadas, tareasSinPlanificar;
 
-	public EjbClientUser(User user) {
+	public RestClientUser(User user) {
 		this.id = user.getId();
 		this.email = user.getEmail();
 		this.isAdmin = user.getIsAdmin();
@@ -54,7 +54,7 @@ public class EjbClientUser implements Serializable {
 		return id;
 	}
 
-	public EjbClientUser setId(Long id) {
+	public RestClientUser setId(Long id) {
 		this.id = id;
 		return this;
 	}
@@ -64,7 +64,7 @@ public class EjbClientUser implements Serializable {
 		return login;
 	}
 
-	public EjbClientUser setLogin(String login) {
+	public RestClientUser setLogin(String login) {
 		this.login = login;
 		return this;
 	}
@@ -74,7 +74,7 @@ public class EjbClientUser implements Serializable {
 		return email;
 	}
 
-	public EjbClientUser setEmail(String email) {
+	public RestClientUser setEmail(String email) {
 		this.email = email;
 		return this;
 	}
@@ -100,7 +100,7 @@ public class EjbClientUser implements Serializable {
 		return status;
 	}
 
-	public EjbClientUser setStatus(UserStatus status) {
+	public RestClientUser setStatus(UserStatus status) {
 		this.status = status;
 		return this;
 	}

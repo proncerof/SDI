@@ -2,8 +2,8 @@ package uo.sdi.business.impl.task.command;
 
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.business.impl.util.TaskCheck;
-import uo.sdi.dto.Task;
 import uo.sdi.infrastructure.Factories;
+import uo.sdi.model.Task;
 import alb.util.date.DateUtil;
 
 public class CreateTaskCommand{

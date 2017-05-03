@@ -12,9 +12,9 @@ import uo.sdi.business.impl.task.command.DuplicateCategoryCommand;
 import uo.sdi.business.impl.task.command.MarkTaskAsFinishedCommand;
 import uo.sdi.business.impl.task.command.UpdateCategoryCommand;
 import uo.sdi.business.impl.task.command.UpdateTaskCommand;
-import uo.sdi.dto.Category;
-import uo.sdi.dto.Task;
 import uo.sdi.infrastructure.Factories;
+import uo.sdi.model.Category;
+import uo.sdi.model.Task;
 
 /**
  * Session Bean implementation class EjbTaskService

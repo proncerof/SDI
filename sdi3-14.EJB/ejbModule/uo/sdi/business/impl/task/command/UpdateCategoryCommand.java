@@ -3,8 +3,8 @@ package uo.sdi.business.impl.task.command;
 import uo.sdi.business.exception.BusinessCheck;
 import uo.sdi.business.exception.BusinessException;
 import uo.sdi.business.impl.util.CategoryCheck;
-import uo.sdi.dto.Category;
 import uo.sdi.infrastructure.Factories;
+import uo.sdi.model.Category;
 import uo.sdi.persistence.CategoryDao;
 
 public class UpdateCategoryCommand{

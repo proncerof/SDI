@@ -7,8 +7,8 @@ import javax.faces.bean.ManagedProperty;
 import javax.faces.context.FacesContext;
 
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.dto.Task;
 import uo.sdi.infrastructure.Factories;
+import uo.sdi.model.Task;
 import alb.util.date.DateUtil;
 import alb.util.log.Log;
 

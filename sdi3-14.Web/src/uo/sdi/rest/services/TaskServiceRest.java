@@ -12,8 +12,8 @@ import javax.ws.rs.PathParam;
 import javax.ws.rs.Produces;
 import javax.ws.rs.core.MediaType;
 
-import uo.sdi.dto.Category;
-import uo.sdi.dto.Task;
+import uo.sdi.model.Category;
+import uo.sdi.model.Task;
 
 @Path("/TaskServiceRs")
 public interface TaskServiceRest {

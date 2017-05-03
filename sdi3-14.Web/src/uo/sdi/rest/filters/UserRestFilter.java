@@ -17,8 +17,8 @@ import javax.ws.rs.InternalServerErrorException;
 import javax.xml.bind.DatatypeConverter;
 
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.dto.User;
 import uo.sdi.infrastructure.Factories;
+import uo.sdi.model.User;
 
 /**
  * Servlet Filter implementation class UserFilter

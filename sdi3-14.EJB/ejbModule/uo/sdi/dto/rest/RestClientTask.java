@@ -1,4 +1,4 @@
-package uo.sdi.dto.ejb;
+package uo.sdi.dto.rest;
 
 import java.io.Serializable;
 import java.util.Date;
@@ -9,10 +9,11 @@ import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 
+import uo.sdi.dto.ejb.EjbClientUser;
 import alb.util.date.DateUtil;
 
 @XmlRootElement(name="task")
-public class EjbClientTask implements Serializable, Comparable<EjbClientTask> {
+public class RestClientTask implements Serializable, Comparable<RestClientTask> {
 
 	private static final long serialVersionUID = -5194439578090536982L;
 
@@ -24,7 +25,7 @@ public class EjbClientTask implements Serializable, Comparable<EjbClientTask> {
 	private Date planned;
 	private Date finished;
 
-	private EjbClientCategory category;
+	private RestClientCategory category;
 
 	
 	
@@ -36,7 +37,7 @@ public class EjbClientTask implements Serializable, Comparable<EjbClientTask> {
 		return id;
 	}
 
-	public EjbClientTask setId(Long id) {
+	public RestClientTask setId(Long id) {
 		this.id = id;
 		return this;
 	}
@@ -64,7 +65,7 @@ public class EjbClientTask implements Serializable, Comparable<EjbClientTask> {
 		return created;
 	}
 
-	public EjbClientTask setCreated(Date created) {
+	public RestClientTask setCreated(Date created) {
 		this.created = created;
 		return this;
 	}
@@ -83,17 +84,17 @@ public class EjbClientTask implements Serializable, Comparable<EjbClientTask> {
 		return finished;
 	}
 
-	public EjbClientTask setFinished(Date finished) {
+	public RestClientTask setFinished(Date finished) {
 		this.finished = finished;
 		return this;
 	}
 
 	@XmlTransient
-	public EjbClientCategory getCategory() {
+	public RestClientCategory getCategory() {
 		return category;
 	}
 
-	public void setCategory(EjbClientCategory category) {
+	public void setCategory(RestClientCategory category) {
 		this.category = category;
 	}
 
@@ -112,7 +113,7 @@ public class EjbClientTask implements Serializable, Comparable<EjbClientTask> {
 		return this.getFinished() != null;
 	}
 
-	public EjbClientTask setUser(EjbClientUser user) {
+	public RestClientTask setUser(EjbClientUser user) {
 		this.user = user;
 		return this;
 	}
@@ -151,7 +152,7 @@ public class EjbClientTask implements Serializable, Comparable<EjbClientTask> {
 			return false;
 		if (getClass() != obj.getClass())
 			return false;
-		EjbClientTask other = (EjbClientTask) obj;
+		RestClientTask other = (RestClientTask) obj;
 		if (category == null) {
 			if (other.category != null)
 				return false;
@@ -196,7 +197,7 @@ public class EjbClientTask implements Serializable, Comparable<EjbClientTask> {
 	}
 
 	@Override
-	public int compareTo(EjbClientTask o) {
+	public int compareTo(RestClientTask o) {
 		if (o.getPlanned() != null && getPlanned() != null)
 			return getPlanned().compareTo(o.getPlanned());
 		else if (o.getPlanned() == null)

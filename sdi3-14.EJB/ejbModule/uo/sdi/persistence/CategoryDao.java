@@ -2,7 +2,7 @@ package uo.sdi.persistence;
 
 import java.util.List;
 
-import uo.sdi.dto.Category;
+import uo.sdi.model.Category;
 import uo.sdi.persistence.util.GenericDao;
 
 public interface CategoryDao extends GenericDao<Category, Long> {

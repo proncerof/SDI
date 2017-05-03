@@ -1,9 +1,9 @@
 package uo.sdi.business.impl.user.command;
 
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.dto.User;
-import uo.sdi.dto.types.UserStatus;
 import uo.sdi.infrastructure.Factories;
+import uo.sdi.model.User;
+import uo.sdi.model.types.UserStatus;
 
 public class FindLoggableUSerCommand<T>{
 

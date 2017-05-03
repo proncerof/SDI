@@ -1,4 +1,4 @@
-package uo.sdi.dto;
+package uo.sdi.model;
 
 import java.io.Serializable;
 import java.util.ArrayList;
@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -16,7 +15,7 @@ import javax.persistence.Table;
 import javax.xml.bind.annotation.XmlElement;
 import javax.xml.bind.annotation.XmlRootElement;
 
-import uo.sdi.dto.types.UserStatus;
+import uo.sdi.model.types.UserStatus;
 
 /**
  * An implementation of the DTO pattern
@@ -42,10 +41,10 @@ public class User implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private UserStatus status = UserStatus.ENABLED;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)	
+	@OneToMany(mappedBy = "user")	
 	public List<Category> categories = new ArrayList<>();
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy = "user")
 	public List<Task> tasks = new ArrayList<>();
 
 	public void setIsAdmin(Boolean isAdmin) {
