@@ -18,7 +18,7 @@ public class UpdateTaskCommand{
 	public Void execute() throws BusinessException {
 		TaskCheck.titleIsNotNull(task);
 		TaskCheck.titleIsNotEmpty(task);
-		if (task.getCategory().getId() != null) {
+		if (task.getCategory() != null) {
 			TaskCheck.categoryExists(task);
 		}else{
 			task.setCategory(null);

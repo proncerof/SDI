@@ -38,10 +38,8 @@ public class CategoryDaoJdbcImpl implements CategoryDao {
 
 	@Override
 	public List<Category> findAll() {
-		return Jpa
-				.getManager()
-				.createQuery(Jpa.getSqlQuery("CATEGORY_FIND_ALL"),
-						Category.class)
+		return Jpa.getManager()
+				.createNamedQuery("Category.findAll", Category.class)
 				.getResultList();
 
 	}
@@ -50,41 +48,33 @@ public class CategoryDaoJdbcImpl implements CategoryDao {
 	public List<Category> findByUserId(Long userId) {
 		return Jpa
 				.getManager()
-				.createQuery(Jpa.getSqlQuery("CATEGORY_FIND_BY_USER_ID"),
-						Category.class)
-				.setParameter(1, userId)
-				.getResultList();
+				.createNamedQuery("Category.findByUserId",
+						Category.class).setParameter(1, userId).getResultList();
 	}
 
 	@Override
 	public int deleteAllFromUserId(Long userId) {
-		return Jpa
-				.getManager()
-				.createQuery(Jpa.getSqlQuery("CATEGORY_DELETE_BY_USER_ID"))
-				.setParameter(1, userId)
-				.executeUpdate();
+		return Jpa.getManager()
+				.createNamedQuery("Category.deletAllFromUserId")
+				.setParameter(1, userId).executeUpdate();
 	}
 
 	@Override
 	public Category findByUserIdAndName(Long userId, String name) {
 		List<Category> res = Jpa
 				.getManager()
-				.createQuery(
-						Jpa.getSqlQuery("CATEGORY_FIND_BY_USER_ID_AND_NAME"),
+				.createNamedQuery(
+						"Category.findByUserIdAndName",
 						Category.class)
 				.setParameter(1, userId)
-				.setParameter(2, name)
-				.getResultList();
-		
-		return res.size() == 0
-                ? null
-                : res.get(0);
+				.setParameter(2, name).getResultList();
+
+		return res.size() == 0 ? null : res.get(0);
 	}
 
 	@Override
 	public void deleteAll() {
-		Jpa.getManager()
-				.createQuery(Jpa.getSqlQuery("CATEGORY_DELETE_ALL"))
+		Jpa.getManager().createNamedQuery("Category.deleteAll")
 				.executeUpdate();
 	}
 

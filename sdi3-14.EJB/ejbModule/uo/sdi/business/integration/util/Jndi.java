@@ -1,4 +1,4 @@
-package uo.sdi.messages.util;
+package uo.sdi.business.integration.util;
 
 import javax.naming.Context;
 import javax.naming.InitialContext;

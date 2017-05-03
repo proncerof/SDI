@@ -9,7 +9,6 @@ import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.Message;
 import javax.jms.MessageConsumer;
-import javax.jms.MessageListener;
 import javax.jms.MessageProducer;
 import javax.jms.ObjectMessage;
 import javax.jms.Session;
@@ -17,8 +16,7 @@ import javax.jms.Session;
 import uo.sdi.ui.actions.LoginAction;
 import alb.util.menu.Action;
 
-public abstract class AbstractMessageListener implements Action,
-		MessageListener {
+public abstract class AbstractMessageListener implements Action{
 
 	private static final String JMS_CONNECTION_FACTORY = "jms/RemoteConnectionFactory";
 	private static final String GTD_QUEUE = "jms/queue/GTDQueue";
@@ -27,7 +25,6 @@ public abstract class AbstractMessageListener implements Action,
 	private Session session;
 	private MessageProducer sender;
 
-	@Override
 	public void onMessage(Message m) {
 		ObjectMessage msg = (ObjectMessage) m;
 		try {
@@ -44,8 +41,6 @@ public abstract class AbstractMessageListener implements Action,
 		Destination tempQueue = session.createTemporaryQueue();
 		MessageConsumer responseConsumer = session.createConsumer(tempQueue);
 
-		responseConsumer.setMessageListener(this);
-
 		MapMessage msg = session.createMapMessage();
 		createMessage(msg);
 		
@@ -55,6 +50,8 @@ public abstract class AbstractMessageListener implements Action,
 		msg.setJMSCorrelationID(createRandomString());
 
 		this.sender.send(msg);
+		Message message = responseConsumer.receive();
+		onMessage(message);
 	}
 
 	private void initialize() throws JMSException {

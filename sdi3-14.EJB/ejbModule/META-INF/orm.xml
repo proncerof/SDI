@@ -1,0 +1,124 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<entity-mappings xmlns="http://java.sun.com/xml/ns/persistence/orm"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xsi:schemaLocation="http://java.sun.com/xml/ns/persistence/orm http://java.sun.com/xml/ns/persistence/orm_2_0.xsd"
+	version="2.0">
+
+	<!-- User quieries -->
+	<named-query name="User.findAll">
+		<query>select u from User u</query>
+	</named-query>
+
+	<named-query name="User.findByLogin">
+		<query>select u from User u where u.login = ?1</query>
+	</named-query>
+
+	<named-query name="User.findByLoginAndPassword">
+		<query>select u from User u where u.login = ?1 and u.password = ?2</query>
+	</named-query>
+
+	<named-query name="User.deleteAll">
+		<query>delete from User</query>
+	</named-query>
+
+	<!-- Task queries -->
+	<named-query name="Task.deleteByUserId">
+		<query>delete from Task t where t.user.id = ?1</query>
+	</named-query>
+
+	<named-query name="Task.deleteByCategoryId">
+		<query>delete from Task t where t.category.id = ?1</query>
+	</named-query>
+
+	<named-query name="Task.deleteALl">
+		<query>delete from Task t</query>
+	</named-query>
+
+	<named-query name="Task.findAll">
+		<query>delete from Task t</query>
+	</named-query>
+
+	<named-query name="Task.findByUserId">
+		<query>select t from Task t where t.user.id = ?1</query>
+	</named-query>
+
+	<named-query name="Task.findInboxByUserId">
+		<query>
+			select t from Task t
+			where t.user.id = ?1
+			and t.category.id is null
+			and t.finished is null
+		</query>
+	</named-query>
+
+	<named-query name="Task.findTodayByUserId">
+		<query>
+			select t from Task t
+			where t.user.id = ?1
+			and t.planned &lt;= CURDATE()
+			and t.finished is null
+		</query>
+	</named-query>
+
+	<named-query name="Task.findWeekByUserId">
+		<query>
+			select t from Task t
+			where t.user.id = ?1
+			and t.planned &lt;= DATEADD( 'day', 7, CURDATE() )
+			and t.finished is null
+		</query>
+	</named-query>
+
+	<named-query name="Task.findUnfinishedByCategoryId">
+		<query>
+			select t from Task t
+			where t.category.id = ?1
+			and t.finished is null
+		</query>
+	</named-query>
+
+	<named-query name="Task.findFinishedByCategoryId">
+		<query>
+			select t from Task t
+			where t.category.id = ?1
+			and t.finished is not null	
+		</query>
+	</named-query>
+
+	<named-query name="Task.findFinishedInboxByUserId">
+		<query>
+			select t from Task t
+			where t.user.id = ?1
+			and t.category.id is null
+			and t.finished is not null	
+		</query>
+	</named-query>
+
+	<!-- Category queries -->
+	<named-query name="Category.findAll">
+		<query>select c from Category c</query>
+	</named-query>
+
+	<named-query name="Category.deleteByUserId">
+		<query>delete from Category c where c.user.id = ?1</query>
+	</named-query>
+
+	<named-query name="Category.findByUserId">
+		<query>select c from Category c where c.user.id = ?1</query>
+	</named-query>
+
+	<named-query name="Category.findByUserIdAndName">
+		<query>
+			select c from Category c
+			where c.user.id = ?1
+			and c.name = ?2
+		</query>
+	</named-query>
+
+	<named-query name="Category.deleteAll">
+		<query>
+			delete from Category
+		</query>
+	</named-query>
+
+</entity-mappings>

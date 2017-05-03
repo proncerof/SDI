@@ -15,7 +15,7 @@ namespace sdi3_14.Cli_SOAP_Csharp
 
             do
             {
-                Console.WriteLine("Administrador");
+                Console.WriteLine("SOAP Cli");
                 Console.WriteLine("\t1- Listar usuarios");
                 Console.WriteLine("\t2- Habilitar usuario");
                 Console.WriteLine("\t3- Deshabilitar usuario");

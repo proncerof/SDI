@@ -1,8 +1,7 @@
-package uo.sdi.messages;
+package uo.sdi.business.integration;
 
 import java.io.Serializable;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.ejb.ActivationConfigProperty;
@@ -14,11 +13,10 @@ import javax.jms.ObjectMessage;
 import uo.sdi.business.TaskService;
 import uo.sdi.business.UserService;
 import uo.sdi.business.exception.BusinessException;
-import uo.sdi.dto.Category;
+import uo.sdi.business.integration.util.AbstractMessageListener;
 import uo.sdi.dto.Task;
 import uo.sdi.dto.User;
 import uo.sdi.infrastructure.Factories;
-import uo.sdi.messages.util.AbstractMessageListener;
 
 @MessageDriven(activationConfig = { @ActivationConfigProperty(propertyName = "destination", propertyValue = "jms/queue/GTDQueue") })
 public class GTDListener extends AbstractMessageListener {
@@ -90,19 +88,7 @@ public class GTDListener extends AbstractMessageListener {
 
 	private void createTask(MapMessage message, ObjectMessage response)
 			throws JMSException, BusinessException {
-		Task t = new Task();
-		t.setTitle(message.getString("title"));
-		t.setPlanned(new Date(message.getLong("planned")));
-		t.setUser(user);
 		
-		for(Category c : user.getCategories())
-			if(c.getId().equals(message.getLong("category"))){
-				taskService.createTask(t);
-				response.setObject("La tarea se ha creado correctamente");
-				return;
-			}
-		response.setObject("La categoria no pertenece al usuario");
-		sendErrorMessage("La categoria no pertenece al usuario");
 	}
 
 	private void authenticateUser(MapMessage message, ObjectMessage response)

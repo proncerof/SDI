@@ -10,7 +10,7 @@ public class MainMenu extends BaseMenu{
 
 	public MainMenu() {
 		menuOptions = new Object[][] { 
-			{ "Administrador", null },
+			{ "SOAP Cli", null },
 			{ "Listar usuarios", 			ListUsersAction.class }, 
 			{ "Habiliar usuario", 			EnableUserAction.class },
 			{ "Deshabilitar usuario", 		DisableUserAction.class },

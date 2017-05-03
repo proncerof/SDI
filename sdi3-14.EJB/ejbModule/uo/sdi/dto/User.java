@@ -7,7 +7,6 @@ import java.util.List;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
-import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
@@ -42,10 +41,10 @@ public class User implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private UserStatus status = UserStatus.ENABLED;
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)	
+	@OneToMany(mappedBy="user")
 	public List<Category> categories = new ArrayList<>();
 
-	@OneToMany(mappedBy = "user", fetch = FetchType.EAGER)
+	@OneToMany(mappedBy="user")
 	public List<Task> tasks = new ArrayList<>();
 
 	public void setIsAdmin(Boolean isAdmin) {

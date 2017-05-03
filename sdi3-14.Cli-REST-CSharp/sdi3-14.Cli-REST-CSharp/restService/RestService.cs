@@ -148,7 +148,6 @@ namespace sdi3_14.Cli_REST_CSharp.restService
             try
             {
                 WebResponse response = webrequest.GetResponse();
-                //if(response.)
             }
             catch (WebException e)
             {

@@ -11,7 +11,7 @@ public class Main extends BaseMenu{
 	
 	public Main() {
 		menuOptions = new Object[][] {
-			{ "Menu de usuario", null },
+			{ "MSG Cli", null },
 			{ "Iniciar sesion", 	LoginAction.class },
 			{ "Listar tareas de hoy y retrasadas", 	FindTodayTasksAction.class },
 			{ "Finalizar tarea", MarkTaskAsFinishedAction.class } ,

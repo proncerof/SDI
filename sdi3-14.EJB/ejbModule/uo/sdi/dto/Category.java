@@ -12,15 +12,11 @@ import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.xml.bind.annotation.XmlElement;
-import javax.xml.bind.annotation.XmlRootElement;
-import javax.xml.bind.annotation.XmlTransient;
 
 import org.codehaus.jackson.annotate.JsonBackReference;
 
 @Entity
 @Table(name = "TCategories")
-@XmlRootElement(name = "category")
 public class Category implements Serializable {
 
 	private static final long serialVersionUID = 5568866959974234572L;
@@ -31,18 +27,15 @@ public class Category implements Serializable {
 	private String name;
 
 	@ManyToOne
-	@XmlTransient
 	private User user;
 
 	@OneToMany(mappedBy = "category", fetch = FetchType.EAGER)
 	private List<Task> tasks = new ArrayList<>();
 
-	@XmlElement
 	public String getName() {
 		return name;
 	}
 
-	@XmlElement
 	public Long getId() {
 		return id;
 	}
@@ -57,7 +50,6 @@ public class Category implements Serializable {
 	}
 
 	@JsonBackReference
-	@XmlTransient
 	public User getUser() {
 		return user;
 	}

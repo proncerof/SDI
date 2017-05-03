@@ -26,7 +26,6 @@ public class FindTodayTasksAction extends AbstractMessageListener {
 	@Override
 	protected void createMessage(MapMessage msg) throws JMSException {
 		msg.setString("command", "getTareas");
-		msg.setLong("userId", 5019);
 	}
 
 }

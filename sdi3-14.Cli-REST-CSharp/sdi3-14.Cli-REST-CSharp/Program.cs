@@ -13,9 +13,10 @@ namespace sdi3_14.Cli_REST_CSharp
     {
         static void Main(string[] args)
         {
+            Console.WriteLine("REST Cli");
             List<MenuItem> menuItems = new List<MenuItem>();
 
-            RestService restService = new RestService("sdi", "password");
+           // RestService restService = new RestService("sdi", "password");
 
             menuItems.Add(new LoginMenuItem());
 

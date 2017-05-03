@@ -33,7 +33,7 @@ public class UserDaoJdbcImpl implements UserDao {
 
 	@Override
 	public void deleteAll() {
-		Jpa.getManager().createQuery(Jpa.getSqlQuery("USER_DELETE_ALL"))
+		Jpa.getManager().createNamedQuery("User.deleteAll")
 				.executeUpdate();
 	}
 
@@ -45,7 +45,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	@Override
 	public List<User> findAll() {
 		return Jpa.getManager()
-				.createQuery(Jpa.getSqlQuery("USER_FIND_ALL"), User.class)
+				.createNamedQuery("User.findAll", User.class)
 				.getResultList();
 	}
 
@@ -53,7 +53,7 @@ public class UserDaoJdbcImpl implements UserDao {
 	public User findByLogin(String login) {
 		List<User> res = Jpa
 				.getManager()
-				.createQuery(Jpa.getSqlQuery("USER_FIND_BY_LOGIN"), User.class)
+				.createNamedQuery("User.findByLogin", User.class)
 				.setParameter(1, login)
 				.getResultList();
 		
@@ -66,8 +66,8 @@ public class UserDaoJdbcImpl implements UserDao {
 	public User findByLoginAndPassword(String login, String password) {
 		List<User> res = Jpa
 				.getManager()
-				.createQuery(
-						Jpa.getSqlQuery("USER_FIND_BY_LOGIN_AND_PASSWORD"),
+				.createNamedQuery(
+						"User.findByLoginAndPassword",
 						User.class)
 				.setParameter(1, login)
 				.setParameter(2, password)
