@@ -16,7 +16,7 @@ import javax.jms.Session;
 import uo.sdi.ui.actions.LoginAction;
 import alb.util.menu.Action;
 
-public abstract class AbstractMessageListener implements Action{
+public abstract class AbstractMessageProducer implements Action{
 
 	private static final String JMS_CONNECTION_FACTORY = "jms/RemoteConnectionFactory";
 	private static final String GTD_QUEUE = "jms/queue/GTDQueue";

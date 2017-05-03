@@ -4,10 +4,10 @@ import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.ObjectMessage;
 
-import uo.sdi.ui.actions.util.AbstractMessageListener;
+import uo.sdi.ui.actions.util.AbstractMessageProducer;
 import alb.util.console.Console;
 
-public class LoginAction extends AbstractMessageListener {
+public class LoginAction extends AbstractMessageProducer {
 
 	private static String login;
 	private static String password;

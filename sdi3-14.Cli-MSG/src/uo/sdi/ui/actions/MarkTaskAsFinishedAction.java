@@ -4,10 +4,10 @@ import javax.jms.JMSException;
 import javax.jms.MapMessage;
 import javax.jms.ObjectMessage;
 
-import uo.sdi.ui.actions.util.AbstractMessageListener;
+import uo.sdi.ui.actions.util.AbstractMessageProducer;
 import alb.util.console.Console;
 
-public class MarkTaskAsFinishedAction extends AbstractMessageListener{
+public class MarkTaskAsFinishedAction extends AbstractMessageProducer{
 
 	@Override
 	protected void processResponse(ObjectMessage message) throws JMSException {
