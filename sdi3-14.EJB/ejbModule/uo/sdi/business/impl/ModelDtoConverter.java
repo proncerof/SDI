@@ -14,6 +14,7 @@ public class ModelDtoConverter {
 		EjbClientUser eu = new EjbClientUser();
 
 		eu.setId(u.getId());
+		eu.setLogin(u.getLogin());
 		eu.setEmail(u.getEmail());
 		eu.setIsAdmin(u.getIsAdmin());
 		eu.setStatus(u.getStatus());
